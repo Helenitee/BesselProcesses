@@ -1,0 +1,302 @@
+\documentclass[openany]{book}
+\usepackage[french]{babel}
+
+\usepackage{mathrsfs}
+\usepackage{amsmath}
+\usepackage{amsthm} 
+\usepackage{amsfonts}
+\usepackage{aliascnt}
+\usepackage{dsfont}
+\usepackage{enumitem}
+\usepackage{chngcntr}
+\usepackage{xcolor}
+
+\usepackage[
+  colorlinks=true,
+  linkcolor=blue,
+  pdfborder={0 0 0},
+  pdfpagemode=UseNone
+  ]{hyperref}
+
+  
+\newtheoremstyle{deffont}% nom du style
+  {\topsep}          % espace au-dessus
+  {\topsep}          % espace en dessous
+  {\upshape}         % style du corps (ici italique pour les théorèmes)
+  {}                 % indentation
+  {\bfseries}        % style du titre
+  {}                % ponctuation après le titre
+  { }                % espace après le titre
+  {\thmname{#1}~\thmnumber{#2}\thmnote{~(#3)}}  % format du titre
+
+\newtheoremstyle{thmfont}% nom du style
+  {\topsep}          % espace au-dessus
+  {\topsep}          % espace en dessous
+  {\itshape}         % style du corps (ici italique pour les théorèmes)
+  {}                 % indentation
+  {\bfseries}        % style du titre
+  {}                % ponctuation après le titre
+  { }                % espace après le titre
+  {\thmname{#1}~\thmnumber{#2}\thmnote{~(#3)}}  % format du titre
+
+% pagestyle ==============================
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{titlesec} % 
+
+\geometry{
+  a4paper,
+  left=3.5cm,
+  right=3.5cm,
+  top=3cm,
+  bottom=3cm,
+  twoside
+}
+
+% newcomands ==============================
+\newcommand{\F}{\mathscr{F}}
+\newcommand{\N}{\mathscr{N}}
+\newcommand{\carE}{\mathscr{E}}
+\renewcommand{\P}{\mathds{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\setlist[enumerate,1]{label=\textit{\roman*}.}
+
+% newtheorem ==============================
+\theoremstyle{thmfont}
+\newtheorem{theorem}{Théorème}[chapter]
+\providecommand*{\theoremautorefname}{Théorème}
+
+\theoremstyle{deffont}
+\newaliascnt{definition}{theorem}
+\newtheorem{definition}[definition]{Définition}
+\aliascntresetthe{definition}
+\providecommand*{\definitionautorefname}{Définition}
+
+\theoremstyle{thmfont}
+\newaliascnt{prop}{theorem}
+\newtheorem{prop}[prop]{Proposition}
+\aliascntresetthe{prop}
+\providecommand*{\propautorefname}{Proposition}
+
+\newtheorem*{demo}{Preuve}
+
+\theoremstyle{deffont}
+\newtheorem*{remark}{Remarque}
+
+
+% Mise en page ============================
+
+\title{Cellules en itéraction singulière}
+\author{Héléna Benet Burgaud}
+% =========================================
+
+\newcounter{thmsum}
+
+\begin{document}
+
+\pagenumbering{gobble}
+
+\maketitle
+\tableofcontents
+\clearpage
+\pagenumbering{arabic} % recommence à 1
+\setcounter{page}{1}
+\let\cleardoublepage\relax
+\chapter{Rappels de probabilités et premières définitions}
+
+Soit $(\Omega, \F, \P )$ un espace probabilisé et soit $(E, \carE)$ un espace mesurable. Dans ce travail, on prend $E = \R^d$ et $\carE$ sa tribu borélienne associée.
+
+\begin{definition}[Processus stochastique] Un \textit{processus stochastique (continu)} est une famille de variables aléatoires définies sur un espace probabilisé. C'est à dire pour tout $t \in \R_+$ et $\omega \in \Omega$ la fonction 
+ \begin{align*}
+   X : (\R, \Omega) &\rightarrow \R \\
+   (t, \omega) &\mapsto X_t(\omega)
+ \end{align*} 
+est une fonction mesurable. Cette fonction appliquée à un $\omega \in \Omega$ est appelée une \textit{trajectoire} de $X$.
+\end{definition}
+
+ Sauf indication contraire, on suppose que toutes les variables aléatoires considérées sont à trajectoires continues. 
+
+\begin{definition}[Filtration] Une \textit{filtration} dans l'espace $(\Omega, \F, \P )$ est une suite de sous tribus de $\F$, indexées dans $\overline{\R} = \R \cup \{\infty\}$, croissantes par inclusion.\\
+i.e. pour $s \leq t \leq \infty$,
+$$\F_0 \subset \F_s \subset \F_t\subset \cdots \subset \F_\infty .$$
+
+On parle de \textit{filtration naturelle} lorsque, pour chaque $t$, $F_t$ est la plus petite tribu telle les $X_s$, $s\leq t$ sont $F_t$-mesurables. i.e.
+$$F_t := \sigma\{X_s, s\leq t\}$$
+
+On introduit également la notion de \textit{filtration complète} ou
+\textit{filtration canonique} qui, en plus d'être engendrée par tous les $X_s$, $s \leq t$, est engendrée par la famille des ensembles négligeables $\N$. i.e.
+$$F^X_t := \sigma\{X_s\cup \N, s\leq t\}$$
+
+\label{def:filtration}
+\end{definition}
+
+%Intuitivement, une filtration naturelle $\{F_t\}_{t\geq0}$ regroupe toute l'information qu'on connait depuis le moment $0$ jusqu'à $t$. D'où le fait que tous les $X_s$ avec $s \leq t$ soient $F_t$-mesurables.
+
+\begin{definition}[Processus adapté] Un processus stochastique $\{X_s\}_{s\ge0}$ à valeurs dans l'espace mesurable $(E, \carE)$ est dit \textit{adapté} à la filtration $\{F_s\}_{s\geq0}$ si pour tout $t\geq0$, $X_t$ est $F_t$-mesurable.
+\label{def:pr_adapte}
+\end{definition}
+
+\begin{definition}[Processus à accroissements indépendants]
+  \label{def:pr_accr_indep} Un processus à \textit{accroissements indépendants} est un proceesus tel que, pour toute subdivision de $[0,t]$, la famille de variables aléatoires
+    $$\{X_{t_1} - X_{t_0}, X_{t_2} - X_{t_1}, \cdots ,X_{t_n} - X_{t_{n-1}}\}$$
+    est indépendante.
+\end{definition}
+
+{\color{red}
+  \begin{definition}[Processus à accroissements stationnaires]
+        \label{def:pr_accr_sta}
+  \end{definition}
+    
+  point sur ``up to indistinguishability''.
+}
+
+\section{Variation quadratique et covariation}
+% {\color{red} ``A major difference between standard integral calculus and stochastic calculus is the existence of quadratic variations and covariations'' -- George Lowther }
+
+La \textit{variation quadratique} est un processus qui mesure les ``petites variations'' d'une v.a. au cours du temps. C'est une forme de dérivée au sens stochastique. En effet, même si un processus stochastique n'est pas dérivable au sens classique, on peut lui associer une variation quadratique. 
+
+\begin{definition}[Covatiation et variation quadratique] On se donne une subdivision finie de $[0,t]$ :  $0 = t_0 < t_1 < \cdots < t_n = t$.\\
+  Alors, la \textit{covariation}, appelée aussi \textit{crochet de covariation}, de $X$ et de $Y$ est le processus stochastique définit par :
+  $$[X,Y]_t = \lim_{n\to \infty} \sum_{i = 1}^n(X_{t_i} - X_{t_{i-1}})(Y_{t_i} - Y_{t_{i-1}}).$$
+
+ On peut définir de manière similaire la \textit{variation quadratique} :
+ $$[X]_t = [X,X]_t = \lim_{n\to \infty} \sum_{i = 1}^n\|X_{t_i} - X_{t_{i-1}}\|^2.$$
+\label{def:crochet}
+\end{definition}
+
+\begin{prop} Soit $X$ et $Y$ deux variables aléatoires définies dans le même espace probabilisé. Soit $[X,Y]$ leur crochet de covariation. Celui-ci vérifie les propertiés suivantes : 
+  \begin{enumerate}
+  \item Linéarité : Soit $\lambda, \mu \in \R$ et $Z$ une variable aléatoire. $$[\lambda X + \mu Y, Z]_t = \lambda[X,Z]_t + \mu[Y,Z]_t,$$
+  \item Symétrie : $[X,Y]_t = [Y,X]_t$,
+  \item Croissance : $\forall s\leq t$, $[X]_s \leq [X]_t$,
+  \end{enumerate}
+\end{prop}
+
+\begin{definition}[Fonction à variation finie] Une fonction continue $a : \Omega \rightarrow \R$ est dite \textit{à variation finie} si $a(0) = 0$ et s'il existe une \textbf{mesure signée} $\mu$ sur $\mathcal B([0,t])$ tel que $a(t) = \mu([0,t]) = \mu_+([0,t]) - \mu_-([0,t])$ pour tout $t \geq 0$.
+\label{def:fct_var_finie}
+\end{definition}
+
+\begin{remark}
+  \begin{enumerate}
+  \item La mesure $\mu$ est uniquement déterminée par la fonciton $a$.
+  \item La condition ``$a(0)=0$'' n'est pas nécessaire mais nous l'utilisons premièrement parce qu'on travarillera avec des mouvements browniens stantards plus tard {\color{red}(cf ...)} et en plus cela nous facilite la tache. Mais ceci peut bien sûr se généraliser aux fonctions qui ne sont pas nulles en zéro.
+  \item Comme $a(0) = 0$ et $a$ est continue, alors la mesure $\mu$ n'a pas d'\textit{atomes}, c'est à dire que tout singleton est de mesure nulle.
+  \end{enumerate}
+\end{remark}
+
+\begin{definition}[Processus à variation finie]
+  On dit d'un processus est \textit{à variation finie} (v.f) si ses trajectoires sont des des fonctions à variation finie.
+
+  Si on se donne une subdivision finie de $[0,t]$ :  $0 = t_0 < t_1 < \cdots < t_n = t$, on peut définit un processus à variation finie comme la somme des incréments (en valeur absolue) en prenant la ``meilleure'' subdivision possible, i.e. celle qui maximise cette somme :
+  $$ V_t(X) = \lim_{n \to \infty} \sum_{i=1}^n |X_{t_i} - X_{t_{i-1}}| < \infty$$
+\end{definition}
+
+Intuitivement, Processus à variation finie est un processus qui ``vibre'' de manière finie. Donc on n'aura pas de variation infinitessimale comme avec un mouvement brownien.
+
+\begin{prop}
+  \begin{enumerate}[nosep]
+  \item Additivité : Soient $X$ et $Y$ des processus v.f. alors, $V(X+Y)$ l'est aussi; de plus, on a : $\forall t, \; V_t(X+Y) \leq V_t(X)+V_t(Y),$
+  \item Multiplication externe : Soit $X$ un processus v.f. et $a$ une constante réelle, alors, $V(aX) = |a| V(X)$,
+  \item Variation quadratique nulle : Soit $V(X)$ un processus v.f., alors,\\ $\forall t,\; [V(X)]_t=0$
+  \item Tout processus croissant (resp. decroissant) est à variation finie.
+  \end{enumerate}
+\end{prop}
+
+\begin{remark}
+  Le crochet d'un processus est un v.f de part sa croissance.
+\end{remark}
+
+\section{Martingales, semimartingales et martingales locales}
+
+\begin{definition}[Martingale]
+  Une \textit{martingale} est un processus $M$ satisfaisant :
+  \begin{enumerate}[nosep]
+    \item Adapté,
+    \item Intégrable : $\E(|M_t|) < \infty$,
+    \item Tel que : $\forall t, \; \E(M_t|\F_s) = M_s$.
+  \end{enumerate}
+\end{definition}
+
+La propriété \textit{iii.} nous dit que toute prévision du futur ($M_t$) sachant le passé ($F_s$) est égale au présent ($M_s$).
+
+Les martingales sont des objets très utilisés en calcul stochastique mais finalement très restraints. C'est pourquoi on utilise les semimartingales :
+
+\begin{definition}[Semimartingale] Une \textit{semimartingale} est un processus stochastique $X$ définit comme : $X_t = M_t + V_t$; où $M_t$ est une martingale et $V_t$ un processus à variation finie.
+\end{definition}
+\section{Mouvement brownien}
+
+\begin{definition}[Mouvement Brownien de variance $\sigma^2$] Un \textit{mouvement brownien} est un processus stochastique $(B_t)_{t>0}$ est :
+  \begin{enumerate}
+  \item à accroissements indépendants,\\
+    i.e. pour toute subdivision finie de $[0,t]$ :  $0 = t_0 < t_1 < \cdots < t_n = t$, la famille des variables aléatoires
+    $\{X_{t_1} - X_{t_0}, X_{t_2} - X_{t_1}, \cdots ,X_{t_n} - X_{t_{n-1}}\}$
+    est indépendante,
+  \item de trajectoires continues,
+  \item tel que $B_s - B_t \sim \mathcal{N}(0,\sigma^2|s-t|)$.
+  \end{enumerate}
+\end{definition}
+
+\begin{definition}[$\F_t$ mouvement brownien (de variance $\sigma^2$] Un processus $(B_t)_t$ est \textit{\( \mathcal{F}_t \)-mouvement brownien} s'il vérifie les propriétés suivantes :
+
+  \begin{enumerate}
+  \item Le processus est adapté à la filtration \( (\mathcal{F}_t) \).
+  \item Les trajectoires de \( (B_t) \) sont continues p.s. ;
+  \item Pour tout \( 0 \leq s < t \), \( B_t - B_s \) est indépendante de \( \mathcal{F}_s \) et suit une loi normale \( \mathcal{N}(0, \sigma^2|t - s|)\) ;
+  \end{enumerate}
+
+  Un \( \mathcal{F}_t \)-mouvement brownien \( (B_t) \) est dit \textit{standard} si, en plus des propriétés précédentes, il vérifie que pour tout \( t \geq 0 \), \(B_t \sim \mathcal{N}(0, t) \).
+Autrement dit, \( B_t \) suit une loi normale centrée de variance \( t \), ce qui implique que :
+
+\[
+\mathbb{E}[B_t] = 0 \quad \text{et} \quad \text{Var}(B_t) = t.
+\]
+  \end{definition}
+
+\section{Intégrale stochastique}  
+\subsection{Intégrale de Lebesgue-Stieltjes}
+\subsection{Intégrale d'Ito}
+\subsection{Intégrale d'Ito}
+\subsection{Isométrie d'Ito}
+\subsection{Formule d'Ito et Ito-Tanaka}
+
+\chapter{Temps locaux}
+\section{Construction d'un temps local}
+Pour un processus stochastique $X$, son \textit{temps local} en un point $x$, $L_t^x$, est une mesure de la quantité de temps que $X$ passe au point $x$. La première approche, la plus intuitive est de compter tous les temps $s$ tel que $X_S = x$ :
+
+\begin{equation}
+  \label{eq:TmpsLocalDef1}
+   L^x_t= \int_0^t1_{\{X_s=x\}}ds.
+  \end{equation}
+
+  Ceci dit, comme on intègre par rapport à la mesure de Lebesgue, $\{X_s = x\}$ est de mesure nulle, donc cette intégrale sera toujours nulle. Une alternative est d'utiliser un dirac en $X_s - x$ au lieu de l'indicatrice dans \eqref{eq:TmpsLocalDef1}:
+
+
+\begin{equation}
+  \label{eq:TmpsLocalDef2}
+  L^x_t= \int_0^t\delta(X_s-x)ds.
+\end{equation}
+
+Malheureusement, le dirac n'est pas une fonction mais une distribution, donc \eqref{eq:TmpsLocalDef2} n'est pas bien définie. On peut tout de même donner un sens à cette définition avec une \textbf{approximation de Dirac}.  : Soit $\delta_\varepsilon$ une famille de fonctions définies comme suit :
+\begin{equation*}
+  \delta_\varepsilon(u) = \frac{1}{\sqrt{2\pi \varepsilon}} \exp\left(-\frac{u^2}{2 \varepsilon} \right)
+\end{equation*}
+
+Ainsi, on peut définir un temps local comme la limite quand $\varepsilon$ tend vers $0$ :
+
+\begin{equation}
+  L_t^x := \lim_{\varepsilon \to 0} \int_0^t \delta_\varepsilon(X_s - x)\, ds
+\end{equation}
+\section{Formule d'Occupation}
+
+{\color{red}As already suggested in [9], there should be an extension of ‘Itô formula’ valid also when f'' is not a continuous
+functions, as it is in (2.12). In the theory of continuous semimartingales, such an extension proceeds via local times
+and the Tanaka–Meyer formula; what follows is a pathwise version}
+\section{Mayer Tanaka}
+
+\chapter{Processus de Bessel}
+\section{Carré de Bessel}
+\subsection{Définition informelle}
+\subsection{Formule d'occupation pour un processus de Bessel}
+
+\end{document}
