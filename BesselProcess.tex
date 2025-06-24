@@ -262,6 +262,7 @@ Autrement dit, \( B_t \) suit une loi normale centrée de variance \( t \), ce q
 
 \chapter{Temps locaux}
 \section{Construction d'un temps local}
+\begin{definition}[Temps local]
 Pour un processus stochastique $X$, son \textit{temps local} en un point $x$, $L_t^x$, est une mesure de la quantité de temps que $X$ passe au point $x$. La première approche, la plus intuitive est de compter tous les temps $s$ tel que $X_S = x$ :
 
 \begin{equation}
@@ -269,7 +270,7 @@ Pour un processus stochastique $X$, son \textit{temps local} en un point $x$, $L
    L^x_t= \int_0^t1_{\{X_s=x\}}ds.
   \end{equation}
 
-  Ceci dit, comme on intègre par rapport à la mesure de Lebesgue, $\{X_s = x\}$ est de mesure nulle, donc cette intégrale sera toujours nulle. Une alternative est d'utiliser un dirac en $X_s - x$ au lieu de l'indicatrice dans \eqref{eq:TmpsLocalDef1}:
+  Ceci dit, comme on intègre par rapport à la mesure de Lebesgue, $\{X_s = x\}$ est de mesure nulle, donc cette intégrale sera toujours nulle. Une alternative est d'utiliser un Dirac en $X_s - x$ au lieu de l'indicatrice dans \eqref{eq:TmpsLocalDef1}, de cette manière, nous n'avons plus la 
 
 
 \begin{equation}
@@ -277,21 +278,30 @@ Pour un processus stochastique $X$, son \textit{temps local} en un point $x$, $L
   L^x_t= \int_0^t\delta(X_s-x)ds.
 \end{equation}
 
-Malheureusement, le dirac n'est pas une fonction mais une distribution, donc \eqref{eq:TmpsLocalDef2} n'est pas bien définie. On peut tout de même donner un sens à cette définition avec une \textbf{approximation de Dirac}.  : Soit $\delta_\varepsilon$ une famille de fonctions définies comme suit :
-\begin{equation*}
-  \delta_\varepsilon(u) = \frac{1}{\sqrt{2\pi \varepsilon}} \exp\left(-\frac{u^2}{2 \varepsilon} \right)
-\end{equation*}
+Malheureusement, le dirac n'est pas une fonction mais une distribution, donc \eqref{eq:TmpsLocalDef2} n'est pas bien définie. {\color{red} En outre, comme on intègre encore par rapport à la mesure de Lebesgue, relative au temps, l'équation \eqref{eq:TmpsLocalDef2} ne se comportera pas comme on veut.}
 
-Ainsi, on peut définir un temps local comme la limite quand $\varepsilon$ tend vers $0$ :
+Une solution possible est d'intégrer non pas par rapport à la mesure de Lebesgue, mais par rapport au crochet de $X_s$:
+\begin{equation}
+  \label{eq:TmpsLocalDef3}
+  L^x_t= \int_0^t\delta(X_s-x)d[X]_s.
+\end{equation}
+
+Contrairement à $ds$, le crocher a du sens même lorsque l’on regarde des trajectoires très irrégulières. Dans le cas du mouvement brownien, intégrer par rapport à $d[B]_s$ ou $ds$ est équivalent, mais cette nouvelle définition a l'avantage d'avoir du sens dans des cadres plus généraux.
+Le seul problème maintenant est que le Dirac n'est toujours pas une fonction. Ainsi on peut l'approximer par $\lim_{\varepsilon\to 0}  1_{\{x - \varepsilon < B_s < x + \varepsilon\}}$ et ainsi obtenir une définition rigoureuse du \textit{temps local} :
 
 \begin{equation}
-  L_t^x := \lim_{\varepsilon \to 0} \int_0^t \delta_\varepsilon(X_s - x)\, ds
+    \label{eq:TmpsLocalDef4}
+    %\boxed
+    { L_t^x = \lim_{\varepsilon \to 0} \frac{1}{2\varepsilon} \int_0^t 1_{\{x - \varepsilon < B_s < x + \varepsilon\}} \, d[B]_s}
 \end{equation}
+\end{definition}
+
 \section{Formule d'Occupation}
 
 {\color{red}As already suggested in [9], there should be an extension of ‘Itô formula’ valid also when f'' is not a continuous
 functions, as it is in (2.12). In the theory of continuous semimartingales, such an extension proceeds via local times
 and the Tanaka–Meyer formula; what follows is a pathwise version}
+
 \section{Mayer Tanaka}
 
 \chapter{Processus de Bessel}
