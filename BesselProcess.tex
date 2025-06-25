@@ -60,6 +60,7 @@
 \renewcommand{\P}{\mathds{P}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\E}{\mathbb{E}}
+%\newcommand{\1}{\mathbb{1}}
 \setlist[enumerate,1]{label=\textit{\roman*}.}
 
 % newtheorem ==============================
@@ -78,8 +79,6 @@
 \newtheorem{prop}[prop]{Proposition}
 \aliascntresetthe{prop}
 \providecommand*{\propautorefname}{Proposition}
-
-\newtheorem*{demo}{Preuve}
 
 \theoremstyle{deffont}
 \newtheorem*{remark}{Remarque}
@@ -137,6 +136,11 @@ $$F^X_t := \sigma\{X_s\cup \N, s\leq t\}$$
 \label{def:pr_adapte}
 \end{definition}
 
+\begin{definition}[Processus prévisible] Un processus stochastique est dit $\F_t$-\textit{prévisible} si pour tout $s < t$, $X_s$ est $\F_s$-mesurable.
+\label{def:pr_previsible}
+\end{definition}
+
+
 \begin{definition}[Processus à accroissements indépendants]
   \label{def:pr_accr_indep} Un processus à \textit{accroissements indépendants} est un proceesus tel que, pour toute subdivision de $[0,t]$, la famille de variables aléatoires
     $$\{X_{t_1} - X_{t_0}, X_{t_2} - X_{t_1}, \cdots ,X_{t_n} - X_{t_{n-1}}\}$$
@@ -144,9 +148,10 @@ $$F^X_t := \sigma\{X_s\cup \N, s\leq t\}$$
 \end{definition}
 
 {\color{red}
-  \begin{definition}[Processus à accroissements stationnaires]
+\begin{definition}[Processus à accroissements stationnaires]
         \label{def:pr_accr_sta}
-  \end{definition}
+
+\end{definition}
     
   point sur ``up to indistinguishability''.
 }
@@ -209,10 +214,10 @@ Intuitivement, Processus à variation finie est un processus qui ``vibre'' de ma
 
 \section{Martingales, semimartingales et martingales locales}
 
-\begin{definition}[Martingale]
+\begin{definition}[$\F_t$-Martingale]
   Une \textit{martingale} est un processus $M$ satisfaisant :
   \begin{enumerate}[nosep]
-    \item Adapté,
+    \item Adapté par rapport à la filtration $\F_t$,
     \item Intégrable : $\E(|M_t|) < \infty$,
     \item Tel que : $\forall t, \; \E(M_t|\F_s) = M_s$.
   \end{enumerate}
@@ -222,8 +227,9 @@ La propriété \textit{iii.} nous dit que toute prévision du futur ($M_t$) sach
 
 Les martingales sont des objets très utilisés en calcul stochastique mais finalement très restraints. C'est pourquoi on utilise les semimartingales :
 
-\begin{definition}[Semimartingale] Une \textit{semimartingale} est un processus stochastique $X$ définit comme : $X_t = M_t + V_t$; où $M_t$ est une martingale et $V_t$ un processus à variation finie.
+\begin{definition}[Semimartingale] Une \textit{semimartingale} est un processus stochastique $X$ qui se décompose de manière unique comme une somme de trois processus : $X_t = X_0+ M_t + V_t$; où $X_0$ est $\F_0$-mesurable, $M$ est une martingale et $V$ un processus à variation finie.
 \end{definition}
+
 \section{Mouvement brownien}
 
 \begin{definition}[Mouvement Brownien de variance $\sigma^2$] Un \textit{mouvement brownien} est un processus stochastique $(B_t)_{t>0}$ est :
@@ -255,15 +261,29 @@ Autrement dit, \( B_t \) suit une loi normale centrée de variance \( t \), ce q
 
 \section{Intégrale stochastique}  
 \subsection{Intégrale de Lebesgue-Stieltjes}
-\subsection{Intégrale d'Ito}
-\subsection{Intégrale d'Ito}
-\subsection{Isométrie d'Ito}
-\subsection{Formule d'Ito et Ito-Tanaka}
+\subsection{Intégrale d'Itō}
+\subsection{Propriétés de l'intégrale stochastique}
+{\color{red}
+\begin{prop}
+  Soit $H_s$ un processus prévisible et soit $M_s$ une martingale. Alors le processus définit par 
+  $$\int_0^t H_s dM_s$$
+
+  est une martingale.
+\end{prop}
+}
+
+{\color{red}
+\begin{theorem}[Isométrie d'Itō]
+\end{theorem}
+
+\begin{theorem}[Formule d'Itō]  
+\end{theorem}
+}
 
 \chapter{Temps locaux}
-\section{Construction d'un temps local}
-\begin{definition}[Temps local]
-Pour un processus stochastique $X$, son \textit{temps local} en un point $x$, $L_t^x$, est une mesure de la quantité de temps que $X$ passe au point $x$. La première approche, la plus intuitive est de compter tous les temps $s$ tel que $X_S = x$ :
+\section{Construction d'un temps local}\label{sec:ConstrTempsLoc}
+
+Pour un semimartingale $X$, son \textit{temps local} en un point $x$, $L_t^x$, est une mesure de la quantité de temps que $X$ passe au point $x$. La première approche, la plus intuitive est de compter tous les temps $s$ tel que $X_S = x$ :
 
 \begin{equation}
   \label{eq:TmpsLocalDef1}
@@ -278,35 +298,107 @@ Pour un processus stochastique $X$, son \textit{temps local} en un point $x$, $L
   L^x_t= \int_0^t\delta(X_s-x)ds.
 \end{equation}
 
-Malheureusement, le dirac n'est pas une fonction mais une distribution, donc \eqref{eq:TmpsLocalDef2} n'est pas bien définie. {\color{red} En outre, comme on intègre encore par rapport à la mesure de Lebesgue, relative au temps, l'équation \eqref{eq:TmpsLocalDef2} ne se comportera pas comme on veut.}
-
-Une solution possible est d'intégrer non pas par rapport à la mesure de Lebesgue, mais par rapport au crochet de $X_s$:
+Malheureusement, le dirac n'est pas une fonction mais une distribution, donc \eqref{eq:TmpsLocalDef2} n'est pas bien définie. Il est vrai que integrer par rapport à la mesure de Lebesgue est plus naturel puisqu'on voudrait à priori intégrer sur le temps, mais en intégrant par rapport à la mesure de Lebesgue, le terme stochastique ne se comportera pas comme on le souhaiterait; c'est pourquoi il est plus judicieux d'intégrer par rapport au crochet de $X$, qui, assure une bonne définition de l'intégrale stochastique. 
+% Une solution possible est d'intégrer non pas par rapport à la mesure de Lebesgue, mais par rapport au crochet de $X_s$:
 \begin{equation}
   \label{eq:TmpsLocalDef3}
   L^x_t= \int_0^t\delta(X_s-x)d[X]_s.
 \end{equation}
 
-Contrairement à $ds$, le crocher a du sens même lorsque l’on regarde des trajectoires très irrégulières. Dans le cas du mouvement brownien, intégrer par rapport à $d[B]_s$ ou $ds$ est équivalent, mais cette nouvelle définition a l'avantage d'avoir du sens dans des cadres plus généraux.
-Le seul problème maintenant est que le Dirac n'est toujours pas une fonction. Ainsi on peut l'approximer par $\lim_{\varepsilon\to 0}  1_{\{x - \varepsilon < B_s < x + \varepsilon\}}$ et ainsi obtenir une définition rigoureuse du \textit{temps local} :
+Contrairement à $ds$, le crochet a du sens même lorsque l’on regarde des trajectoires très irrégulières. Dans le cas du mouvement brownien, intégrer par rapport à $d[B]_s$ ou $ds$ est équivalent, mais cette nouvelle définition a l'avantage d'avoir du sens dans des cadres plus généraux.
+Le seul problème maintenant est que le Dirac n'est toujours pas une fonction. Ainsi on peut l'approximer par $\lim_{\varepsilon\to 0}  1_{\{x - \varepsilon < B_s < x + \varepsilon\}}$ et ainsi obtenir une définition rigoureuse du \textit{temps local}.
 
-\begin{equation}
-    \label{eq:TmpsLocalDef4}
-    %\boxed
-    { L_t^x = \lim_{\varepsilon \to 0} \frac{1}{2\varepsilon} \int_0^t 1_{\{x - \varepsilon < B_s < x + \varepsilon\}} \, d[B]_s}
-\end{equation}
+\begin{definition}[Temps local] Un \textit{temps local} associé à une semimartingale $X$ est un processus stochastique caractérisé par :
+\begin{equation*}
+    L_t^x = \lim_{\varepsilon \to 0} \frac{1}{2\varepsilon} \int_0^t 1_{\{x - \varepsilon < X_s < x + \varepsilon\}} \, d[X]_s
+\end{equation*}
 \end{definition}
 
+\begin{remark}
+  Les temps locaux sont des processus \textit{continus}, \textit{positifs}, \textit{croissants} et à \textit{variation finie}.
+\end{remark}
+
+
+\begin{prop}[Propriété fondamentale des temps locaux]
+Soit $Y$ une semi-martingale et $L$ la fonction de ses temps locaux. Pour tout $y \in \R$, la mesure aléatoire $dL^y_t$ est portée par ${t \geq 0 : Y_t = y}$.  
+\end{prop}
+
+\begin{remark}
+  Dans d'autres mots, si on se donne $X$ une semi-martingale, alors  $L_t^x(X)$ est constante pour tout $X_t \neq x$.
+\end{remark}
+
+\section{Formule de Tanaka}
+
+{\color{red}
+  \begin{theorem}[Formule de Tanaka]
+  \end{theorem}
+    
+  \begin{theorem}[Formule d'Itō-Tanaka]
+  \end{theorem}
+}
 \section{Formule d'Occupation}
 
-{\color{red}As already suggested in [9], there should be an extension of ‘Itô formula’ valid also when f'' is not a continuous
-functions, as it is in (2.12). In the theory of continuous semimartingales, such an extension proceeds via local times
-and the Tanaka–Meyer formula; what follows is a pathwise version}
+\begin{theorem}[Formule d'occupation]
+\label{thm:occupation}
+Soit $X_t$ une semimartingale continue de variation quadratique $[X]_t$. Alors, il existe un processus mesurable $(L_t^a)_{t\geq0}$, tel que p.s. pour toute fonction borelienne bornée $\varphi : \R \mapsto \R$ :
 
-\section{Mayer Tanaka}
+\begin{equation}
+  \int_0^t \varphi(X_s) ds = \int_{\R_+}\varphi(a)L_t^a(X)da
+\end{equation}
+
+\end{theorem}
+
+{\color{red}\begin{proof}
+  \end{proof}}
+
+La formule d'occupation est très utile puisqu'elle nous permet de relier le temps qu’un processus stochastique passe dans un certain ensemble à des propriétés locales de ce processus.
+
+L'une des conséquences de la formule d'occupation est la suivante :
+
+\begin{prop}[Temps local de la fonction d'une semi-martingale]
+  Soient $f$ convexe et $X$ une semi-martingale. Alors,
+  $$L_t^{(f(a)}f(X)) = f'(a) L^a(X)$$
+\end{prop}
+
+\begin{remark}
+  Si $f$ n'est pas une fonction convexe, mais la différence (ou la somme) de fonctions convexes, alors on peut quand même appliquer la formule d'Itō par linéarité de l'intégrale!
+\end{remark}
+
+\begin{proof}
+  Soient $Y_t = f(X_t)$ et $X_t = M_t + V_t$ une semi-martingale. Montrons en premier, que $Y_t$ est une semi-martingale. 
+  \begin{alignat*}{1}
+    Y_t &\overset{\text{Itō}}{=} f(X_0) + \int_0^t f'(X_s) dX_s + \int_0^t f''(X_s) d[X]_s\\
+        &= \underbrace{f(X_0)}_{\F_0\text{-mesurable}} + \underbrace{\int_0^t f'(X_s) dM_s}_{\text{Intégrale stochastique}} + \underbrace{\int_0^t f'(X_s) dV_s}_{\text{Processus v.f.}} + \underbrace{\int_0^t f''(X_s) d[M]_s}_{\text{Processus v.f.}}
+  \end{alignat*}
+  Comme $f'(X_s)$ est $\F_s$-mesurable pour tout $s<t$, alors, c'est un processus prévisible et $\int_0^t f'(X_s) dM_s$ est une martingale.
+  Donc on peut décomposer $Y_t$ dans la somme d'une martingale et d'un processus à variation finie, c'est donc une semi-martingale.
+
+
+  
+Maintenant qu'on sait que $Y_t$ est une semimartingale, on peut appliquer la formule d'occupation (\autoref{thm:occupation}). Soit $\varphi$ une fonction borélienne bornée. Remarquons d'abord que $d[Y]_s = \left(f'(X_s)\right)^2 d[M]_s$. On a donc :
+$$  \int_0^t \varphi(Y_s) d[Y]_s \overset{\text{def}}{=} \int_0^t \underbrace{\varphi(f(X_s)) \left(f'(X_s\right)^2)}_{\tilde\varphi(X_s)} d[X_s]
+$$
+
+On applique la formule d'occupation au RHS et LHS respectivement.
+\begin{alignat*}{1}
+%  \int_0^t \varphi(Y_s) d[Y]_s &\overset{\text{def}}{=} \int_0^t \underbrace{\varphi(f(X_s)) \left(f'(X_s\right)^2)}_{\tilde\varphi(X_s)} d[X_s]
+%\intertext{On applique la formule d'occupation au RHS et LHS respectivement.}
+\int_{\R_+} \varphi(y) L_t^y(Y) dy &= \int_{\R_+} \tilde\varphi(x) L_t^x(X) dx\\
+                         &= \int_{\R_+}\varphi(f(x)) \left(f'(x)\right)^2 L_t^x(X) dx\\
+                      &\overset{y = f^{-1}(x)}{=} \int_{\R_+}\varphi(y) f'( (f^{-1}(y))^2) L_t^{f^{-1}(y)}(f^{-1}(Y)) \; \frac{1}{f'(f^{-1}(y))} dy.\\
+\end{alignat*}
+
+Par linéarité de l'intégrale, 
+$$\int_{\R_+} \varphi(y) \left( L_t^y(Y) -  f'\left((f^{-1}(y))^2\right) L_t^{f^{-1}(y)}(f^{-1}(Y)) \; \frac{1}{f'(f^{-1}(y))}\right) dy  = 0 $$
+
+est vrai pour toute fonction $\varphi$, borélienne bornée, alors, en renplaçant $y$ par $f(x)$, peut dire que p.s :
+
+$$L_t^{f(x)}(f(X)) =  f'(x) L_t^{x}(X).$$
+\end{proof}
 
 \chapter{Processus de Bessel}
+\section{construction d'un bessel avec un mvt brownien}
 \section{Carré de Bessel}
 \subsection{Définition informelle}
 \subsection{Formule d'occupation pour un processus de Bessel}
-
 \end{document}
