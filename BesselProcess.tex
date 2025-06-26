@@ -296,9 +296,11 @@ Autrement dit, \( B_t \) suit une loi normale centrée de variance \( t \), ce q
 
 {\color{red}
 \begin{theorem}[Isométrie d'Itō]
+      \label{thm:IsometrieIto}
 \end{theorem}
 
-\begin{theorem}[Formule d'Itō]  
+\begin{theorem}[Formule d'Itō]
+  \label{thm:FormuleIto}
 \end{theorem}
 }
 
@@ -415,7 +417,7 @@ In particular, $f(X)$ is a semimartingale.
 Soit $X_t$ une semimartingale continue de variation quadratique $[X]_t$. Alors, il existe un processus mesurable $(L_t^a)_{t\geq0}$, tel que p.s. pour toute fonction borelienne bornée $\varphi : \R \mapsto \R$ :
 
 \begin{equation}
-  \int_0^t \varphi(X_s) ds = \int_{\R_+}\varphi(a)L_t^a(X)da
+  \int_0^t \varphi(X_s) d[X]_s = \int_{\R_+}\varphi(a)L_t^a(X)da
 \end{equation}
 
 \end{theorem}
@@ -483,20 +485,42 @@ $$L_t^{f(x)}(f(X)) =  f'(x) L_t^{x}(X).$$
 \end{proof}
 
 \chapter{Processus de Bessel}
-Dans ce capitre, nous allons aborder les $\delta$-\textit{processus de Bessel}, solutions de l'EDS :
-\begin{equation}
-  \rho_t = x + \dfrac{\delta-2}{2} \int_0^t \dfrac{1}{\rho_s} ds + B_t, \quad \rho_t \geq 0, t \geq 0.
-  \label{eq:BesselPrSDE}
-\end{equation}
 
-où $B_t$ est un mouvement brownien stantard.
+\begin{definition}[$\delta$-Processus de Bessel]
+  Un $\delta$-\textit{processus de Bessel} est définit comme solution de l'EDS :
+  \begin{equation}
+    \rho_t = x + \dfrac{\delta-1}{2}\int_0^t \dfrac{1}{\rho_s} ds + B_t, \quad \rho_t \geq 0, t \geq 0.
+    \label{eq:EDSBessel}
+  \end{equation}
+      Où $B_t$ est un mouvement brownien (unidimentionnel) standard.
+\end{definition}
+\paragraph{Discussion} Ce qui nous interessera par la suite, est le comportement de $\rho_t$ en fonction de la dimention $\delta$. On voit clairement que si $\delta = 1$, $\rho_t = x + B_t$. Dans ce cas on n'a à priori aucun problème. Ceci dit, si $\delta \neq 1$, et $\rho_s$ atteint $0$, alors l'intégrale diverge. Donc, un bessel n'est pas bien défini pour tout $\delta$. C'est pourquoi on définit le carré d'un bessel.
 
-\paragraph{discussion} Ce qui est interessant de cette équation c'est tout d'abord que la solution dépend d'un paramètre $\delta$ 
-
-{\color{red}l'existance et l'unicité ne seront pas traités dans ce travail mais sont abordées dans le RandomObstacleProblems de LorenzoZambotti (chap 3, section 3.1)}
-
-\section{construction d'un bessel avec un mvt brownien}
 \section{Carré de Bessel}
+Soit $Z_t := \rho^2$ un processus stochastique qu'on appellera le \textit{carré d'un bessel}.
+
+\begin{prop}
+  $Z_t$ est solution de l'EDS :
+
+  \begin{equation}
+    Z_t = y + \delta t \int_0^t \sqrt{Z_s} dB_s
+    \label{eq:EDSCarreBessel}
+  \end{equation}
+  
+\end{prop}
+
+\begin{proof}
+  Comme $.^2$ est $\mathcal C^2$ on peut appliquer la formule d'Itō (\autoref{thm:FormuleIto}) :
+\begin{alignat*}{1}
+  \eqref{eq:EDSBessel} \Leftrightarrow d\rho_t
+  &= \dfrac{\delta -1}{2}dt + dB_t,\\
+  d[\rho]_s &= ds;\\\\
+  \rho_t^2 &\overset{\text{Itō}}{=} \rho_0^2 + \int_0^t 2\rho_s d\rho_s + \dfrac{1}{2}\;\int_0^t2 d[\rho]_s,\\
+  &= \underbrace{\rho_0^2}_y + \int_0^t2 \rho_s \left(\dfrac{\delta -1}{2}ds + dB_s\right) +\int_0^t ds,\\
+  Z_t &= y + \delta t + \int_0^t \sqrt{Z_s} dB_s.
+\end{alignat*}
+\end{proof}
+
 \subsection{Définition informelle}
 \subsection{Formule d'occupation pour un processus de Bessel}
 \end{document}
