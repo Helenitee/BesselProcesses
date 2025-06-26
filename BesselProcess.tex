@@ -10,6 +10,8 @@
 \usepackage{enumitem}
 \usepackage{chngcntr}
 \usepackage{xcolor}
+\usepackage{bbm}
+\usepackage[most]{tcolorbox}
 
 \usepackage[
   colorlinks=true,
@@ -53,6 +55,7 @@
   twoside
 }
 
+
 % newcomands ==============================
 \newcommand{\F}{\mathscr{F}}
 \newcommand{\N}{\mathscr{N}}
@@ -60,7 +63,20 @@
 \renewcommand{\P}{\mathds{P}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\E}{\mathbb{E}}
-%\newcommand{\1}{\mathbb{1}}
+\newcommand{\1}{\mathbbm{1}}
+
+\makeatletter
+\renewenvironment{proof}[1][\textbf{\textit{Démonstration}}]{%
+  \par\pushQED{\qed}%
+  \normalfont\itshape\topsep6\p@\@plus6\p@\relax
+  \trivlist\item[\hskip\labelsep
+    #1\@addpunct{.}]\ignorespaces
+}{%
+  \popQED\endtrivlist\@endpefalse
+}
+\makeatother
+
+
 \setlist[enumerate,1]{label=\textit{\roman*}.}
 
 % newtheorem ==============================
@@ -110,7 +126,8 @@ Soit $(\Omega, \F, \P )$ un espace probabilisé et soit $(E, \carE)$ un espace m
  \begin{align*}
    X : (\R, \Omega) &\rightarrow \R \\
    (t, \omega) &\mapsto X_t(\omega)
- \end{align*} 
+ \end{align*}
+ 
 est une fonction mesurable. Cette fonction appliquée à un $\omega \in \Omega$ est appelée une \textit{trajectoire} de $X$.
 \end{definition}
 
@@ -257,7 +274,12 @@ Autrement dit, \( B_t \) suit une loi normale centrée de variance \( t \), ce q
 \[
 \mathbb{E}[B_t] = 0 \quad \text{et} \quad \text{Var}(B_t) = t.
 \]
-  \end{definition}
+\end{definition}
+
+\begin{remark}
+  Dans ce travail on s'interesse aux mouvements browniens (standards) unidimentionnels, c'est à dire qui varie uniquement en fonction du temps. 
+\end{remark}
+
 
 \section{Intégrale stochastique}  
 \subsection{Intégrale de Lebesgue-Stieltjes}
@@ -281,13 +303,13 @@ Autrement dit, \( B_t \) suit une loi normale centrée de variance \( t \), ce q
 }
 
 \chapter{Temps locaux}
-\section{Construction d'un temps local}\label{sec:ConstrTempsLoc}
+\section{Construction d'un temps local et propriétés}\label{sec:ConstrTempsLoc}
 
 Pour un semimartingale $X$, son \textit{temps local} en un point $x$, $L_t^x$, est une mesure de la quantité de temps que $X$ passe au point $x$. La première approche, la plus intuitive est de compter tous les temps $s$ tel que $X_S = x$ :
 
 \begin{equation}
   \label{eq:TmpsLocalDef1}
-   L^x_t= \int_0^t1_{\{X_s=x\}}ds.
+   L^x_t= \int_0^t\1_{(X_s=x)}ds.
   \end{equation}
 
   Ceci dit, comme on intègre par rapport à la mesure de Lebesgue, $\{X_s = x\}$ est de mesure nulle, donc cette intégrale sera toujours nulle. Une alternative est d'utiliser un Dirac en $X_s - x$ au lieu de l'indicatrice dans \eqref{eq:TmpsLocalDef1}, de cette manière, nous n'avons plus la 
@@ -306,11 +328,11 @@ Malheureusement, le dirac n'est pas une fonction mais une distribution, donc \eq
 \end{equation}
 
 Contrairement à $ds$, le crochet a du sens même lorsque l’on regarde des trajectoires très irrégulières. Dans le cas du mouvement brownien, intégrer par rapport à $d[B]_s$ ou $ds$ est équivalent, mais cette nouvelle définition a l'avantage d'avoir du sens dans des cadres plus généraux.
-Le seul problème maintenant est que le Dirac n'est toujours pas une fonction. Ainsi on peut l'approximer par $\lim_{\varepsilon\to 0}  1_{\{x - \varepsilon < B_s < x + \varepsilon\}}$ et ainsi obtenir une définition rigoureuse du \textit{temps local}.
+Le seul problème maintenant est que le Dirac n'est toujours pas une fonction. Ainsi on peut l'approximer par $\lim_{\varepsilon\to 0}  \1_{(x - \varepsilon < B_s < x + \varepsilon)}$ et ainsi obtenir une définition rigoureuse du \textit{temps local}.
 
 \begin{definition}[Temps local] Un \textit{temps local} associé à une semimartingale $X$ est un processus stochastique caractérisé par :
 \begin{equation*}
-    L_t^x = \lim_{\varepsilon \to 0} \frac{1}{2\varepsilon} \int_0^t 1_{\{x - \varepsilon < X_s < x + \varepsilon\}} \, d[X]_s
+    L_t^x = \lim_{\varepsilon \to 0} \frac{1}{2\varepsilon} \int_0^t \1_{(x - \varepsilon < X_s < x + \varepsilon)} \, d[X]_s
 \end{equation*}
 \end{definition}
 
@@ -318,23 +340,73 @@ Le seul problème maintenant est que le Dirac n'est toujours pas une fonction. A
   Les temps locaux sont des processus \textit{continus}, \textit{positifs}, \textit{croissants} et à \textit{variation finie}.
 \end{remark}
 
+{\color{red}
+  \begin{proof}
+    \begin{enumerate}
+    \item Continuité
+    \item Positivité
+    \item Croissance,
+    \item Processus à variation finie
+    \end{enumerate}
+\end{proof}
+}
 
 \begin{prop}[Propriété fondamentale des temps locaux]
-Soit $Y$ une semi-martingale et $L$ la fonction de ses temps locaux. Pour tout $y \in \R$, la mesure aléatoire $dL^y_t$ est portée par ${t \geq 0 : Y_t = y}$.  
+  Soit $Y$ une semi-martingale et $L$ la fonction de ses temps locaux. Pour tout $y \in \R$, la mesure aléatoire $dL^y_t$ est portée par $\{t \geq 0 : Y_t = y\}$.  
 \end{prop}
 
 \begin{remark}
   Dans d'autres mots, si on se donne $X$ une semi-martingale, alors  $L_t^x(X)$ est constante pour tout $X_t \neq x$.
 \end{remark}
 
-\section{Formule de Tanaka}
+{\color{red}
+\begin{proof}
+\end{proof}
+}
 
 {\color{red}
+  \begin{prop}[Continuité Hölderienne]
+    La fonction $a \mapsto |L_t^a - L_t^0|$ est $\frac{1}{2}$-Hölder.
+  \end{prop}
+}
+
+{\color{red}
+\begin{proof}
+\end{proof}
+}
+
+\section{Formules de Tanaka}
+
+
   \begin{theorem}[Formule de Tanaka]
-  \end{theorem}
+    Pour tout $a \in \R$ et $t \geq 0$,
+\begin{align*}
+    |X_t - a| &= |X_0 - a| + \int_0^t \mathrm{sgn}(X_s - a) \, \mathrm{d}X_s + L_t^a \\
+    (X_t - a)^+ &= (X_0 - a)^+ + \int_0^t \1_{(X_s > a)} \, \mathrm{d}X_s + \frac{1}{2}L_t^a \\
+    (X_t - a)^- &= (X_0 - a)^- - \int_0^t \1_{(X_s \leq a)} \, \mathrm{d}X_s + \frac{1}{2}L_t^a
+\end{align*}
+
+où \( \mathrm{sgn}(x) := \1_{(x > 0)} - \1_{(x \leq 0)} \).
+\end{theorem}
+
+{\color{red}
+\begin{proof}
+\end{proof}
+}
+
+\begin{theorem}[Formule d'Itō-Tanaka]
+  Soit $f$ la différence de deux fonctions convexes et soit $X$ une semi-martingale continue. Alors,
     
-  \begin{theorem}[Formule d'Itō-Tanaka]
-  \end{theorem}
+$$
+f(X_t) = f(X_0) + \int_0^t f'_-(X_s) \, dX_s + \frac{1}{2} \int_{\mathbb{R}} L_t^a \, f''(da).
+$$
+
+In particular, $f(X)$ is a semimartingale.
+\end{theorem}
+
+{\color{red}
+\begin{proof}
+\end{proof}
 }
 \section{Formule d'Occupation}
 
@@ -348,7 +420,21 @@ Soit $X_t$ une semimartingale continue de variation quadratique $[X]_t$. Alors, 
 
 \end{theorem}
 
+\begin{remark}
+  Il suffit que $\varphi$ soit une fonction borelienne non négative!
+  \end{remark}
+
 {\color{red}\begin{proof}
+    Soit $f$ une fonction convexe telle que $\varphi = f''$. Soit $X$ une semi-martingale continue. Alors, la formule d'Itō et Itō-Tanaka, on a :
+
+    \begin{align}
+      f(X_t) \overset{\text{Itō}}{=} f(X_0) &+ \int_0^t f'(X_s) dX_s + \frac{1}{2} \int_0^t f''(X_s) d[X]_s \label{eq:proofFormOcc1}\\
+      f(X_t) \overset{\text{Itō-Tanaka}}{=} f(X_0) &+ \int_0^t f'(X_s) dX_s + \frac{1}{2}\int_\R f''(a) L_t^a da  \label{eq:proofFormOcc1}
+    \end{align}
+    On remarque que comme $f$ est convexe, $f''$ est non négative. On peut donc intégrer uniquement sur $\R_+$ dans le dernier terme de \eqref{eq:proofFormOcc1}.
+    En soustrayant les deux equations on obtient bien
+
+    $$\int_0^t f''(X_s) d[X]_s = \int_{\R_+} f''(a) L_t^a da$$
   \end{proof}}
 
 La formule d'occupation est très utile puisqu'elle nous permet de relier le temps qu’un processus stochastique passe dans un certain ensemble à des propriétés locales de ce processus.
@@ -397,6 +483,18 @@ $$L_t^{f(x)}(f(X)) =  f'(x) L_t^{x}(X).$$
 \end{proof}
 
 \chapter{Processus de Bessel}
+Dans ce capitre, nous allons aborder les $\delta$-\textit{processus de Bessel}, solutions de l'EDS :
+\begin{equation}
+  \rho_t = x + \dfrac{\delta-2}{2} \int_0^t \dfrac{1}{\rho_s} ds + B_t, \quad \rho_t \geq 0, t \geq 0.
+  \label{eq:BesselPrSDE}
+\end{equation}
+
+où $B_t$ est un mouvement brownien stantard.
+
+\paragraph{discussion} Ce qui est interessant de cette équation c'est tout d'abord que la solution dépend d'un paramètre $\delta$ 
+
+{\color{red}l'existance et l'unicité ne seront pas traités dans ce travail mais sont abordées dans le RandomObstacleProblems de LorenzoZambotti (chap 3, section 3.1)}
+
 \section{construction d'un bessel avec un mvt brownien}
 \section{Carré de Bessel}
 \subsection{Définition informelle}
