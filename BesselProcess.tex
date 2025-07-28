@@ -611,14 +611,13 @@ On applique la formule d'occupation au RHS et LHS respectivement.
 %\intertext{On applique la formule d'occupation au RHS et LHS respectivement.}
 \int_{\R_+} \varphi(y) L_t^y(Y) dy &= \int_{\R_+} \tilde\varphi(x) L_t^x(X) dx\\
                          &= \int_{\R_+}\varphi(f(x)) \left(f'(x)\right)^2 L_t^x(X) dx\\
-                      &\overset{y = f^{-1}(x)}{=} \int_{\R_+}\varphi(y) f'( (f^{-1}(y))^2) L_t^{f^{-1}(y)}(f^{-1}(Y)) \; \frac{1}{f'(f^{-1}(y))} dy.
+                       &\overset{y = f(x)}{=} \int_{\R_+}\varphi(y) f'( (f^{-1}(y))^2) L_t^{f^{-1}(y)}d(f^{-1}(y)) \\
+  &=  \int_{\R_+}\varphi(y) f'( (f^{-1}(y))^2) L_t^{f^{-1}(y)} \;\frac{1}{f'(f^{-1}(y))} dy.
 \end{alignat*}
 
-Par linéarité de l'intégrale, 
-$$\int_{\R_+} \varphi(y) \left( L_t^y(Y) -  f'\left((f^{-1}(y))^2\right) L_t^{f^{-1}(y)}(f^{-1}(Y)) \; \frac{1}{f'(f^{-1}(y))}\right) dy  = 0 $$
+Comme cette égalité est vraie pour toute fonction $\varphi$, borélienne bornée, alors, en remplaçant $y$ par $f(x)$, peut dire que p.s :
 
-est vrai pour toute fonction $\varphi$, borélienne bornée, alors, en renplaçant $y$ par $f(x)$, peut dire que p.s :
-
+%$$L_t^y(f(X)) = f'(f^{-1}(y)) L_t^{f^{-1}(y)}(X)$$
 $$L_t^{f(x)}(f(X)) =  f'(x) L_t^{x}(X).$$
 \end{proof}
 }
@@ -634,7 +633,7 @@ $$L_t^{f(x)}(f(X)) =  f'(x) L_t^{x}(X).$$
     \label{eq:EDSCarreBessel}
   \end{equation}
 
-  Où $y\in\R_+$ et $\delta \geq 0$. 
+  Où $Z_0 = y \geq 0$ et $\delta \geq 0$.
 \end{definition}
 
 L'existance et l'unicité de cette EDS ne seront pas abordées dans ce travail, mais il y a une section dédié à cela dans le livre Random Obstacle Problems de Lorenzo Zambotti (Chapter 3, section 3.2).
@@ -645,57 +644,17 @@ Bien que le carré de Bessel soit bien défini, on s'interesse à un autre proce
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{Discussion}
-\begin{itemize}
-  \item[]
-    Maintenant qu'on sait ce que c'est un bessel, notre but est de savoir quelle EDS il satisfait. Le problème auquel on est confronté est que la fonction $\sqrt(.)$ n'est pas $\mathcal C^2$ puisqu'elle n'est pas différenciable en 0.
+Maintenant qu'on sait ce que c'est un bessel, notre but est de savoir quelle EDS il satisfait. Le problème auquel on est confronté est que la fonction $\sqrt{.}$ n'est pas $\mathcal C^2$ puisqu'elle n'est pas différenciable en 0. On ne peut donc pas ``simplement'' appliquer Itō. En fait, il y a plusieurs cas de figure et il est important de les différencier.
 
+\begin{enumerate}
+    \item Premièrement, dans le cas $\delta = 0$ le point $0$ est absorbant, c.à.d une fois qu'il est atteint $(Z_t = 0)$ alors, pour tout $\tilde t \geq t$, $Z_{\tilde t} = 0$ p.s.
+    \item Ensuite, pour $\delta \in (0,2)$, le point $0$ est récurrent, c.à.d. on l'atteindra une infinité de fois.
+    \item Dans le cas $\delta = 2$ {\color{purple} ?}.
+    \item Finalement, pour $\delta \ge> 2$, le point $0$ est transitoire, c.à.d que notre processus le visitera qu'un nombre fini de fois. Dans notre cas d'étude, si $0$ n'est pas notre condition initiale, i.e. $y \neq 0$, alors cet état ne sera jamais atteint. Dans le cas contraire, dès que $t>0$, $Z$ quittera cet état et n'y reviendra plus.
+\end{enumerate}
 
-\newpage    
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-{\color{red} how does it behave with respect to $\delta$?!
-  \begin{itemize}
-  \item $\delta = 0$ $\rightarrow$ $\rho_t = 0$ is an absorbing point (prop 1.5 Coninuous martingales and Brownian motion (Revuz \& Yor))
-  \item $\delta \in [0,2]$ $\rightarrow$ we visit an infinite number of timesx the point 0 $\rightarrow$ problem! we do have a singularity in zero.
-  \item $\delta > 2$ $\rightarrow$ we don't visit zero : no singularity problem!
-  \end{itemize}
-  Now within the second point, $\delta \in [0,2]$, the besel process behaves differently if it is under, over or at $1$ : a subsection will be dedicated to this.
-
-  How do we know this?}
-\end{itemize}
-\subsection{$\delta \in [0,2]$}
-
-Avant d'explorer quelle EDS pourrait satisfaire $\rho_t$, il est essenciel de parler de la formule d'occupation. On se situe dans un cadre particulier où on construit les porcessus à partir 
-
-
-Ce serait tentant d'utiliser la Formule d'Itō (\autoref{thm:FormuleIto}) et \eqref{eq:EDSCarreBessel} pour trouver l'EDS satisfaite par $\rho_t$, mais la fonction $\sqrt{.}$ n'est ni $\mathcal C^2$ ni convexe. Par contre, $\sqrt{.+\varepsilon}$, l'est! Ainsi on peut utiliser Itō à la fonction $.\mapsto\sqrt{.+\varepsilon}$ et faire ensuite tendre $\varepsilon$ vers $0$ pour tendre vers la fonction $\sqrt{.}$.
-
-
-Soit $f(Z_t) = \sqrt{Z_t + \varepsilon}$. En dérivant par rapport à $Z_t$ on obtient : $$f'(Z_t) = \dfrac{1}{2} (Z_t + \varepsilon)^{-1/2},\quad f''(Z_t) = \dfrac{-1}{4} (Z_t + \varepsilon)^{-3/2}.$$ 
-
-Ainsi, par la formule d'Itō, on obtient :
-
-\begin{alignat*}{2}
-  f(Z_t) &= f(Z_0) &&+ \int_0^t \dfrac{1}{2} (Z_s + \varepsilon)^{-1/2} dZ_s + \dfrac{1}{2}\int_0^t\dfrac{-1}{4} (Z_s + \varepsilon)^{-3/2} d[Z]_s
-\intertext{De \eqref{eq:EDSCarreBessel} on déduit que : $dZ_s = 2(Z_s)^{1/2}dB_s + \delta ds$, et $d[Z]_s = 4 Z_s ds$.}
-  &= f(Z_0) &&+ \int_0^t \dfrac{1}{2} (Z_s + \varepsilon)^{-1/2}  2(Z_s)^{1/2}dB_s \\
-         &\qquad  &&+  \int_0^t \dfrac{1}{2} (Z_s + \varepsilon)^{-1/2} \delta ds  + \dfrac{1}{2}\int_0^t\dfrac{-1}{4} (Z_s + \varepsilon)^{-3/2} 4Z_s ds,\\
-         &= f(Z_0) &&+ \int_0^t  (Z_s + \varepsilon)^{-1/2} (Z_s)^{1/2}dB_s +  \dfrac{1}{2} \int_0^t (Z_s + \varepsilon)^{-1/2} \delta -  (Z_s + \varepsilon)^{-3/2} Z_s ds,\\
-         &= f(Z_0) &&+ \int_0^t  (Z_s + \varepsilon)^{-1/2} (Z_s)^{1/2}dB_s  +  \dfrac{1}{2} \int_0^t (Z_s + \varepsilon)^{-3/2}\left((\delta -1)Z_s + \delta \varepsilon \right) ds,
-\end{alignat*}
-Maintenant qu'on a une expression de $f(Z_t)$, nous pouvons remplacer $Z_t$ par $\rho_t^2$.
-\begin{equation}
-  (\rho_t^2 + \varepsilon)^{1/2} = \underbrace{(\rho_0^2 + \varepsilon)^{1/2}}_{(1)} + \underbrace{\int_0^t  \dfrac{\rho_s}{(\rho_s^2 + \varepsilon)^{1/2}}dB_s}_{(2)} +  \underbrace{\dfrac{1}{2} \int_0^t \dfrac{(\delta -1)\rho_s^2 + \delta \varepsilon}{(\rho_s^2 + \varepsilon)^{3/2}}ds}_{(3)},
-\end{equation}
-Le problème ici, c'est qu'on rencontre une singularité en zéro et ce n'est pas clair que les intégrales $(2)$ et $(3)$ convergent. De l'autre côté, $\lim_{\varepsilon \to 0} \sqrt{Z_t + \varepsilon} = \sqrt{Z_t}$, lui, est bien défini.
-
-Commençons avec l'intégrale la moins évidente, $(3)$.
-\begin{alignat*}{2}
-  (2) : \dfrac{1}{2} \int_0^t \dfrac{(\delta -1)\rho_s^2 + \delta \varepsilon}{(\rho_s^2 + \varepsilon)^{3/2}}ds \overset{\text{\autoref{thm:occupationBessel}}}{=} \dfrac{1}{2} \int_0^t \dfrac{(\delta -1)\rho_s^2 + \delta \varepsilon}{(\rho_s^2 + \varepsilon)^{3/2}}ds
-  \end{alignat*}
-%         &= \underbrace{f(Z_0)}_{(1)} &&+ \underbrace{\int_0^t  (Z_s + \varepsilon)^{-1/2} (Z_s)^{1/2}dB_s}_{(2)} + \underbrace{\dfrac{1}{2} \int_0^t (Z_s + \varepsilon)^{-3/2}\left((\delta -1)Z_s + \delta \varepsilon \right) ds}_{(3)},
-
-\newpage
+\section{Cas $\delta = 0$}
+\section{Cas $\delta \in (0,2)$}
 
 \begin{prop} Soit $x \geq 0$. $\rho_t$ est solution de EDS différentes selon $\delta$. On a :
   \begin{enumerate}
@@ -722,20 +681,145 @@ Commençons avec l'intégrale la moins évidente, $(3)$.
 \end{enumerate}
 \end{prop}
 
-\paragraph{Discussion} Prenon cet espace de discussion pour prouver également les équivalences entre EDS.
-On s'interesse en premier au cas $\delta >1$. Notons d'abord que $\rho_t \geq 0$ par définition. On sait que $\rho_t$ est p.s non nul pour tout $t >0$, ce qui ne veux pas dire que $\rho_t$ n'atteint jamais 0 mais que s'il existe un $t$ tel que $\rho_t = 0$, alors il est de probabilité nulle. Avant de montrer l'équivalence avec \eqref{eq:EDSCarreBessel}, on doit s'assurer que \eqref{eq:EDSBessel1} soit bien définie. Le seul terme qui pose problème est l'intégrale puisque $x \in \R$ et $B_t$ ne divergent pas. Pour celà, il nous faut un autre résultat : la formule d'occupation pour les processus de Bessel.
+\begin{proof}
+Remarquons tout d'abord que même si $\sqrt{.}$ n'est pas $\mathcal C^2$, on peut l'approximer avec la fonction $\sqrt{.+\varepsilon}$, qui, est $\mathcal C^2$. Soit $f(Z_t) = \sqrt{Z_t + \varepsilon}$. En dérivant par rapport à $Z_t$ on obtient : $$f'(Z_t) = \dfrac{1}{2} (Z_t + \varepsilon)^{-1/2},\quad f''(Z_t) = \dfrac{-1}{4} (Z_t + \varepsilon)^{-3/2}.$$ 
 
+\noindent Ainsi, par la formule d'Itō, on obtient :
+%
+\begin{alignat*}{2}
+  f(Z_t) &= f(Z_0) &&+ \int_0^t \dfrac{1}{2} (Z_s + \varepsilon)^{-1/2} dZ_s + \dfrac{1}{2}\int_0^t\dfrac{-1}{4} (Z_s + \varepsilon)^{-3/2} d[Z]_s
+\intertext{De \eqref{eq:EDSCarreBessel} on déduit que : $dZ_s = 2(Z_s)^{1/2}dB_s + \delta ds$, et $d[Z]_s = 4 Z_s ds$.}
+  &= f(Z_0) &&+ \int_0^t \dfrac{1}{2} (Z_s + \varepsilon)^{-1/2}  2(Z_s)^{1/2}dB_s \\
+         &\qquad  &&+  \int_0^t \dfrac{1}{2} (Z_s + \varepsilon)^{-1/2} \delta ds  + \dfrac{1}{2}\int_0^t\dfrac{-1}{4} (Z_s + \varepsilon)^{-3/2} 4Z_s ds,\\
+         &= f(Z_0) &&+ \int_0^t  (Z_s + \varepsilon)^{-1/2} (Z_s)^{1/2}dB_s +  \dfrac{1}{2} \int_0^t (Z_s + \varepsilon)^{-1/2} \delta -  (Z_s + \varepsilon)^{-3/2} Z_s ds,\\
+         &= f(Z_0) &&+ \int_0^t  (Z_s + \varepsilon)^{-1/2} (Z_s)^{1/2}dB_s  +  \dfrac{1}{2} \int_0^t (Z_s + \varepsilon)^{-3/2}\left((\delta -1)Z_s + \delta \varepsilon \right) ds,
+\end{alignat*}
+Maintenant qu'on a une expression de $f(Z_t)$, nous pouvons remplacer $Z_t$ par $\rho_t^2$.
+\begin{equation}
+  (\rho_t^2 + \varepsilon)^{1/2} = \underbrace{(\rho_0^2 + \varepsilon)^{1/2}}_{(1)} + \underbrace{\int_0^t  \dfrac{\rho_s}{(\rho_s^2 + \varepsilon)^{1/2}}dB_s}_{(2)} +  \underbrace{\dfrac{1}{2} \int_0^t \dfrac{(\delta -1)\rho_s^2 + \delta \varepsilon}{(\rho_s^2 + \varepsilon)^{3/2}}ds}_{(3)},
+\end{equation}
+Le problème ici, c'est qu'on rencontre une singularité en zéro et ce n'est pas clair que les intégrales $(2)$ et $(3)$ convergent. De l'autre côté, $\lim_{\varepsilon \to 0} \sqrt{Z_t + \varepsilon} = \sqrt{Z_t}$, lui, est bien défini.
 
+Pour montrer le caractère fini de ces deux intégrales, énonçons d'abord la formule d'occupation pour les processus de Bessel.
+
+%%%%%% THM OCCUPATION PR BESSEL
 \begin{theorem}[Formule d'occupation pour les processus de Bessel]
   \label{thm:occupationBessel}
-  Soit $\delta \in \, ]0,2[$, $x \geq 0$ et $\rho_t := \sqrt{Z_t}$, $t \geq 0$. Alors presque sûrement, le processus $(\rho_t)_{t \geq 0}$ admet une famille continue de processus $(\ell_t^a)_{a, t \geq 0}$ telle que
+  Soit $\delta \in \, (0,2)$, $x \geq 0$ et $\rho_t := \sqrt{Z_t}$, $t \geq 0$. Alors presque sûrement, le processus $(\rho_t)_{t \geq 0}$ admet une famille continue de processus $(\ell_t^a)_{a, t \geq 0}$ telle que
 \[
-\int_0^t \varphi(\rho_s)\, ds = \frac{1}{2 - \delta} \int_{\mathbb{R}_+} \varphi(a)\, \ell_t^a\, a^{\delta - 1}\, da,
+\int_0^t \varphi(\rho_s)\, ds = \frac{1}{2 - \delta} \int_{\mathbb{R}^+} \varphi(a)\, \ell_t^a\, a^{\delta - 1}\, da,
 \tag{3.7}
 \]
 pour tout $t \geq 0$ et toute fonction borélienne bornée $\varphi : \mathbb{R}_+ \rightarrow \mathbb{R}_+$.
+
+De plus, la loi de $\ell_t^a$ est la même que celle de $L_{\gamma(t)}^{a^{2-\delta}}$ pour $a, t \geq 0$. Où $L_{\gamma(t)}^{a^{2-\delta}}$ est le mouvement brownien réfléchi (autoref{def:BrownienReflechi} et
+
+  $$\gamma_t := \inf\{ u > 0 : A_u > t \}, \qquad
+A_t := \frac{1}{(2 - \delta)^2} \int_0^t R_s^{-2 \cdot \frac{1 - \delta}{2 - \delta}} \, \mathrm{d}s, \qquad t \geq 0.
+$$
 \end{theorem}
-\begin{proof}cf. Random Obstacle Problems, Lorenzo Zambotti, Chapter 3, Proposition 3.8\end{proof}
+\begin{proof}cf. Random Obstacle Problems, Lorenzo Zambotti, Chapter 3, Proposition 3.8
+\end{proof}
+%%%%%% FIN
+
+L'intégrale $(3)$ est donc égale à :
+\begin{alignat*}{2}
+  (3) : \dfrac{1}{2} \int_0^t \dfrac{(\delta -1)\rho_s^2 + \delta \varepsilon}{(\rho_s^2 + \varepsilon)^{3/2}}ds &= \dfrac{\delta -1}{2(2 - \delta)}\int_{\R^+} \dfrac{a^2 + \delta \varepsilon}{(a^2 + \varepsilon)^{3/2}} a^{\delta-1}da.\\
+  &= 
+\end{alignat*}
+
+%\paragraph{$\delta \in (0,1]$}
+%\paragraph{$\delta \in (1,2)$}
+\end{proof}
+\section{Cas $\delta = 2 $}
+\section{Cas $\delta > 2 $}
+
+\newpage    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%{\color{red} how does it behave with respect to $\delta$?!
+%  \begin{itemize}
+%  \item $\delta = 0$ $\rightarrow$ $\rho_t = 0$ is an absorbing point (prop 1.5 Coninuous martingales and Brownian motion (Revuz \& Yor))
+%  \item $\delta \in [0,2]$ $\rightarrow$ we visit an infinite number of timesx the point 0 $\rightarrow$ problem! we do have a singularity in zero.
+%  \item $\delta > 2$ $\rightarrow$ we don't visit zero : no singularity problem!
+%  \end{itemize}
+%  Now within the second point, $\delta \in [0,2]$, the besel process behaves differently if it is under, over or at $1$ : a subsection will be dedicated to this.
+%
+%  How do we know this?}
+%\end{itemize}
+%\subsection{$\delta \in [0,2]$}
+%
+%Avant d'explorer quelle EDS pourrait satisfaire $\rho_t$, il est essenciel de parler de la formule d'occupation. On se situe dans un cadre particulier où on construit les porcessus à partir 
+%
+%
+%Ce serait tentant d'utiliser la Formule d'Itō (\autoref{thm:FormuleIto}) et \eqref{eq:EDSCarreBessel} pour trouver l'EDS satisfaite par $\rho_t$, mais la fonction $\sqrt{.}$ n'est ni $\mathcal C^2$ ni convexe. Par contre, $\sqrt{.+\varepsilon}$, l'est! Ainsi on peut utiliser Itō à la fonction $.\mapsto\sqrt{.+\varepsilon}$ et faire ensuite tendre $\varepsilon$ vers $0$ pour tendre vers la fonction $\sqrt{.}$.
+%
+%
+%Soit $f(Z_t) = \sqrt{Z_t + \varepsilon}$. En dérivant par rapport à $Z_t$ on obtient : $$f'(Z_t) = \dfrac{1}{2} (Z_t + \varepsilon)^{-1/2},\quad f''(Z_t) = \dfrac{-1}{4} (Z_t + \varepsilon)^{-3/2}.$$ 
+%
+%Ainsi, par la formule d'Itō, on obtient :
+%
+%\begin{alignat*}{2}
+%  f(Z_t) &= f(Z_0) &&+ \int_0^t \dfrac{1}{2} (Z_s + \varepsilon)^{-1/2} dZ_s + \dfrac{1}{2}\int_0^t\dfrac{-1}{4} (Z_s + \varepsilon)^{-3/2} d[Z]_s
+%\intertext{De \eqref{eq:EDSCarreBessel} on déduit que : $dZ_s = 2(Z_s)^{1/2}dB_s + \delta ds$, et $d[Z]_s = 4 Z_s ds$.}
+%  &= f(Z_0) &&+ \int_0^t \dfrac{1}{2} (Z_s + \varepsilon)^{-1/2}  2(Z_s)^{1/2}dB_s \\
+%         &\qquad  &&+  \int_0^t \dfrac{1}{2} (Z_s + \varepsilon)^{-1/2} \delta ds  + \dfrac{1}{2}\int_0^t\dfrac{-1}{4} (Z_s + \varepsilon)^{-3/2} 4Z_s ds,\\
+%         &= f(Z_0) &&+ \int_0^t  (Z_s + \varepsilon)^{-1/2} (Z_s)^{1/2}dB_s +  \dfrac{1}{2} \int_0^t (Z_s + \varepsilon)^{-1/2} \delta -  (Z_s + \varepsilon)^{-3/2} Z_s ds,\\
+%         &= f(Z_0) &&+ \int_0^t  (Z_s + \varepsilon)^{-1/2} (Z_s)^{1/2}dB_s  +  \dfrac{1}{2} \int_0^t (Z_s + \varepsilon)^{-3/2}\left((\delta -1)Z_s + \delta \varepsilon \right) ds,
+%\end{alignat*}
+%Maintenant qu'on a une expression de $f(Z_t)$, nous pouvons remplacer $Z_t$ par $\rho_t^2$.
+%\begin{equation}
+%  (\rho_t^2 + \varepsilon)^{1/2} = \underbrace{(\rho_0^2 + \varepsilon)^{1/2}}_{(1)} + \underbrace{\int_0^t  \dfrac{\rho_s}{(\rho_s^2 + \varepsilon)^{1/2}}dB_s}_{(2)} +  \underbrace{\dfrac{1}{2} \int_0^t \dfrac{(\delta -1)\rho_s^2 + \delta \varepsilon}{(\rho_s^2 + \varepsilon)^{3/2}}ds}_{(3)},
+%\end{equation}
+%Le problème ici, c'est qu'on rencontre une singularité en zéro et ce n'est pas clair que les intégrales $(2)$ et $(3)$ convergent. De l'autre côté, $\lim_{\varepsilon \to 0} \sqrt{Z_t + \varepsilon} = \sqrt{Z_t}$, lui, est bien défini.
+%
+%Commençons avec l'intégrale la moins évidente, $(3)$.
+%\begin{alignat*}{2}
+%  (2) : \dfrac{1}{2} \int_0^t \dfrac{(\delta -1)\rho_s^2 + \delta \varepsilon}{(\rho_s^2 + \varepsilon)^{3/2}}ds \overset{\text{\autoref{thm:occupationBessel}}}{=} \dfrac{1}{2} \int_0^t \dfrac{(\delta -1)\rho_s^2 + \delta \varepsilon}{(\rho_s^2 + \varepsilon)^{3/2}}ds
+%  \end{alignat*}
+%%         &= \underbrace{f(Z_0)}_{(1)} &&+ \underbrace{\int_0^t  (Z_s + \varepsilon)^{-1/2} (Z_s)^{1/2}dB_s}_{(2)} + \underbrace{\dfrac{1}{2} \int_0^t (Z_s + \varepsilon)^{-3/2}\left((\delta -1)Z_s + \delta \varepsilon \right) ds}_{(3)},
+%
+%\newpage
+%
+%\begin{prop} Soit $x \geq 0$. $\rho_t$ est solution de EDS différentes selon $\delta$. On a :
+%  \begin{enumerate}
+%    \item Pour $\delta \in [0,1[$, $\rho_t$ satisfait :
+%     \begin{equation}
+%       \rho_t = x + \dfrac{\delta-1}{2(2-\delta)}\int_0^t \dfrac{\ell_t^a- \ell_t^0}{a}a^{\delta-1} da + B_t
+%       \label{eq:EDSBessel3}
+%     \end{equation}
+%     Où la loi de la v.a. $\ell_t^a$ est égale à la loi de $L_{\gamma(t)}^{a^{2-\delta}}$, le temps local du brownien réfléchi commencé en $x^{2-\delta}$ et,
+%     $$\gamma_t := \inf\{u > 0 : A_u > t\}, \qquad
+%     A_t := \frac{1}{(2 - \delta)^2} \int_0^t R_s^{-2 \cdot \frac{1 - \delta}{2 - \delta}} \, ds, \qquad t \geq 0.$$
+%   \item Pout $\delta =1$, il existe une unique paire $(\rho, \ell)$ de variables aléatoires qui satisfon :
+%     \begin{equation}
+%       \rho_t = x + \ell_t + B_t, \;\text{ainsi que}\; \int_0^t \rho_s d\ell_s = 0,
+%       \label{eq:EDSBessel2}
+%     \end{equation}
+%     et telles que $t\mapsto \rho_t$ est continue et non-négative et, $t \mapsto \ell_t$ est continue, croissante et $\ell_0 = 0$.\\
+%   \item Pour $\delta > 1$, $\rho_t$ est solution de :
+%     \begin{equation}
+%       \rho_t = x + \dfrac{\delta-1}{2}\int_0^t \dfrac{1}{\rho_s} ds + B_t, \quad \rho_t \geq 0, t \geq 0.
+%       \label{eq:EDSBessel1}
+%     \end{equation}
+%     Où $B_t$ est un mouvement brownien (unidimentionnel) standard.\\
+%\end{enumerate}
+%\end{prop}
+%
+%\paragraph{Discussion} Prenon cet espace de discussion pour prouver également les équivalences entre EDS.
+%On s'interesse en premier au cas $\delta >1$. Notons d'abord que $\rho_t \geq 0$ par définition. On sait que $\rho_t$ est p.s non nul pour tout $t >0$, ce qui ne veux pas dire que $\rho_t$ n'atteint jamais 0 mais que s'il existe un $t$ tel que $\rho_t = 0$, alors il est de probabilité nulle. Avant de montrer l'équivalence avec \eqref{eq:EDSCarreBessel}, on doit s'assurer que \eqref{eq:EDSBessel1} soit bien définie. Le seul terme qui pose problème est l'intégrale puisque $x \in \R$ et $B_t$ ne divergent pas. Pour celà, il nous faut un autre résultat : la formule d'occupation pour les processus de Bessel.
+%
+%
+%\begin{theorem}[Formule d'occupation pour les processus de Bessel]
+%  \label{thm:occupationBessel}
+%  Soit $\delta \in \, ]0,2[$, $x \geq 0$ et $\rho_t := \sqrt{Z_t}$, $t \geq 0$. Alors presque sûrement, le processus $(\rho_t)_{t \geq 0}$ admet une famille continue de processus $(\ell_t^a)_{a, t \geq 0}$ telle que
+%\[
+%\int_0^t \varphi(\rho_s)\, ds = \frac{1}{2 - \delta} \int_{\mathbb{R}_+} \varphi(a)\, \ell_t^a\, a^{\delta - 1}\, da,
+%\tag{3.7}
+%\]
+%pour tout $t \geq 0$ et toute fonction borélienne bornée $\varphi : \mathbb{R}_+ \rightarrow \mathbb{R}_+$.
+%\end{theorem}
+%\begin{proof}cf. Random Obstacle Problems, Lorenzo Zambotti, Chapter 3, Proposition 3.8\end{proof}
 
 Ainsi, pour $\delta \in ]1,2]$, par la formule d'occupation, 
 
@@ -758,9 +842,9 @@ Maintenant qu'on sait qu'elle converge, on peut montrer que \eqref{eq:EDSBessel1
   Z_t &= y + \delta t + 2\int_0^t \sqrt{Z_s} dB_s.
 \end{alignat*}
 
-
-
-
+%\newpage
+%
+%
 %\begin{definition}[$\delta$-Processus de Bessel]
 %  Un $\delta$-\textit{processus de Bessel} est définit comme solution de l'EDS \eqref{eq:EDSBessel1} si $\delta >1$ et définie par \eqref{eq:EDSBessel2} si $\delta = 1$.
 %  \begin{enumerate}
