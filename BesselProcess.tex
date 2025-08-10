@@ -610,7 +610,7 @@ Soit $L$ la fonction des temps locaux du mouvement Brownien (standard). Pour tou
       \shortintertext{Par continuité de \refocc\ (c.f. \refcontocc); en $t$, et par densité de $\Q^+$ dans $\R^+$, on obtient :}
       \forall \varphi \in \mathcal C_c,\quad && \P\left(\bigcap_{t\in\R^+}\text{\refocc}\right)&=1.
     \end{alignat*}
-    
+    \vspace{-.5cm}
     \phantomsection
     \noindent \paragraph{Continuité de \refocc \; en $t$ :}
     \label{proof:continuite_occ}
@@ -627,7 +627,7 @@ Soit $L$ la fonction des temps locaux du mouvement Brownien (standard). Pour tou
     Posons maintenant $F_R(t) = \int_\R \varphi(a) L_t^a da$. De la même manière, on prend $t, \tilde{t} \geq 0$ tels que $t \geq \tilde{t}$. Et on regarde la différence de $F_R(t)$ et $F_R(\tilde{t})$ en valeur absolue.
     \begin{align*}
       |F_R(t) - F_R(\tilde{t})| &= \left|\int_\R \varphi(a) (L_t^a - L_{\tilde{t}}^a) da\right|\\
-                               &\leq \int_\R |\varphi(a)|\; |L_t^a - L_{\tilde{t}}^a|da.\\
+%                               &\leq \int_\R |\varphi(a)|\; |L_t^a - L_{\tilde{t}}^a|da.\\
                                 & \leq ||\varphi||_\infty\; \int_{\R^+} |L_t^a - L_{\tilde t}^a|\;da
 \end{align*}
 La fonction des temps locaux $L_t$ est à support compact par rapport à la variable d'espace. On peut donc intégrer sur un intervalle fini $[c_1, c_2]$. De plus, pour tout $a \in \R$, $L_t$ est p.s. majorée par $t$. Ainsi, par convergence dominée, on peut dire que :
@@ -636,15 +636,15 @@ La fonction des temps locaux $L_t$ est à support compact par rapport à la vari
                                                &= ||\varphi||_\infty\;\int_{c_1}^{c_2} \lim_{\tilde t \to t} |L_t^a - L_{\tilde t}^a | da
     \end{align*}
 
-    Ainsi, quand $\tilde{t}$ tend vers $t$, on a $|F_R(t) - F_R(\tilde{t})| \leq 0$, ce qui conclut la continuité du RHS.
+    Ainsi, quand $\tilde{t}$ tend vers $t$, on a $|F_R(t) - F_R(\tilde{t})| \xrightarrow{\tilde t \to t} 0$, ce qui conclut la continuité du RHS.
     \end{itemize}
-    Donc on a bien $\forall \varphi \in \mathcal C_c$, $\P\left(\cap_{t\in \R^+} \text{\refocc}\right) = 1$. Pour simplifier la notation on appellera $P_\varphi$ l'ensemble $\left\{\cap_{t\in \R^+} \text{\refocc}\right\}$\\
+    Donc on a bien $\forall \varphi \in \mathcal C_c$, $\P\left(\cap_{t\in \R^+} \text{\refocc}\right) = 1$. Pour simplifier la notation on appellera $P_\varphi$ l'ensemble $\cap_{t\in \R^+} \text{\refocc}$\\
 
     Finalement, on veut montrer que p.s. $\forall \varphi \in \mathcal C_c$, $P_\varphi$ est vérifiée, c.à.d. $\P(\cap_{\varphi \in \mathcal C_c} P_\varphi) = 1$. Pour cela, on se donne une famille de fonctions $(\varphi_n)_{n\in \mathbb N} \in \mathcal (C_c)^{\mathbb N}$ denses
- \footnote{Le fait que $(\varphi_n)_n$ soit dense dans $\mathcal C_c$ nous dit qu'on peut extraire une sous suite $(n_k)_k$ tel que $\varphi_{n_k} \xrightarrow[k \to \infty]{} \varphi \in \mathcal C_c$.}
+ \footnote{Le fait que $(\varphi_n)_{n\in\mathbb{N}}$ soit dense dans $\mathcal C_c$ nous dit que pour toute fonction $\varphi \in \mathcal C_c$, on peut extraire une sous suite $(\varphi_{n_k})_{k\in \mathbb{N}}$ de $(\varphi_n)_{n\in\mathbb{N}}$ telle que $$\lim_{k \to \infty}||\varphi_{n_k} - \varphi||_\infty = 0;$$ c.à.d. la sous suite $(\varphi_{n_k})_{k\in\mathbb{N}}$ converge uniformément vers la fonction $\varphi$. }
  dans $\mathcal C_c$. Comme $\mathbb N$ est dénombrable et que les $\varphi_n$ sont continues à support compact, on a directement que $\P(\cap_{n\in \mathbb N}P_{\varphi_n})=1$. Donc il suffit de montrer que $\cap_{n\in \mathbb N} P_{\varphi_n} \subset \cap_{\varphi \in \mathcal C_c} P_\varphi$.
 
-  Soit $\omega \in \cap_{n\in \mathbb N}P_{\varphi_n}$. On se donne une sous-suite $(n_k)_k$ telle que $\varphi_{n_k} \xrightarrow[k \to \infty]{} \varphi$ pour chaque élément $\varphi \in \mathcal C_c$. Montrons que $\omega \in \cap_{\varphi \in \mathcal C_c} P_\varphi$. En reprenant les notations de tout à l'heure, on a bien $|F_L^{\varphi_{n_k}} - F_L^\varphi|\xrightarrow[k \to \infty]{} 0$ et $|F_R^{\varphi_{n_k}} - F_R^\varphi|\xrightarrow[k \to \infty]{} 0$ :
+  Soit $\omega \in \cap_{n\in \mathbb N}P_{\varphi_n}$. On se donne une fonction $\varphi \in \mathcal C_c$. Il existe donc une sous-suite $(\varphi_{n_k})_{k\in\mathbb N}$ telle que $\varphi_{n_k} \xrightarrow[k \to \infty]{} \varphi$. Montrons que $\omega \in \cap_{\varphi \in \mathcal C_c} P_\varphi$. En reprenant les notations de tout à l'heure et en fixant un $t \in \R^+$ arbitraire, on a bien $|F_L^{\varphi_{n_k}} - F_L^\varphi|\xrightarrow[k \to \infty]{} 0$ et $|F_R^{\varphi_{n_k}} - F_R^\varphi|\xrightarrow[k \to \infty]{} 0$.
 %
 \begin{align*}
   |F_L^{\varphi_{n_k}} - F_L^\varphi| &= \left|\int_0^t \left( \varphi_{n_k}(W_s(\omega)) - \varphi(W_s(\omega))\right)\d s\right|\\
@@ -653,9 +653,10 @@ La fonction des temps locaux $L_t$ est à support compact par rapport à la vari
   \\
   |F_R^{\varphi_{n_k}} - F_R^\varphi| &= \left|\int_\R \left( \varphi_{n_k}(a) - \varphi(a)\right) L_t^a(W(\omega)) da\right|\\
                           &\leq \int_\R |\varphi_{n_k}(a) - \varphi(a)| L_t^a(W(\omega)) da\\
-                          &\leq ||\varphi_{n_k} - \varphi||_\infty \; \int_\R L_t^a da \xrightarrow[k\to \infty]{} 0.\\
+                          &\leq ||\varphi_{n_k} - \varphi||_\infty \; \int_\R L_t^a da \xrightarrow[k\to \infty]{} 0\quad\text{puisque $\int_\R L_t^a da < \infty$.}
 \end{align*}
-Donc on a bien $\cap_{n\in \mathbb N} P_{\varphi_n} \subset \cap_{\varphi \in \mathcal C_c} P_\varphi$. Enfin, comme $\P(\cap_{n\in \mathbb N} P_{\varphi_n}) = 1$ il s'en suit que $\P(\cap_{\varphi \in \mathcal C_c} P_\varphi) = 1$ ce qui conclut notre preuve.
+
+\noindent On a donc bien $\cap_{n\in \mathbb N} P_{\varphi_n} \subset \cap_{\varphi \in \mathcal C_c} P_\varphi$. Enfin, comme $\P(\cap_{n\in \mathbb N} P_{\varphi_n}) = 1$ il s'en suit que $\P(\cap_{\varphi \in \mathcal C_c} P_\varphi) = 1$ ce qui conclut notre preuve.
 
   \end{proof}
 
@@ -680,7 +681,7 @@ L'une des conséquences de la formule d'occupation est la suivante :
 \end{prop}
 
 \begin{remark}
-  Si $f$ n'est pas une fonction convexe, mais la différence (ou la somme) de fonctions convexes, alors on peut quand même appliquer la formule d'Itō par linéarité de l'intégrale!
+  Si $f$ n'est pas une fonction convexe, mais la différence (ou la somme) de fonctions convexes, alors on peut quand même appliquer la formule d'Itō par linéarité de l'intégrale! De plus, on peut étendre la formule d'Itō à toutes les fonctionc convexes en utilisant des dérivées faibles.
 \end{remark}
 
 \begin{proof}
@@ -720,7 +721,7 @@ $$L_t^{f(x)}(f(X)) =  f'(x) L_t^{x}(X).$$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Définition à partir du Carré de Bessel} 
-\begin{definition}[$\delta$-Carré de Bessel] Le \textit{$\delta$-carré de Bessel} est un processus stochastique solution de l'EDS :
+\begin{definition}[$\delta$-Carré de Bessel] Le \textit{carré de Bessel} de dimension $\delta$ est un processus stochastique solution de l'EDS :
   \begin{equation}
     Z_t = y + \delta t + 2 \int_0^t \sqrt{Z_s} \d W_s, \quad t\geq0.
     \label{eq:EDSCarreBessel}
@@ -732,7 +733,7 @@ $$L_t^{f(x)}(f(X)) =  f'(x) L_t^{x}(X).$$
 L'existence et l'unicité de cette EDS ne seront pas abordées dans ce travail, mais il y a une section dédiée à cela dans le livre Random Obstacle Problems de Lorenzo Zambotti (Chapter 3, section 3.2).
 Bien que le carré de Bessel soit bien défini, on s’intéresse à un autre processus : le \textit{processus de Bessel}.
 
-\begin{definition}[$\delta$-Processus de Bessel] Un $\delta$-\textit{processus de Bessel} est un processus stochastique non négatif défini par $\rho_t := \sqrt{Z_t}$.
+\begin{definition}[$\delta$-Processus de Bessel] Un $\delta$-\textit{processus de Bessel} est un processus stochastique positif défini par $\rho_t := \sqrt{Z_t}$.
 \end{definition}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -742,8 +743,7 @@ Maintenant qu'on sait ce que c'est un Bessel, notre but est de savoir quelle EDS
 \begin{enumerate}
     \item Premièrement, dans le cas $\delta = 0$ le point $0$ est absorbant, c.à.d une fois qu'il est atteint $(Z_t = 0)$ alors, pour tout $\tilde{t} \geq t$, $Z_{\tilde{t}} = 0$ p.s.
     \item Ensuite, pour $\delta \in (0,2)$, le point $0$ est récurrent, c.à.d. on l'atteindra une infinité de fois.
-    \item Dans le cas $\delta = 2$ {\color{purple} ?}.
-    \item Finalement, pour $\delta > 2$, le point $0$ est transitoire, c.à.d que notre processus le visitera un nombre fini de fois. Dans notre cas d'étude, si $0$ n'est pas notre condition initiale, i.e. $y \neq 0$, alors cet état ne sera jamais atteint. Dans le cas contraire, dès que $t>0$, $Z$ quittera cet état et n'y reviendra plus.
+    \item Finalement, pour $\delta \geq 2$, le point $0$ est transitoire, c.à.d que notre processus le visitera un nombre fini de fois. Dans notre cas d'étude, si $0$ n'est pas notre condition initiale, i.e. $y \neq 0$, alors cet état ne sera jamais atteint. Dans le cas contraire, dès que $t>0$, $Z$ quittera cet état et n'y reviendra plus.
 \end{enumerate}
 
 \section{Cas $\delta = 0$}
