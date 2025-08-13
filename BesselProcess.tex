@@ -12,16 +12,17 @@
 \usepackage{chngcntr}
 \usepackage{xcolor}
 \usepackage{bbm}
+\usepackage[nottoc]{tocbibind} % ajoute Bibliographie au sommaire
 \usepackage[most]{tcolorbox}
 
 \usepackage[
   colorlinks=true,
   linkcolor=blue,
+  citecolor=black,
   pdfborder={0 0 0},
   pdfpagemode=UseNone
   ]{hyperref}
 
-  
 \newtheoremstyle{deffont}% nom du style
   {\topsep}          % espace au-dessus
   {\topsep}          % espace en dessous
@@ -138,7 +139,7 @@ Soient $(\Omega, \F, \P )$ un espace probabilisé et $(E, \carE)$ un espace mesu
 i.e. pour $s \leq t \leq \infty$,
 $$\F_0 \subset \F_s \subset \F_t\subset \cdots \subset \F_\infty .$$
 
-On parle de \textit{filtration naturelle} lorsque, pour chaque $t$, $\F_t$ est la plus petite tribu telle que les $X_s$, $s\leq t$ sont $\F_t$-mesurables. i.e.
+On parle de \textit{filtration naturelle} engendrée par le processus stochastique $(X_t)_{t\geq0}$ lorsque, pour chaque $t$, $\F_t$ est la plus petite tribu telle que les $X_s$, $s\leq t$ sont $\F_t$-mesurables. i.e.
 $$\F_t := \sigma\{X_s, s\leq t\}$$
 
 On introduit également la notion de \textit{filtration complète} ou
@@ -147,10 +148,10 @@ $$F^X_t := \sigma\{X_s\cup \N, s\leq t\}.$$
 
 \label{def:filtration}
 \end{definition}
-Dans ce travail, tous nos processus stochastiques seront continus à valeurs réels. On prendra donc $E = \R^d$ et $\carE$ sa tribu borélienne associée.
+Dans ce travail, tous nos processus stochastiques seront continus à valeurs réelles. On prendra donc $E = \R^d$ et $\carE$ sa tribu borélienne associée.
 
 \begin{definition}[Processus stochastique continu]
-  Un \textit{processus stochastique (continu)} $(X_t)_{t \ge 0}$ à valeurs dans $\mathbb{R}$ est une famille de fonctions mesurable par rapport à la tribu produit $\mathcal{B}(\mathbb{R}^+) \otimes \mathcal{F}$ sur $\mathbb{R}^+ \times \Omega$ définies telles que :
+  Un \textit{processus stochastique (continu)} $(X_t)_{t \ge 0}$ à valeurs dans $\mathbb{R}$ est une famille de fonctions mesurables par rapport à la tribu produit $\mathcal{B}(\mathbb{R}^+) \otimes \mathcal{F}$ sur $\mathbb{R}^+ \times \Omega$ définies telles que :
   \begin{alignat*}{2}
     \Omega\times \R^+ &\rightarrow \R, \\
     \omega\;,\; t\quad &\mapsto X_t(\omega).
@@ -159,7 +160,7 @@ Dans ce travail, tous nos processus stochastiques seront continus à valeurs ré
   Pour $t \in \mathbb{R}^+$ fixé, la fonction $\omega \mapsto X_t(\omega)$ est appelée \textit{variable aléatoire} (v.a.) représentant l’état du processus à l’instant $t$.
 \end{definition}
 
-\begin{remark} Dans ce travail, on utilisera et étudira uniquement des processus stochastiques continus. On ne précisera donc pas leur caractère continu.
+\begin{remark} Dans ce travail, on utilisera et étudiera uniquement des processus stochastiques continus. On ne précisera donc pas leur caractère continu.
 \end{remark}
 
 \begin{definition}[Processus adapté] Un processus stochastique $(X_t)_{t\ge0}$ à valeurs dans l'espace mesurable $(E, \carE)$ est dit \textit{adapté} à la filtration $\{\F_t\}_{t\geq0}$ si pour tout $t\geq0$, $X_t$ est $\F_t$-mesurable.
@@ -173,23 +174,19 @@ Dans ce travail, tous nos processus stochastiques seront continus à valeurs ré
     est indépendante.
   \end{definition}
 
-  {
-    \color{red}
-    \begin{definition}[Convergence ucp] Soit $X_t^n$ une suite de variables aléatoires. On dit que $X_t^n$ \textit{converge ucp} vers une v.a. $X_t$ si pour tout $T >0$, 
-      $$\underset{0 \leq t \leq T}{\sup}|X_t^n - X_t| \xrightarrow[n \to \infty]{\P} 0.$$
-    \end{definition}
+  \begin{definition}[Convergence ucp] Soit $X_t^n$ une suite de variables aléatoires. On dit que $X_t^n$ \textit{converge ucp} vers une v.a. $X_t$ si pour tout $T >0$, 
+    $$\underset{0 \leq t \leq T}{\sup}|X_t^n - X_t| \xrightarrow[n \to \infty]{\P} 0.$$
+  \end{definition}
 
-    \paragraph{Notation}
-    On notera $\xrightarrow[]{\text{p.s.}}$ la convergence presque sûre (p.s), $\xrightarrow[]{\P}$ la convergence en probabilités et $\xrightarrow[]{L^p}$ la convergence en loi pour la norme $||.||_p$.
-    % On notera $\overset{\text{p.s.}}{\lim}$ la convergence presque sûre, $\overset{\P}{\lim}$ la convergence en probabilités et $\overset{L^p}{\lim}$ la convergence en loi pour la norme $||.||_p$.
+  \paragraph{Notation}
+  On notera $\xrightarrow[]{\text{p.s.}}$ la convergence presque sûre (p.s), $\xrightarrow[]{\P}$ la convergence en probabilités et $\xrightarrow[]{L^p}$ la convergence en loi pour la norme $||.||_p$.
     
-  }
 \section{Variation quadratique et covariation}
 
 La \textit{variation quadratique} est un processus qui quantifie les oscillations d'un processus stochastique au cours du temps. %En effet, même si un processus stochastique n'est pas dérivable au sens classique, on peut lui associer une variation quadratique. 
 
-\begin{definition}[Covariation et variation quadratique] Soit $(X_t)_{t\geq0}$ et $(Y_t)_{t\geq0}$ deux processus stochastiques. \\
-  On se donne une subdivision finie de $[0,t]$ :  $0 = t_0 < t_1 < \cdots < t_n = t$ dont le pas converge vers 0. Si $\sum_{i = 1}^n(X_{t_i} - X_{t_{i-1}})(Y_{t_i} - Y_{t_{i-1}})$ converge ucp vers un processus stochastique $(Z_t)_{t\geq0}$ et que cette limite ne dépend pas de la suite de subdivisions choisie, alors on appelle $(Z_t)_{t\geq0}$ la \textit{covariation} ou \textit{crochet de covariation}, des processus $X$ et $Y$.
+\begin{definition}[Covariation et variation quadratique] Soit $(X_t)_{t\geq0}$ et $(Y_t)_{t\geq0}$ deux processus stochastiques. 
+  On se donne une subdivision finie de $[0,t]$ : $0 = t_0 < t_1 < \cdots < t_n = t$ dont le pas converge vers 0. Si $\sum_{i = 1}^n(X_{t_i} - X_{t_{i-1}})(Y_{t_i} - Y_{t_{i-1}})$ converge ucp vers un processus stochastique $(Z_t)_{t\geq0}$ et que cette limite ne dépend pas de la suite de subdivisions choisie, alors on appelle $(Z_t)_{t\geq0}$ la \textit{covariation} ou \textit{crochet de covariation}, des processus $(X_t)_{t\geq0}$ et $(Y_t)_{t\geq0}$.
 
  \noindent On peut définir de manière similaire la \textit{variation quadratique} :
  $$[X]_t = [X,X]_t = \lim_{n\to \infty}^{\text{ucp}} \sum_{i = 1}^n\|X_{t_i} - X_{t_{i-1}}\|^2.$$
@@ -197,11 +194,11 @@ La \textit{variation quadratique} est un processus qui quantifie les oscillation
 \end{definition}
 
 
-\begin{prop} Soit $(X_t)_{t\geq0}$ et $(Y_t)_{t\geq0}$ deux processus stochastiques de carré intégrables définies dans le même espace probabilisé. Soit $([X,Y]_t)_{t\geq0}$ leur crochet de covariation. Celui-ci vérifie les propriétés suivantes : 
+\begin{prop} Soit $(X_t)_{t\geq0}$ et $(Y_t)_{t\geq0}$ deux processus stochastiques de carrés intégrables définies dans le même espace probabilisé. Soit $([X,Y]_t)_{t\geq0}$ leur crochet de covariation. Celui-ci vérifie les propriétés suivantes : 
   \begin{enumerate}
-  \item Linéarité : Soit $\lambda, \mu \in \R$ et $Z$ une v.a., alors $[\lambda X + \mu Y, Z]_t = \lambda[X,Z]_t + \mu[Y,Z]_t$ p.s.,
-  \item Symétrie : p.s. $[X,Y]_t = [Y,X]_t$,
-  \item Croissance : p.s. $\forall s\leq t$, $[X]_s \leq [X]_t$,
+  \item Linéarité : On se donne un autre processus stochastique $(Z_t)_{t\geq0}$ et deux constantes $\lambda, \mu \in \R$ alors pour tout $t\geq0$, p.s. $[\lambda X + \mu Y, Z]_t = \lambda[X,Z]_t + \mu[Y,Z]_t$ p.s.,
+  \item Symétrie : pour tout $t\geq0$ p.s. $[X,Y]_t = [Y,X]_t$,
+  \item Croissance : pour tout $t\geq0$ p.s. $\forall s\leq t$, $[X]_s \leq [X]_t$,
   \end{enumerate}
 \end{prop}
 
@@ -228,9 +225,9 @@ Dans un sens, un processus à variation finie est un processus qui oscille peu e
 
 \begin{prop}
   \begin{enumerate}[nosep]
-  \item Additivité : Soient $X$ et $Y$ des processus v.f. alors, $X+Y$ est aussi un processus à variation finie; de plus, on a : $\forall t \geq 0, \; V_t(X+Y) \leq V_t(X)+V_t(Y),$
-  \item Multiplication externe : Soit $X$ un processus v.f. et $a$ une constante réelle, alors, $V(aX) = |a| V(X)$,
-  \item Variation quadratique nulle : Soit $V(X)$ un processus v.f., alors, $\forall t \geq 0,\; [V(X)]_t=0$
+  \item Additivité : Soient $(X_t)_{t\geq0}$ et $(Y_t)_{t\geq0}$ des processus v.f. alors, $X+Y$ est aussi un processus à variation finie; de plus, on a p.s. $\forall t \geq 0$, $V_t(X+Y) \leq V_t(X)+V_t(Y),$
+  \item Multiplication externe : Soit $(X_t)_{t\geq0}$ un processus v.f. et $a$ une constante réelle, alors, p.s. $\forall t\geq0$, $V_t(aX) = |a| V_t(X)$,
+  \item Variation quadratique nulle : Soit $(X_t)_{t\geq0}$ un processus v.f., alors, p.s. $\forall t \geq 0$, $[V(X)]_t=0$
   \item Tout processus croissant (resp. décroissant) est à variation finie.
   \end{enumerate}
 \end{prop}
@@ -263,22 +260,22 @@ C'est jusqu'en 1923 qu'apparait la première définition mathématique du mouvem
 \end{definition}
 
 \begin{remark}
-  Il est clair que \textit{i.} et \textit{iv.} impliquent que $W_t \sim \mathcal{N}(0,t)$ pour tout $t \geq 0$. On peut donc définir un mouvement Brownien de variance $\sigma$ et commencé au point $x$ le processus stochastique $B_t := x + \sigma W_t$. Lorsqu'on parlera de mouvement Brownien, cela sous entent qu'il est standard.
+  Il est clair que \textit{i.} et \textit{iv.} impliquent que $W_t \sim \mathcal{N}(0,t)$ pour tout $t \geq 0$. On peut donc définir un mouvement Brownien de variance $\sigma$ et commencé au point $x$ le processus stochastique $(B_t)_{t\geq0}$ défini par $B_t := x + \sigma W_t$. Lorsqu'on parlera de mouvement Brownien, cela sous entendra qu'il est standard.
 \end{remark}
 
-Pour donner une définition équivalente du mouvement Brownien, nous allons définir au autre type de processus : les \textit{martingales}.
+Pour donner une définition équivalente du mouvement Brownien, nous allons définir un autre type de processus : les \textit{martingales}.
 
   \begin{definition}[Martingale]
-  Soit $(M_t)_{t\geq0}$ un processus adapté à la filtration $(\F_t)_{t\geq0}$. On l'appelle \textit{martingale} s'il satisfait les propriétés suivantes : 
+  Soit $(M_t)_{t\geq0}$ un processus adapté à une filtration $(\F_t)_{t\geq0}$. On l'appelle $(\F_t)_{t\geq0}-$\textit{martingale} s'il satisfait les propriétés suivantes : 
   \begin{enumerate}
   \item $\forall t\geq 0,\;\E\left(|M_t|\right) < \infty,$
   \item $\forall t\geq 0, \forall s \geq 0, s \leq t,\;\E\left(M_t|F_s\right) = M_s.$
   \end{enumerate}
   \end{definition}
-Une caractérisation alternative du mouvement Brownien standard est la \textit{caractérisation de Lévy}, qui nous dit qu'un processus de Wiener est l'unique martingale continue telle que
+Une définition alternative du mouvement Brownien standard connu sous le nom de \textit{caractérisation de Lévy}, qui nous dit qu'un processus de Wiener est l'unique martingale continue telle que
 \begin{enumerate}
 \item $W_0 = 0$ p.s.,
-\item $[W]_t = t$ p.s.
+\item $[W]_t = t$ $\forall t\geq0$ p.s.
   \label{def:MvtBorwnien_caractLevy}
 \end{enumerate}
 
@@ -287,13 +284,11 @@ Une caractérisation alternative du mouvement Brownien standard est la \textit{c
 %\end{remark}
 
 \section{Intégrale stochastique}
-L'intégrale stochastique est introduite en 1944 par Kiyosi Itō dans son article ``Stochastic Integral''\footnote{
-  Stochastic integral. Proc. Imp. Acad. Tokyo 20 (1944), 519-524.
-  \href{https://djalil.chafai.net/docs/M2/history-brownian-motion/Ito\%20-\%201944.pdf}{[Euclid]}}. La subtilité de la définition d'un tel processus est le fait qu'on intègre contre le mouvement Brownien et que celui ci est nulle part différentiable. Ainsi la dérivée $\d W_s$ n'est pas définie au sens classique mais l'intégrale $\int_0^t X_s \d W_s$, elle, est bien définie au sens d'Itō. {\color{red}  }
+L'intégrale stochastique est introduite en 1944 par Kiyosi Itō dans son article ``Stochastic Integral'' \cite{ito1944}. La subtilité de la définition d'un tel processus est le fait qu'on intègre contre le mouvement Brownien et que celui ci est nulle part différentiable. Ainsi la dérivée $\d W_s$ n'est pas définie au sens classique mais l'intégrale $\int_0^t X_s \d W_s$, elle, est bien définie au sens d'Itō.
 
-Dans son article, K. Itō introduit également un résultat célèbre en calcul stochastique maintenant connu sous le nom de la \textit{formule d'Itō}. Ce résultat est équivalent à la règle de la chaine dans le calcul d'Itō mais contient un terme suplémentaire résultat de la variation quadratique non nulle du mouvement Brownien.
+Dans son article, K. Itō introduit également un résultat célèbre en calcul stochastique maintenant connu sous le nom de la \textit{formule d'Itō}. Ce résultat est équivalent à la règle de la chaine dans le calcul d'Itō mais contient un terme suplémentaire, résultat de la variation quadratique non nulle du mouvement Brownien.
 
-Dans ce travail on s'interessera uniquement aux intégrales stochastiques du mouvement Brownien. {\color{red}Les résultats de cette section ont étés tirés de []}
+Dans ce travail on s'interessera uniquement aux intégrales stochastiques du mouvement Brownien. Les résultats de cette section ont étés tirés de \cite{russo} et \cite{fournier}%du cours de M1 de \textit{Calcul Stochastique} de Francesco Russo et le cours de M2 \textit{Révisions : Intégration et probabilités} de Nicolas Fournier}
 
 \begin{definition}[Intégrale stochastique et calcul d'Itō]
   Soit $(H_t)_{t \geq 0}$ un processus stochastique adapté à la filtration browniene et tel que $\forall t \geq 0, \; \E \left(\int_0^t H_s^2 \d s\right) < \infty$.
@@ -304,7 +299,7 @@ Dans ce travail on s'interessera uniquement aux intégrales stochastiques du mou
 \end{definition}
 
 
-\begin{prop} Soit $(H_t)_{t \geq 0}$ un processus stochastique adapté à la filtration  $\F_t$, et telle que $\int_0^t H_s^2\;\d s < \infty$. Si en plus $\E\left(\int_0^tH_s^2 \d s\right) < \infty$ alors le processus $(\int_0^t H_s \d W_s)_{t\geq 0}$ définit une martingale. 
+\begin{prop} Soit $(H_t)_{t \geq 0}$ un processus stochastique adapté à la filtration  $\F_t$, et tel que $\int_0^t H_s^2\;\d s < \infty$. Si en plus $\E\left(\int_0^tH_s^2 \d s\right) < \infty$ alors le processus $(\int_0^t H_s \d W_s)_{t\geq 0}$ définit une martingale. 
 \end{prop}
 
 \begin{remark}
@@ -314,13 +309,12 @@ Dans ce travail on s'interessera uniquement aux intégrales stochastiques du mou
 %La martingale est un objet très particulier en calcul stochastique puisqu'elle modélise un ``jeu équilibré''. Elle nous dit que la meilleure prédiction de ce processus au temps $t$ (futur) par rapport à tout ce qu'on sait juqu'au temps $s$ (passé), est notre processus au temps $s$ (présent).
 
 %Les processus stochastiques qu'on étudie sont souvent exprimés en fonction d'une martingale et d'un processus à variation finie. On appelle ce type de processus les \textit{processus d'Itō}.
-On s'interesse sutout aux processus suivant qui sont une légère généralisation des martingales présentées ci-dessus.
-\begin{definition}[Processus d'Itō] On appelle un $(\F_t)_{t\geq0}$ \textit{processus d'Itō} un processus $(X_t)_{t\geq0}$ tel que il existe $(H_t)_{t\geq0}$ et $(V_t)_{t\geq 0}$ un processus v.f satisfaisant p.s. :
+On s'interesse surtout aux processus suivants qui sont une légère généralisation des martingales présentées ci-dessus.
+\begin{definition}[Processus d'Itō] On appelle un $(\F_t)_{t\geq0}$ \textit{processus d'Itō} un processus $(X_t)_{t\geq0}$ tel qu'il existe deux processus, $(H_t)_{t\geq0}$ et $(V_t)_{t\geq 0}$, qui est en particulier v.f, qui satisfont p.s. :
   \begin{enumerate}
   \item $X_0$ est $\F_0$ mesurable,
   \item $(H_t)_{t\geq0}$ et $(V_t)_{t\geq0}$ sont $\F_t$ adaptés,
   \item $\forall t \geq 0$, $\int_0^t H_s^2\;\d s < \infty$ p.s,
-%  \item $\forall t \geq 0$, $\int_0^t K_s\;\d s < \infty$ p.s,
     \end{enumerate}
 
     Et tel que :
@@ -331,10 +325,9 @@ On s'interesse sutout aux processus suivant qui sont une légère généralisati
    Un processus ainsi défini est continu.
  \end{remark}
  
- \begin{prop}[Crochet d'un processus d'Itō] Soit $(X_t)_{t\geq0}$ un processus d'Itō. Son corchet est égal au crochet de la martingale qui le caractérise.
+ \begin{prop}[Crochet d'un processus d'Itō] Soit $(X_t)_{t\geq0}$ un processus d'Itō. Son crochet est égal au crochet de la martingale qui le caractérise.
    $$\forall t \in  \R^+ \quad\text{p.s.}\quad [X]_t = \left[\int_0^tH_s \;\d W_s\right]_t = \int_0^t H_s^2 \d s.$$
   \end{prop}
-  % Le mouvement Brownien et les martingales sont des processus stochastiques intimement liés, en effet, on pourrait définir une martingale comme un borwnien changé d'un temps et en voyant un
 
   \begin{theorem}[Formule d'Itō]
   Soit $f$ une fonction $\mathcal C^2$ et $(X_t)_{t\geq0}$ un processus d'Itō. Alors
@@ -343,7 +336,7 @@ On s'interesse sutout aux processus suivant qui sont une légère généralisati
   \end{equation}
   \end{theorem}
 
-\begin{prop}[Isométrie d'Itō] Soit $H$ un processus stochastique adapté à $\F_t$ et de carré intégrable. Alors, $\forall t \geq 0$,
+\begin{prop}[Isométrie d'Itō] Soit $H$ un processus stochastique adapté à $(\F_t)_{t\geq0}$ et de carré intégrable. Alors, $\forall t \geq 0$,
   \begin{equation}
     \E\left( \left(\int_0^t H_s \;\d W_s\right)^2\right) = \E\left( \int H_s^2 \d s\right).
   \end{equation}
@@ -356,9 +349,8 @@ On s'interesse sutout aux processus suivant qui sont une légère généralisati
 
 \section{Construction du temps local}\label{sec:ConstrTempsLoc}
 
-On doit le concept des temps locaux du mouvement Brownien à P. Lévy qui s’intéresse au fait de mesurer le temps que le mouvement Brownien passe sur un point. Cette théorie s'étend au moins dans trois directions
-\footnote{c.f. Chapter VI, Notes and Comments, Sec 1, Continuous Martingales and Brownian motion, Marc Yor \& Daniel Revuz.}.
-Celle qui nous interesse, introduite par Meyer après des travaux de Tanaka et de Miller, est une qui généralise le champ d'application de la formule d'Itō. On traitera uniquement le cas des temps locaux pour le mouvement Brownien mais les définitions et propriétés pour les processus d'Itō sont très similaires.\\
+On doit le concept des temps locaux du mouvement Brownien à P. Lévy qui s’intéresse au fait de mesurer le temps que le mouvement Brownien passe sur un point. Cette théorie s'étend au moins dans trois directions.
+Celle qui nous interesse est introduite par Meyer après des travaux de Tanaka et de Miller et généralise le champ d'application de la formule d'Itō. On traitera uniquement le cas des temps locaux pour le mouvement Brownien mais les définitions et propriétés pour les processus d'Itō sont très similaires. Cette introduction s'inspire de \cite{revuz-yor} et \cite{almostsure}.\\
 
 Le temps local du mouvement Brownien $L_t^x$, est un processus qui mesure la quantité de temps que le mouvement Browien standard $(W_t)_{t\geq0}$ passe au point $x$.
 La première approche la plus intuitive pour définir un tel processus, est de compter tous les temps $s$ tel que $W_s = x$ :
@@ -368,14 +360,14 @@ La première approche la plus intuitive pour définir un tel processus, est de c
    L^x_t= \int_0^t\1_{(W_s=x)}\;\d s.
   \end{equation}
 
- dit, comme on intègre par rapport à la mesure de Lebesgue, $\{W_s = x\}$ est de mesure nulle, donc cette intégrale sera toujours nulle. Une alternative est d'utiliser un Dirac en $W_s - x$ au lieu de l'indicatrice dans l'équation \eqref{eq:TmpsLocalDef1}, de cette manière, on garantit que la masse de notre fonction ne soit pas zéro.
+Ceci dit, comme on intègre par rapport à la mesure de Lebesgue, l'ensemble $\{W_s = x\}$ est de mesure nulle, donc cette intégrale sera toujours nulle. Une alternative est d'utiliser un Dirac en $W_s - x$ au lieu de l'indicatrice dans l'équation \eqref{eq:TmpsLocalDef1}, de cette manière, on garantit que la masse de notre fonction ne soit pas zéro.
 
 \begin{equation}
   \label{eq:TmpsLocalDef2}
   L^x_t= \int_0^t\delta(W_s-x)\d s.
 \end{equation}
 
-Malheureusement, le Dirac n'est pas une fonction mais une distribution, donc \eqref{eq:TmpsLocalDef2} n'est pas bien définie. Dans la littérature, on trouve une caractérisation du \textit{temps local} (c.f. \autoref{prop:caractTempsLoc}) qui correspond à l'équation \eqref{eq:TmpsLocalDef2}, mais avec une approximation du Dirac pour que l'intégrante soit une fonction et non pas une distribution. Dans ce travail, on utilisera une définition du temps local qui se base sur la fameuse formule de Tanaka :\\
+Malheureusement, le Dirac n'est pas une fonction mais une distribution, donc \eqref{eq:TmpsLocalDef2} n'est pas bien définie. Dans la littérature, on trouve une caractérisation du \textit{temps local} (c.f. \autoref{prop:caractTempsLoc}) qui correspond à l'équation \eqref{eq:TmpsLocalDef2}, mais avec une approximation du Dirac pour que l'intégrande soit une fonction et non pas une distribution. Dans ce travail, on utilisera une définition du temps local qui se base sur la fameuse \textit{formule de Tanaka}\\
 
 \begin{definition}[Temps local d'un mouvement Brownien]
   \label{def:TempsLoc}
@@ -402,12 +394,12 @@ Malheureusement, le Dirac n'est pas une fonction mais une distribution, donc \eq
                + \underbrace{\hypertarget{termI2}\int_0^t \dfrac{W_s-x}{((W_s-x)^2 +\varepsilon)^{1/2}}\d W_s}_{I_2^\varepsilon}
                + \underbrace{ \dfrac{1}{2} \hypertarget{termI3} \int_0^t \dfrac{\varepsilon}{((W_s-x)^2 +\varepsilon)^{3/2}} \d s}_{I_3^\varepsilon} \notag
   \end{align}
-  Montrons d'abord que \hyperlink{termI1}{$I_1^\varepsilon$}, \hyperlink{termI2}{$I_2^\varepsilon$} et \hyperlink{termI1}{$I_3^\varepsilon$} sont des processus finis p.s. et qu'ils convergent respectivement, en probabilité, vers la quantité voulues. Premièrement, par définition,
+  Montrons d'abord que \hyperlink{termI1}{$I_1^\varepsilon$}, \hyperlink{termI2}{$I_2^\varepsilon$} et \hyperlink{termI1}{$I_3^\varepsilon$} sont des processus finis p.s. et qu'ils convergent respectivement, en probabilité, vers la quantité voulue. Premièrement, par définition,
   \begin{equation}\text{\hyperlink{termI1}{$I_1^\varepsilon$}} \xrightarrow[\varepsilon \to 0]{p.s.}  |W_0 -x|.\end{equation}
-  \noindent Comme $W_0$ est une constante (arbitraire) finie, alors cette quantité est finie.\\
+  \noindent Comme $W_0$ est une constante finie, alors cette quantité est finie.\\
 
   
-  \noindent Ensuite, on veut que \hyperlink{termI1}{$I_2^\varepsilon$} tende vers $\int_0^t \sign(W_s-x)\d W_s$ lorsque $\varepsilon$ tend vers $0$. Pour cela, on utilise la convergence $L^2$. Pour faciliter la lecture, on définit les processus $\F_t$ mesurables :
+  \noindent Ensuite, on veut que \hyperlink{termI1}{$I_2^\varepsilon$} tende vers $\int_0^t \sign(W_s-x)\d W_s$ lorsque $\varepsilon$ tend vers $0$. Pour cela, on utilise la convergence $L^2$. Pour faciliter la lecture, on définit les processus $(\F_t)_{t\geq0}$ mesurables :
   $$M^\varepsilon_t = \int_0^t \dfrac{W_s-x}{((W_s-x)^2 +\varepsilon)^{1/2}}\d W_s \qquad\text{ et }\qquad M_t =  \int_0^t \sign(W_s -x)\d W_s.$$%\vspace{-4mm}
   On définit également la famille de fonctions $\F_t$-mesurables $(\varphi^\varepsilon)_{\varepsilon>0}$, définies sur $\R$ et à valeurs dans $\R^+$ comme :
   $$\varphi^\varepsilon : y \mapsto\dfrac{y-x}{((y-x)^2 +\varepsilon)^{1/2}} - \sign(y -x).$$
@@ -444,7 +436,7 @@ $$\E\left(\left(\int_0^t \varphi^\varepsilon(W_s) dW_s\right)^2\right) = \E\left
 \end{align*}
 
 
-\noindent Finalement, étant donné que $I_1^\varepsilon$ et $I_2^\varepsilon$ convergent en probabilité\footnote{On parle de convergence en probabilités puisque le terme \hyperlink{termI1}{$I_1^\varepsilon$} converge p.s. et le terme \hyperlink{termI2}{$I_2^\varepsilon$} converge en $L^2$ et on sait que la convergence p.s. ainsi que la convergence $L^2$ impliquent la convergence en probabilités.}, et que $f_\varepsilon(W_t)$ converge aussi en probabilité vers $|W_t - x|$, on conclut que $I_3^\varepsilon$ converge aussi en probabilité. On note $L_t^x$ sa limite, et on voit que
+\noindent Finalement, étant donné que \hyperlink{termI1}{$I_1^\varepsilon$} et \hyperlink{termI2}{$I_2^\varepsilon$} convergent en probabilité\footnote{On parle de convergence en probabilités puisque le terme \hyperlink{termI1}{$I_1^\varepsilon$} converge p.s. et le terme \hyperlink{termI2}{$I_2^\varepsilon$} converge en $L^2$ et on sait que la convergence p.s. ainsi que la convergence $L^2$ impliquent la convergence en probabilités.}, et que $f_\varepsilon(W_t)$ converge aussi en probabilité vers $|W_t - x|$, on conclut que \hyperlink{termI3}{$I_3^\varepsilon$} converge aussi en probabilité. On note $L_t^x$ sa limite, et on voit que
 \begin{equation}
   L_t^x = \lim_{\varepsilon \to 0}^{\P}I_3^\varepsilon = |W_t-x| - |W_0 - x| -  \int_0^t\sign(W_s -x)\d W_s.
   \label{eq:exprTempsLoc}
@@ -458,7 +450,7 @@ $$\E\left(\left(\int_0^t \varphi^\varepsilon(W_s) dW_s\right)^2\right) = \E\left
 %  d[M]_t &= 1 = d[W]_t
 %\end{align*}
 %On peut donc identifier le processus $M_t$ à un mouvement Brownien et donc en conclure son caractère continu.
-Comme tous les termes du membre de droite (RHS)\footnote{On désignera le membre de droite d'une équation $(*)$ par RHS \textit{(Right Hand Side)} de $(*)$. idem, on référera au membre de gauche d'une équation $(*)$ par LHS de $(*)$.} de l'équation \eqref{eq:exprTempsLoc} sont continus, pour tout $x \in \R$ le processus $(L_t^x)_{t\geq0}$ est, lui aussi, continu.
+Comme tous les termes du membre de droite (RHS)\footnote{On désignera le membre de droite d'une équation $(*)$ par RHS \textit{(Right Hand Side)} de $(*)$. idem, on se référera au membre de gauche d'une équation $(*)$ par LHS de $(*)$.} de l'équation \eqref{eq:exprTempsLoc} sont continus, pour tout $x \in \R$ le processus $(L_t^x)_{t\geq0}$ est, lui aussi, continu.
 
 \paragraph{Croissance} Montrons que p.s., pour tout $0 \leq \tilde t \leq t, \; L_t^x - L_{\tilde t}^x \geq 0$. Soit $x \in \R$.
 
@@ -479,7 +471,7 @@ i.e., p.s., $t \mapsto L_t^x$ est croissant.
 %Comme la convergence est en probabilités, on peut trouver une sous suite convergente $\varepsilon_n \searrow 0$ telle que
 %$$\dfrac{1}{2}\int_{\tilde t}^t \dfrac{\varepsilon_n}{\left((W_s-x)^2 + \varepsilon_n \right)} \d s \xrightarrow[n \to \infty]{\text{p.s.}} L_t^x - L_{\tilde t}^x.$$
 %
-%Ici, l'intégrante est continue et positive. Autrement dit, $\P(L_t^x - L_{\tilde t}^x \geq 0) = 1$.
+%Ici, l'intégrande est continue et positive. Autrement dit, $\P(L_t^x - L_{\tilde t}^x \geq 0) = 1$.
 %
 %
 %Soient $(t^+_n)_{n\in \mathbb N}$ et $(t^-_n)_{n\in \mathbb N}$ deux suites dans $\mathbb Q^+$ telles que $t^+_n \searrow t$ et $t^-_n \nearrow \tilde t$.
@@ -512,8 +504,7 @@ Les temps locaux sont des processus \textit{positifs} et à \textit{variation fi
 \end{prop}
 
 \begin{proof}
-  On s
-  ait que : $(x)_+ := \max(x, 0)$. Et $\max(x,y) = \dfrac{|x-y| + (x+y)}{2}$.
+  On sait que : $(x)_+ := \max(x, 0)$. Et $\max(x,y) = \dfrac{|x-y| + (x+y)}{2}$.
   Ainsi, on a : $$(W_t - x)_+ = \dfrac{|W_t - x| + (W_t - x)}{2}.$$
   D'après la \autoref{def:TempsLoc}, on peut écrire :
   \begin{align*}
@@ -546,8 +537,8 @@ Soit $L$ la fonction des temps locaux du mouvement Brownien (standard). Pour tou
     \indent Considérons également le processus $(Y_t)_{t\geq0}$, défini p.s. pour tout $t\geq0$ par $Y_t = |W_t-x|$.
     \begin{alignat*}{2}
      && Y_t^2 &\overset{\text{Itō}}{=} Y_0^2 + \int_0^t 2Y_s dY_s + \dfrac{1}{2} \int_0^t 2 d[Y]_s,  \tag{2.7}\refstepcounter{equation}\label{eq:proofPrpFondLocTime2} \\
-     \text{Par définition}&&\qquad Y_t &= Y_0 + \int_0^t \sign(W_s -x) \d W_s + L_t^x(W)\quad\text{p.s.}\\
-      \text{Ce qui nous indique que}&&\qquad dY_s &=  \sign(W_s -x) \d W_s + dL_s^x(W) \quad\text{p.s.},\qquad\qquad\qquad\quad\\
+     \text{Par définition}&&\qquad Y_t &= Y_0 + \int_0^t \sign(W_s -x) \d W_s + L_t^x(W),\quad\qquad\\
+      \text{Ce qui nous indique que}&&\qquad dY_s &=  \sign(W_s -x) \d W_s + dL_s^x(W),\qquad\qquad\qquad\qquad\quad\\
      \text{Ainsi que}&& [Y]_t &= \int_0^t \left(\sign(W_s-x)\right)^2 \d s = t \quad\text{p.s.}\\
     \end{alignat*}
     \begin{remark}Cette dernière ligne nous dit que la v.a. $Y_t$ est, elle aussi, un mouvement Brownien.
@@ -564,7 +555,7 @@ Soit $L$ la fonction des temps locaux du mouvement Brownien (standard). Pour tou
 
 
   \begin{prop}[Continuité Hölderienne]
-    On peut trouver une modification bicontinue de la fonction temps local d'un mouvement Brownien $L_t^x(W)$ qui est Hölder $\frac{1}{2}-$ en espace (i.e. par rapport à la variable $x$). C'est à dire que que pour tout $x, y \in\R^2$, et pour tout $0\leq t \leq T$, il existe une constante $C_{\alpha,T} \in \R$, où $\alpha < \frac{1}{2}$, telle que $|L_t^x - L_t^y|\leq C_{\alpha,T}|x - y|^\alpha$.
+    On peut trouver une modification bicontinue de la fonction temps local d'un mouvement Brownien $L_t^x(W)$ qui est Hölder $\frac{1}{2}-$ en espace (i.e. par rapport à la variable $x$). C'est à dire que pour tout $x, y \in\R^2$, et pour tout $0\leq t \leq T$, il existe une constante $C_{\alpha,T} \in \R$, où $\alpha < \frac{1}{2}$, telle que $|L_t^x - L_t^y|\leq C_{\alpha,T}|x - y|^\alpha$.
   \end{prop}
   \begin{proof}
     Admise.
@@ -587,7 +578,7 @@ Soit $L$ la fonction des temps locaux du mouvement Brownien (standard). Pour tou
 \end{theorem}
 
 \begin{remark}
-  Il suffit que $\varphi$ soit une fonction borélienne non négative.
+  Il suffit que $\varphi$ soit une fonction borélienne positive.
   \end{remark}
 
 \begin{proof}
@@ -606,7 +597,7 @@ Soit $L$ la fonction des temps locaux du mouvement Brownien (standard). Pour tou
     Montrons maintenant que $\forall \varphi \in \mathcal C_c$, p.s. $\forall t \geq 0$, \refocc\; est vraie, i.e., $\forall \varphi \in \mathcal C_c,$ \\$\P\left(\cap_{t\geq0}\text{\refocc}\right)=1.$
     \begin{alignat*}{2}
       \forall \varphi \in \mathcal C_c,\; \forall t \in \R^+, \quad && \P\left(\text{\refocc}\right)&=1.\\
-      \Rightarrow \quad \forall \varphi \in \mathcal C_c,\quad && \P\left(\bigcap_{t\in\Q^+}\text{\refocc}\right)&=1.
+      \text{Donc} \quad \forall \varphi \in \mathcal C_c,\quad && \P\left(\bigcap_{t\in\Q^+}\text{\refocc}\right)&=1.
       \shortintertext{Par continuité de \refocc\ (c.f. \refcontocc); en $t$, et par densité de $\Q^+$ dans $\R^+$, on obtient :}
       \forall \varphi \in \mathcal C_c,\quad && \P\left(\bigcap_{t\in\R^+}\text{\refocc}\right)&=1.
     \end{alignat*}
@@ -627,12 +618,13 @@ Soit $L$ la fonction des temps locaux du mouvement Brownien (standard). Pour tou
     Posons maintenant $F_R(t) = \int_\R \varphi(a) L_t^a da$. De la même manière, on prend $t, \tilde{t} \geq 0$ tels que $t \geq \tilde{t}$. Et on regarde la différence de $F_R(t)$ et $F_R(\tilde{t})$ en valeur absolue.
     \begin{align*}
       |F_R(t) - F_R(\tilde{t})| &= \left|\int_\R \varphi(a) (L_t^a - L_{\tilde{t}}^a) da\right|\\
-%                               &\leq \int_\R |\varphi(a)|\; |L_t^a - L_{\tilde{t}}^a|da.\\
-                                & \leq ||\varphi||_\infty\; \int_{\R^+} |L_t^a - L_{\tilde t}^a|\;da
+      \shortintertext{{\color{red}supp compact de phi}}
+                                &\leq \int_{-m}^m |\varphi(a)|\; |L_t^a - L_{\tilde{t}}^a|da.\\
+                                & \leq ||\varphi||_\infty\; \int_{-m}^m |L_t^a - L_{\tilde t}^a|\;da
 \end{align*}
 La fonction des temps locaux $L_t$ est à support compact par rapport à la variable d'espace. On peut donc intégrer sur un intervalle fini $[c_1, c_2]$. De plus, pour tout $a \in \R$, $L_t$ est p.s. majorée par $t$. Ainsi, par convergence dominée, on peut dire que :
 \begin{align*}
-  \lim_{\tilde t \to t}|F_R(t) - F_R(\tilde{t})| &\leq \lim_{\tilde t \to t} ||\varphi||_\infty\; \int_{c_1}^{c_2} |L_t^a - L_{\tilde t}^a | da \\
+  \lim_{\tilde t \to t}|F_R(t) - F_R(\tilde{t})| %&\leq \lim_{\tilde t \to t} ||\varphi||_\infty\; \int_{c_1}^{c_2} |L_t^a - L_{\tilde t}^a | da \\
                                                &= ||\varphi||_\infty\;\int_{c_1}^{c_2} \lim_{\tilde t \to t} |L_t^a - L_{\tilde t}^a | da
     \end{align*}
 
@@ -749,9 +741,9 @@ Maintenant qu'on sait ce que c'est un Bessel, notre but est de savoir quelle EDS
 \section{Cas $\delta = 0$}
 \section{Cas $\delta \in (0,2)$}
 
-\paragraph{Discussion}Remarquons tout d'abord que même si $\sqrt{.}$ n'est pas $\mathcal C^2$, on peut l'approximer par la fonction $\sqrt{.+\varepsilon}$, qui, est $\mathcal C^2$. Soit $f(Z_t) = \sqrt{Z_t + \varepsilon}$. En dérivant par rapport à $Z_t$ on obtient : $$f'(Z_t) = \dfrac{1}{2} (Z_t + \varepsilon)^{-1/2},\quad f''(Z_t) = -\dfrac{1}{4} (Z_t + \varepsilon)^{-3/2}.$$ 
+\paragraph{Discussion}Remarquons tout d'abord que même si $\sqrt{.}$ n'est pas $\mathcal C^2$, on peut l'approximer par la fonction $\sqrt{.+\varepsilon}$, qui, est $\mathcal C^2$. Soit $f$ une fonction qui à $y \in \R$ associe $f(y) = \sqrt{y + \varepsilon}$. En dérivant par rapport à $y$ on obtient : $$f'(y) = \dfrac{1}{2} (y + \varepsilon)^{-1/2},\quad f''(y) = -\dfrac{1}{4} (y + \varepsilon)^{-3/2}.$$ 
 
-\noindent Ainsi, par la formule d'Itō, on obtient :
+\noindent Ainsi en appliquant $f$ au carré de Bessel $(Z_t)_{t\geq0}$ et par la formule d'Itō, on obtient :
 %
 
 \begin{alignat*}{2}
@@ -763,13 +755,14 @@ Maintenant qu'on sait ce que c'est un Bessel, notre but est de savoir quelle EDS
 \end{alignat*}
 
 Maintenant qu'on a une expression de $f(Z_t)$, nous pouvons remplacer $Z_t$ par $\rho_t^2$.
+\phantomsection
 \begin{equation}
-  (\rho_t^2 + \varepsilon)^{1/2} = \underbrace{\hypertarget{term1}(\rho_0^2 + \varepsilon)^{1/2}}_{(1)}
-  + \underbrace{\hypertarget{term2}\int_0^t  \dfrac{\rho_s}{(\rho_s^2 + \varepsilon)^{1/2}}\d W_s}_{(2)}
-  +  \underbrace{ \dfrac{1}{2} \hypertarget{term3} \int_0^t \left(\dfrac{\delta}{(\rho_s^2 + \varepsilon)^{1/2}} - \dfrac{\rho_s^2}{(\rho_s^2 + \varepsilon)^{3/2}}\right)\d s}_{(3)},
+  (\rho_t^2 + \varepsilon)^{1/2} = \underbrace{\hypertarget{term1}(\rho_0^2 + \varepsilon)^{1/2}}_{J_1^\varepsilon}
+  + \underbrace{\hypertarget{term2}\int_0^t  \dfrac{\rho_s}{(\rho_s^2 + \varepsilon)^{1/2}}\d W_s}_{J_2^\varepsilon}
+  +  \underbrace{ \dfrac{1}{2} \hypertarget{term3} \int_0^t \left(\dfrac{\delta}{(\rho_s^2 + \varepsilon)^{1/2}} - \dfrac{\rho_s^2}{(\rho_s^2 + \varepsilon)^{3/2}}\right)\d s}_{J_3^\varepsilon},
   \label{eq:ApproxEDSBessel}
 \end{equation}
-Le problème ici, c'est qu'on rencontre une singularité en zéro et ce n'est pas clair que les intégrales \hyperlink{term1}{(1)} et \hyperlink{term3}{(3)} convergent. De l'autre côté, $\lim_{\varepsilon \to 0} \sqrt{Z_t + \varepsilon} = \sqrt{Z_t}$, lui, est bien défini.
+Le problème ici, c'est qu'on rencontre une singularité en zéro et ce n'est pas clair que les intégrales \hyperlink{term1}{$J_1^\varepsilon$} et \hyperlink{term3}{$J_3^\varepsilon$} convergent. De l'autre côté, $\lim_{\varepsilon \to 0} \sqrt{Z_t + \varepsilon} = \sqrt{Z_t}$, lui, est bien défini.
 
 Pour montrer le caractère fini de tous les termes de \eqref{eq:ApproxEDSBessel}, énonçons d'abord la formule d'occupation pour les processus de Bessel.
 
@@ -792,9 +785,9 @@ $$
 \end{proof}
 %%%%%% FIN
 
-L'intégrale $\text{\hyperlink{term3}{(3)}}$ est donc égale à :
+L'intégrale \hyperlink{term3}{$J_3^\varepsilon$} est donc égale à :
 \begin{alignat*}{2}
-  \text{\hyperlink{term3}{(3)}} %: \dfrac{1}{2} \int_0^t \dfrac{\delta}{(\rho_s^2 + \varepsilon)^{1/2}} + \dfrac{\rho_s^2}{(\rho_s^2 + \varepsilon)^{3/2}}\d s
+  \text{\hyperlink{term3}{$J_3^\varepsilon$}} %: \dfrac{1}{2} \int_0^t \dfrac{\delta}{(\rho_s^2 + \varepsilon)^{1/2}} + \dfrac{\rho_s^2}{(\rho_s^2 + \varepsilon)^{3/2}}\d s
   &= \dfrac{1}{2(2 - \delta)}\int_{\R^+} \left(\dfrac{1}{2} \int_0^t \dfrac{\delta}{(a^2 + \varepsilon)^{1/2}} + \dfrac{a^2}{(a^2 + \varepsilon)^{3/2}}\right) \ell_t^a(\rho) a^{\delta-1}da,\\
   &= \dfrac{1}{2(2 - \delta)}\int_{\R^+} \ell_t^a(\rho) \left(\dfrac{\delta\;a^{\delta - 1}}{(a^2 + \varepsilon)^{1/2}} + \dfrac{a^{\delta + 1}}{(a^2 + \varepsilon)^{3/2}}\right) da,
     \shortintertext{Comme le temps local est une fonction de $\rho$ continue à support compact, il existe deux réels $\alpha$ et $\beta$, $\alpha \leq \beta$, tels que $\supp(\ell_t^a(\rho)) \subset [\alpha, \beta]$.}
@@ -804,7 +797,7 @@ L'intégrale $\text{\hyperlink{term3}{(3)}}$ est donc égale à :
   &\leq \dfrac{1}{2(2 - \delta)} ||\ell_t(\rho)||_\infty (\beta - \alpha)\; \left[\dfrac{a^\delta}{(a^2 + \varepsilon)^{1/2}}\right]_\alpha^\beta < \infty.
 \end{alignat*}
 
-\noindent Il est clair que $\text{\hyperlink{term1}{(1)}} = (\rho_0^2 + \varepsilon)^{1/2} \xrightarrow[\varepsilon \to 0]{} |\rho_0| = \rho_0 < \infty$ et que $(\rho_t^2 + \varepsilon)^{1/2} \xrightarrow[\varepsilon \to 0]{} |\rho_t| = \rho_t < \infty$. En écrivant $\text{\hyperlink{term2}{(2)}}$ en fonction de $\rho_t$, $\text{\hyperlink{term1}{(1)}}$ et $\text{\hyperlink{term3}{(3)}}$ on voit bien le caractère fini de $\text{\hyperlink{term2}{(2)}}$. Ainsi, tous les termes de \eqref{eq:ApproxEDSBessel} sont finis.
+\noindent Il est clair que $\text{\hyperlink{term1}{$J_1^\varepsilon$}} = (\rho_0^2 + \varepsilon)^{1/2} \xrightarrow[\varepsilon \to 0]{} |\rho_0| = \rho_0 < \infty$ et que $(\rho_t^2 + \varepsilon)^{1/2} \xrightarrow[\varepsilon \to 0]{} |\rho_t| = \rho_t < \infty$. En écrivant {\hyperlink{term2}{$J_2^\varepsilon$} en fonction de $\rho_t$, \hyperlink{term1}{$J_1^\varepsilon$} et \hyperlink{term3}{$J_3^\varepsilon$} on voit bien le caractère fini de \hyperlink{term2}{$J_2^\varepsilon$}. Ainsi, tous les termes de \eqref{eq:ApproxEDSBessel} sont finis.
 
 Ainsi, on peut dire que :
 \begin{equation}
@@ -846,18 +839,17 @@ Ainsi, on peut dire que :
   \item{$\delta \in (0,1)$.}
   On veut montrer que
   \begin{align*}
-    \text{\hyperlink{term1}{(1)}} &: \int_0^t \dfrac{\rho_s}{\left(\rho_s^2 + 1/n\right)^{1/2}} \d W_s \xrightarrow[n \to \infty]{L^2} W_t\\
-    \text{et que}\quad \text{\hyperlink{term2}{(2)}} &: \dfrac{1}{2} \int_0^t \left(\dfrac{\delta}{(\rho_s^2 + 1/n)^{1/2}} - \dfrac{\rho_s^2}{(\rho_s^2 + 1/n)^{3/2}}\right)\d s \xrightarrow[n\to \infty]{\text{p.s.}} \dfrac{\delta-1}{2(2-\delta)} \int_{\R_+} \dfrac{\ell_t^a- \ell_t^0}{a}a^{\delta-1} \;da.
+    \text{\hyperlink{term1}{$J_1^\varepsilon$}} &: \int_0^t \dfrac{\rho_s}{\left(\rho_s^2 + 1/n\right)^{1/2}} \d W_s \xrightarrow[n \to \infty]{L^2} W_t\\
+    \text{et que}\quad \text{\hyperlink{term2}{$J_2^\varepsilon$}} &: \dfrac{1}{2} \int_0^t \left(\dfrac{\delta}{(\rho_s^2 + 1/n)^{1/2}} - \dfrac{\rho_s^2}{(\rho_s^2 + 1/n)^{3/2}}\right)\d s \xrightarrow[n\to \infty]{\text{p.s.}} \dfrac{\delta-1}{2(2-\delta)} \int_{\R_+} \dfrac{\ell_t^a- \ell_t^0}{a}a^{\delta-1} \;da.
   \end{align*}
     
-
   \noindent Le premier point se fait par convergence monotone et par convergence dominée. 
   \begin{align*}
     \E\left(\left(W_t - \int_0^t \dfrac{\rho_s}{\left(\rho_s^2 + \frac{1}{n}\right)^{1/2}} \d W_s\right)^2\right) &= \E\left( \left( \int_0^t 1 - \dfrac{\rho_s}{\left(\rho_s^2 + \frac{1}{n}\right)^{1/2}} \d W_s \right)^2\right),\\
       &\overset{\text{Isométrie}}{=} \E \left(\int_0^t \left(1 - \dfrac{\rho_s}{\left(\rho_s^2 + \frac{1}{n}\right)^{1/2}}\right)^2 \d s \right),
       \shortintertext{Par inégalité triangulaire, $\Big|\;1 - \dfrac{\rho_s}{\left(\rho_s^2 + \frac{1}{n}\right)^{1/2}}\;\Big| \leq 2$. Ainsi, on peut voir que :}
       \int_0^t \left(1 - \dfrac{\rho_s}{\left(\rho_s^2 + \frac{1}{n}\right)^{1/2}}\right)^2 \d s &\leq \int_0^t 4 \;\d s = 4t.
-      \shortintertext{Comme $4t$ est intégrable, l'esperance $\E \left(\int_0^t \left(1 - \dfrac{\rho_s}{\left(\rho_s^2 + \frac{1}{n}\right)^{1/2}}\right)^2 \d s \right)$ est bien finie.}
+      \shortintertext{Comme $4t$ est intégrable, l'espérance $\E \left(\int_0^t \left(1 - \dfrac{\rho_s}{\left(\rho_s^2 + \frac{1}{n}\right)^{1/2}}\right)^2 \d s \right)$ est bien finie.}
       \shortintertext{De plus, on sait que la fonction $\dfrac{\rho_s}{\left(\rho_s^2 + \frac{1}{n}\right)^{1/2}}$ est croissante p.s par rapport à $n$ et converge p.s. vers $1$. Par convergence monotone on peut dire que : }
       \lim_{n \to \infty} \int_0^t \left(1 - \dfrac{\rho_s}{\left(\rho_s^2 + \frac{1}{n}\right)^{1/2}}\right)^2 \d s &=  \int_0^t \lim_{n \to \infty} \left(1 - \dfrac{\rho_s}{\left(\rho_s^2 + \frac{1}{n}\right)^{1/2}}\right)^2 \d s = 0.
       \intertext{Ce qui conclut la convergence $L^2$.}
@@ -865,7 +857,7 @@ Ainsi, on peut dire que :
   
   Ensuite, pour le deuxième point, on commence par utiliser la formule d'occupation pour les processus de Bessel :
     \begin{align*}
-      \text{\hyperlink{term3}{(3)}}:&\;\dfrac{1}{2} \int_0^t \left(\dfrac{\delta}{(\rho_s^2 + \frac{1}{n})^{1/2}} - \dfrac{\rho_s^2}{(\rho_s^2 + \frac{1}{n})^{3/2}}\right)\d s\\
+      \text{\hyperlink{term3}{$J_3^\varepsilon$}}:&\;\dfrac{1}{2} \int_0^t \left(\dfrac{\delta}{(\rho_s^2 + \frac{1}{n})^{1/2}} - \dfrac{\rho_s^2}{(\rho_s^2 + \frac{1}{n})^{3/2}}\right)\d s\\
           &= \dfrac{1}{2(2-\delta)} \int_{\R^+} \left(\dfrac{\delta}{(a^2 + \frac{1}{n})^{1/2}} - \dfrac{a^2}{(a^2 + \frac{1}{n})^{3/2}}\right)a^{\delta -1}\ell_t^a\; da
             \shortintertext{en ajoutant et en retranchant $\ell_t^0$, on obtient :}
           &= \dfrac{1}{2(2-\delta)} \int_{\R^+} \dfrac{(\delta-1)a^2 + \frac{\delta}{n}}{(a^2 + \frac{1}{n})^{3/2}}a^{\delta -1} (\ell_t^a - \ell_t^0) \; da \\&\quad+ \dfrac{\ell_t^0}{2(2-\delta)} \int_{\R^+} \left(\dfrac{\delta}{(a^2 + \frac{1}{n})^{1/2}} - \dfrac{a^2}{(a^2 + \frac{1}{n})^{3/2}}\right)a^{\delta -1}\\
@@ -873,7 +865,7 @@ Ainsi, on peut dire que :
             + \underbrace{\hypertarget{term2.2} \dfrac{1}{2(2-\delta)} \int_{\R^+} \dfrac{\delta a^{\delta -1}}{n (a^2 + \frac{1}{n})^{3/2}} (\ell_t^a - \ell_t^0) \; da}_{(2.2)} \\
           &\quad + \underbrace{ \hypertarget{term2.3} \dfrac{\ell_t^0}{2(2-\delta)} \int_{\R^+} \left(\dfrac{\delta a^{\delta -1}}{(a^2 + \frac{1}{n})^{1/2}} - \dfrac{a^{\delta + 1}}{(a^2 + \frac{1}{n})^{3/2}}\right) \; da}_{(2.3)}.
     \end{align*}
-    Regardons d'abord l'intégrale \hyperlink{term2.3}{(2.3)}. On a vu précedemment que c'était une IPP. On a donc :
+    Regardons d'abord l'intégrale \hyperlink{term2.3}{(2.3)}. On a vu précédemment que c'était une IPP. On a donc :
     \begin{align*}
       \text{\hyperlink{term2.3}{(2.3)}} &= \dfrac{\ell_t^0}{2(2-\delta)} \left[ \dfrac{a^{\delta}}{(a^2 +\frac{1}{n})^{1/2}}\right]_{\R^+}.
       \shortintertext{Comme $\delta \in (0,1)$, il s'en suit que : }
@@ -919,9 +911,9 @@ Ainsi, on peut dire que :
     Enfin, par le critère de Riemann, cette intégrale converge et en faisant tendre $n$ vers l'infini on obtient que $\text{\hyperlink{term2.2.1}{(2.2.1)}} \xrightarrow[n \to \infty]{} 0$. Ainsi, $\text{\hyperlink{term2.2}{(2.2)}} \xrightarrow[n \to \infty]{} 0$ et on a :
 
     \begin{align*}
-      \text{\hyperlink{term3}{(3)}} &= \dfrac{\delta -1}{2(2-\delta)} \int_{\R^+} \dfrac{a^{\delta+1}}{(a^2 + \frac{1}{n})^{3/2}}(\ell_t^a - \ell_t^0) da\\
+      \text{\hyperlink{term3}{$J_3^\varepsilon$}} &= \dfrac{\delta -1}{2(2-\delta)} \int_{\R^+} \dfrac{a^{\delta+1}}{(a^2 + \frac{1}{n})^{3/2}}(\ell_t^a - \ell_t^0) da\\
       \intertext{En faisant tendre $n$ vers l'inifini on obtient le résultat :}
-     \text{\hyperlink{term3}{(3)}} &\xrightarrow[n \to \infty]{} \dfrac{\delta -1}{2(2-\delta)} \int_{\R^+} a^{\delta-2}(\ell_t^a - \ell_t^0) da.
+     \text{\hyperlink{term3}{$J_3^\varepsilon$}} &\xrightarrow[n \to \infty]{} \dfrac{\delta -1}{2(2-\delta)} \int_{\R^+} a^{\delta-2}(\ell_t^a - \ell_t^0) da.
     \end{align*}
     
   \item{$\delta = 1$}
@@ -954,5 +946,8 @@ Maintenant qu'on sait qu'elle converge, on peut montrer que \eqref{eq:EDSBessel1
   &= \underbrace{\rho_0^2}_y + \int_0^t2 \rho_s \left(\dfrac{\delta -1}{2}\d s + dB_s\right) +\int_0^t \d s,\\
   Z_t &= y + \delta t + 2\int_0^t \sqrt{Z_s} dB_s.
 \end{alignat*}
+
+\bibliographystyle{IEEetran}
+\bibliography{Bib}
 
 \end{document}
