@@ -136,6 +136,27 @@
 \let\cleardoublepage\relax
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter*{Introduction}
+% motivation
+Ce travail a été motivé principalement par l'équation différentielle stochastique (EDS) de Keller Segel, qui modélise un système de particules stochastiques en interaction singulière.
+% applications
+Une des applications les plus étudiées, est le système de chimiotaxie\footnote{La chimiotaxie est le phénomène par lequel des cellules ou des particules orientent leur déplacement en réponse à la présence de certaines substances chimiques dans leur environnement qui souvant est émise par ces mêmes cellules. \cite[wikiChimioaxie].} de la bactérie \textit{Escherichia coli}. Celle-ci se déplace grâce à des flagelles\footnote{Les flagelles sont de longs appendices filiformes, constitués principalement de protéines, situés à la surface de certaines cellules. Ils assurent la motilité cellulaire.} attachés à leur corps. L'étude de ce phénomène commence en 1953 dans des travaux de C.S. Patlak. En 1970, Evelyn Fox Keller et Lee A. Segel présentent un système de quatres équations différentielles paraboliques qui décrivent ces mouvements.\\
+
+
+L'idée de l'équation de Keller-Segel est de décrire la position en temps $t\in \R^+$ d'une particule en interaction avec $N-1$ particules. Ces particules exercent les unes sur les autres une force d’attraction d’intensité variable. On appelle \textit{diffusion} le terme qui décrit les mouvements ``aléatoires'' d'une particule et \textit{drift} le terme qui décrit les mouvements liés à l'attraction d'une particule par rapport aux autres. Si l'intensité d'attraction est faible, alors il existe une solution globale de l'équation, tandis que si l'intensité d'attraction est forte, la solution explose puisque on trouve une singularité aux points de collision. 
+
+% problématique
+Une des questions qu'on peut se poser est, comment le terme du \textit{drift} se comporte-t-il lorsque l’on considère une grande population de particules, c'est-à-dire, existe-t-il une limite lorsque $N \to \infty$ ? Plus précisément, peut-on définir un \textit{drift} lorsqu'on visite une infinité de fois les points de singularité (i.e. de collisions), et comment influence-t-il le comportement global du système ?
+
+% lien avec les Bessel
+Comprendre le comportement du \textit{drift} dans l'équation de Keller–Segel lorsqu’on visite une infinité de fois les points de collision revient à l'étudier dans une autre équation : celle qui définit les \textit{processus de Bessel}. 
+
+Le but de ce stage et donc de faire sens de l'équation qui définit les \textit{processus de Bessel} lorsqu'on visite une infinité de fois le point de singularité. Pour cela, on définira les \textit{temps locaux} et on passera par de grands résultats du calcul stochastique comme la \textit{formule d'occupation}.
+
+\paragraph{Mots-clés :}Mouvement brownien, intégrale stochastique, temps locaux, carré de Bessel, processus de Bessel.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Rappels de probabilités et premières définitions}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
