@@ -133,29 +133,42 @@
 \clearpage
 \pagenumbering{arabic} % recommence à 1
 \setcounter{page}{1}
-\let\cleardoublepage\relax
+%\let\cleardoublepage\relax
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+{\let\clearpage\relax
+  
+  \section*{Abstract}
+  Dans ce travail on cherche à définir les $\delta$-processus de Bessel pour $\delta \in (0,1)$. La difficulté repose sur le fait que un tel processus vérifie une EDS dont le point singulier est récurrent, c'est-à-dire qu'il est visité une infinité de fois. Ceci-dit, les processus de Bessel sont des processus stochastiques finis presque sûrement. Il y a donc un terme qui régularise l'\textit{intégrale stochastique} de l'EDS, qui autrement diverge. C’est précisément ce terme, la différence de deux \textit{temps locaux}, qui, de manière surprenante, rend possible la convergence de l’\textit{intégrale stochastique}.
+  
 \chapter*{Introduction}
-% motivation
-Ce travail a été motivé principalement par l'équation différentielle stochastique (EDS) de Keller Segel, qui modélise un système de particules stochastiques en interaction singulière.
-% applications
-Une des applications les plus étudiées, est le système de chimiotaxie\footnote{La chimiotaxie est le phénomène par lequel des cellules ou des particules orientent leur déplacement en réponse à la présence de certaines substances chimiques dans leur environnement qui souvant est émise par ces mêmes cellules. \cite[wikiChimioaxie].} de la bactérie \textit{Escherichia coli}. Celle-ci se déplace grâce à des flagelles\footnote{Les flagelles sont de longs appendices filiformes, constitués principalement de protéines, situés à la surface de certaines cellules. Ils assurent la motilité cellulaire.} attachés à leur corps. L'étude de ce phénomène commence en 1953 dans des travaux de C.S. Patlak. En 1970, Evelyn Fox Keller et Lee A. Segel présentent un système de quatres équations différentielles paraboliques qui décrivent ces mouvements.\\
+
+Ce travail est motivé par l’équation différentielle stochastique (EDS) de Keller--Segel, qui décrit le mouvement de particules par chimiotaxie. La chimiotaxie est un processus par lequel les particules orientent leur déplacement selon la présence de certaines substances chimiques dans leur environnement. Souvent, ces substances sont émises par les particules elles-mêmes et les attirent ou les repoussent.
+
+Un exemple d'application de l'équation de Keller-Segel est d'étudier le mouvement de la bactérie \textit{Escherichia Coli} qui se déplace grâce à des flagelles\footnote{Les flagelles sont de longs appendices filiformes, constitués principalement de protéines, situés à la surface de certaines cellules. Ils assurent la motilité cellulaire.} attachés à son corps. La compréhension du mouvement individuel de cette bactérie peut nous aider à comprendre le comportement collectif. Dans ce cas, il se manifeste par des créations d'agrégats, par l'apparition de motifs spiraux ainsi que par des phénomènes de dispertion ou de concentration de colonies.
+
+L’idée de l’EDS de Keller-Segel est de décrire la position d’une particule au temps $t \in \R_+$ en interaction avec $N-1$ autres particules. Ces particules exercent les unes sur les autres une force d’attraction d’intensité variable. On appelle \emph{diffusion} le terme qui décrit les mouvements aléatoires d’une particule, et \emph{drift} le terme qui décrit les mouvements liés à l’attraction d’une particule par rapport aux autres. Si l’intensité d’attraction est faible, alors il existe une solution globale de l’équation, tandis que si l’intensité d’attraction est forte, la solution explose puisqu’on rencontre une singularité aux points de collision.\\
 
 
-L'idée de l'équation de Keller-Segel est de décrire la position en temps $t\in \R^+$ d'une particule en interaction avec $N-1$ particules. Ces particules exercent les unes sur les autres une force d’attraction d’intensité variable. On appelle \textit{diffusion} le terme qui décrit les mouvements ``aléatoires'' d'une particule et \textit{drift} le terme qui décrit les mouvements liés à l'attraction d'une particule par rapport aux autres. Si l'intensité d'attraction est faible, alors il existe une solution globale de l'équation, tandis que si l'intensité d'attraction est forte, la solution explose puisque on trouve une singularité aux points de collision. 
+Une question naturelle est de savoir comment le terme du drift se comporte lorsque l’on considère une grande population de particules. Autrement dit, existe-t-il une limite lorsque $N \to \infty$ ? Plus précisément, peut-on définir un drift lorsqu’on visite une infinité de fois les points de singularité (c’est-à-dire de collision), et comment cela influence-t-il le comportement global du système ?
 
-% problématique
-Une des questions qu'on peut se poser est, comment le terme du \textit{drift} se comporte-t-il lorsque l’on considère une grande population de particules, c'est-à-dire, existe-t-il une limite lorsque $N \to \infty$ ? Plus précisément, peut-on définir un \textit{drift} lorsqu'on visite une infinité de fois les points de singularité (i.e. de collisions), et comment influence-t-il le comportement global du système ?
+Comprendre le comportement du drift dans l’équation de Keller--Segel lorsqu’on visite une infinité de fois les points de collision revient à l’étudier dans une autre équation : celle qui définit les processus de Bessel en dimension $\delta \in (0,1)$. La particularité des processus de Bessel est qu’ils sont définis pour tout $\delta \geq 0$, qu’ils admettent une singularité en zéro, et que pour $\delta \in (0,1)$ ce point est visité une infinité de fois presque sûrement. C’est pourquoi on peut se ramener à l’étude du drift pour les processus de Bessel.\\
 
-% lien avec les Bessel
-Comprendre le comportement du \textit{drift} dans l'équation de Keller–Segel lorsqu’on visite une infinité de fois les points de collision revient à l'étudier dans une autre équation : celle qui définit les \textit{processus de Bessel}. 
 
-Le but de ce stage et donc de faire sens de l'équation qui définit les \textit{processus de Bessel} lorsqu'on visite une infinité de fois le point de singularité. Pour cela, on définira les \textit{temps locaux} et on passera par de grands résultats du calcul stochastique comme la \textit{formule d'occupation}.
+Le but de ce travail est donc de donner un sens à l’équation qui définit les processus de Bessel lorsque le point singulier est visité une infinité de fois. Pour cela, on définira d’abord les temps locaux, un processus qui mesure le temps passé par un autre processus en un point. Ensuite, on énoncera et démontrera la formule d’occupation ainsi qu’un résultat sur le temps local d’une fonction d'un processus d’Itō. On abordera l’EDS définissant le carré de Bessel, qui ne présente pas de problème de définition puisqu’il ne comporte aucun point de singularité. Cette EDS nous permettra, par une approximation de la racine carrée, d’utiliser la formule d’Itō afin de définir l’EDS régissant le processus de Bessel. Finalement, on montrera que la racine du carré de Bessel satisfait bien cette EDS pour $\delta \in (0,1)$.\\
 
-\paragraph{Mots-clés :}Mouvement brownien, intégrale stochastique, temps locaux, carré de Bessel, processus de Bessel.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\paragraph{Mots-clés :} Mouvement brownien, intégrale stochastique, processus d’Itō, temps locaux, carré de Bessel, processus de Bessel.
 
+\section*{Remerciements}
+
+Ce stage a été réalisé au sein du Centre de Mathématiques Appliquées de l’École Polytechnique (CMAP), sous la direction de Yoan Tardy et Loïc Béthencourt. Je leur exprime ma profonde gratitude pour leur encadrement, leur soutien et leur bienveillance. Grâce à eux, j’ai pu découvrir une approche des mathématiques plus intuitive.
+
+Je suis particulièrement reconnaissante pour le temps qu’ils ont consacré chaque semaine à discuter de mes avancées, à corriger certains de mes raisonnements ou à proposer de nouvelles pistes à explorer. Leur accompagnement patient et leurs conseils précieux, ainsi que la reconnaissance qu’ils ont témoignée envers mon travail ont grandement encouragé ma progression, même si celui-ci consistait principalement à la compréhension de sujets déjà abordés en mathématiques.
+
+Je remercie également les doctorantes et doctorants du CMAP pour leur accueil chaleureux, ainsi que l’équipe administrative du CMAP. Enfin, je tiens à remercier Sylvie Méléard pour sa recommandation précieuse, qui m’a orientée vers Yoan lors de ma recherche de stage.
+
+}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Rappels de probabilités et premières définitions}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -760,7 +773,7 @@ De plus, pour tout $a \in \R$, $L_t$ est p.s. majorée par $t$. Ainsi, par conve
   Dans la littérature, la formule d'occupation est généralement présentée pour les processus d'Itō (c.f. théoème 2.10 de \cite{zambotti}, corollaire 1.6 de \cite{revuz-yor} ou encore corollaire 9.7 de \cite{legall}). La preuve est similaire et ne sera pas présentée dans ce travail.
 \end{remark}
 
-\begin{theorem}[Forumule d'occupation pour les processus d'Itō]
+\begin{theorem}[Formule d'occupation pour les processus d'Itō]
   Soit $(X_t)_{t\geq0}$ un processus d'Itō et soit $L$ la fonction des temps locaux du processus $(X_t)_{t\geq0}$. Alors p.s. pour tout $t$ et pour toute fonction borélienne bornée $\varphi : \R \rightarrow \R$ on a :
   \begin{equation}
     \int_0^t \varphi(X_s) d[X]_s = \int_\R \varphi(a) L_t^a(X)\d a
