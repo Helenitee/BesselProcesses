@@ -77,6 +77,8 @@
 \newcommand{\supp}{\text{supp}}
 \newcommand{\refocc}{\hyperref[eq:occupation]{$(P_{t,\varphi})$}}
 \newcommand{\refcontocc}{\hyperref[proof:continuite_occ]{\textbf{Continuité de \refocc\; en $t$}}}
+\newcommand{\reffin}{\hyperref[proof:finfinfin]{$(\star)$}}
+
 \renewcommand{\d}{\mathrm{d}}
 
 \makeatletter
@@ -118,7 +120,7 @@
 
 % Mise en page ============================
 
-\title{Définition des processus de Bessel en dimention $\delta \in (0,1)$}
+\title{Définition trajectorielle des processus de Bessel en dimention $\delta \in (0,1)$}
 \author{Héléna Benet Burgaud}
 % =========================================
 
@@ -144,21 +146,21 @@
   
 \chapter*{Introduction}
 
-Ce travail est motivé par l’équation différentielle stochastique (EDS) de Keller--Segel, qui décrit le mouvement de particules par chimiotaxie. La chimiotaxie est un processus par lequel les particules orientent leur déplacement selon la présence de certaines substances chimiques dans leur environnement. Souvent, ces substances sont émises par les particules elles-mêmes et les attirent ou les repoussent.
+Ce travail est motivé par l’équation différentielle stochastique (EDS) du système de particules de Keller--Segel, qui décrit le mouvement de particules par chimiotaxie. La chimiotaxie est un processus par lequel les particules orientent leur déplacement selon la présence de certaines substances chimiques dans leur environnement. Souvent, ces substances sont émises par les particules elles-mêmes et les attirent ou les repoussent.
 
-Un exemple d'application de l'équation de Keller-Segel est d'étudier le mouvement de la bactérie \textit{Escherichia Coli} qui se déplace grâce à des flagelles\footnote{Les flagelles sont de longs appendices filiformes, constitués principalement de protéines, situés à la surface de certaines cellules. Ils assurent la motilité cellulaire.} attachés à son corps. La compréhension du mouvement individuel de cette bactérie peut nous aider à comprendre le comportement collectif. Dans ce cas, il se manifeste par des créations d'agrégats, par l'apparition de motifs spiraux ainsi que par des phénomènes de dispertion ou de concentration de colonies.
+Un exemple d'application du système de particules de Keller-Segel est d'étudier le mouvement de la bactérie \textit{Escherichia Coli} qui se déplace grâce à des flagelles\footnote{Les flagelles sont de longs appendices filiformes, constitués principalement de protéines, situés à la surface de certaines cellules. Ils assurent la motilité cellulaire.} attachés à son corps. La compréhension du mouvement individuel de cette bactérie peut nous aider à comprendre le comportement collectif. Dans ce cas, il se manifeste par des créations d'agrégats, par l'apparition de motifs spiraux ainsi que par des phénomènes de dispertion ou de concentration de colonies.
 
-L’idée de l’EDS de Keller-Segel est de décrire la position d’une particule au temps $t \in \R_+$ en interaction avec $N-1$ autres particules. Ces particules exercent les unes sur les autres une force d’attraction d’intensité variable. On appelle \emph{diffusion} le terme qui décrit les mouvements aléatoires d’une particule, et \emph{drift} le terme qui décrit les mouvements liés à l’attraction d’une particule par rapport aux autres. Si l’intensité d’attraction est faible, alors il existe une solution globale de l’équation, tandis que si l’intensité d’attraction est forte, la solution explose puisqu’on rencontre une singularité aux points de collision.\\
-
-
-Une question naturelle est de savoir comment le terme du drift se comporte lorsque l’on considère une grande population de particules. Autrement dit, existe-t-il une limite lorsque $N \to \infty$ ? Plus précisément, peut-on définir un drift lorsqu’on visite une infinité de fois les points de singularité (c’est-à-dire de collision), et comment cela influence-t-il le comportement global du système ?
-
-Comprendre le comportement du drift dans l’équation de Keller--Segel lorsqu’on visite une infinité de fois les points de collision revient à l’étudier dans une autre équation : celle qui définit les processus de Bessel en dimension $\delta \in (0,1)$. La particularité des processus de Bessel est qu’ils sont définis pour tout $\delta \geq 0$, qu’ils admettent une singularité en zéro, et que pour $\delta \in (0,1)$ ce point est visité une infinité de fois presque sûrement. C’est pourquoi on peut se ramener à l’étude du drift pour les processus de Bessel.\\
+L’idée de l’EDS du système de particules de Keller-Segel est de décrire la position d’une particule au temps $t \in \R_+$ en interaction avec $N-1$ autres particules. Ces particules exercent les unes sur les autres une force attractive inversement proportionnelle à la distance qui les séparent. On appelle \emph{diffusion} le terme qui décrit les mouvements aléatoires d’une particule, et \emph{drift} le terme qui décrit les mouvements liés à l’attraction d’une particule par rapport aux autres. Intuitivement, si l’intensité d’attraction est faible, alors il existe une solution globale de l’équation, tandis que si l’intensité d’attraction est forte, la solution explose puisqu’on rencontre une singularité aux points de collision.\\
 
 
-Le but de ce travail est donc de donner un sens à l’équation qui définit les processus de Bessel lorsque le point singulier est visité une infinité de fois. Pour cela, on définira d’abord les temps locaux, un processus qui mesure le temps passé par un autre processus en un point. Ensuite, on énoncera et démontrera la formule d’occupation ainsi qu’un résultat sur le temps local d’une fonction d'un processus d’Itō. On abordera l’EDS définissant le carré de Bessel, qui ne présente pas de problème de définition puisqu’il ne comporte aucun point de singularité. Cette EDS nous permettra, par une approximation de la racine carrée, d’utiliser la formule d’Itō afin de définir l’EDS régissant le processus de Bessel. Finalement, on montrera que la racine du carré de Bessel satisfait bien cette EDS pour $\delta \in (0,1)$.\\
+On voudrait comprendre si on peut passer à la limite $N \to \infty$ en champs moyens. Plus précisément, peut-on définir un drift lorsqu’on visite une infinité de fois les points de singularité (c’est-à-dire de collision), et comment cela influence-t-il le comportement global du système ?
 
-\paragraph{Mots-clés :} Mouvement brownien, intégrale stochastique, processus d’Itō, temps locaux, carré de Bessel, processus de Bessel.
+Comprendre le comportement du drift dans l’EDS du système de particules de Keller--Segel lorsqu’on visite une infinité de fois les points de collision revient à l’étudier dans une autre équation : celle qui définit les processus de Bessel en dimension $\delta \in (0,1)$. La particularité des processus de Bessel est qu’ils sont définis pour tout $\delta \geq 0$, qu’ils admettent une singularité en zéro, et que pour $\delta \in (0,1)$ ce point est visité une infinité de fois presque sûrement. C’est pourquoi on peut se ramener à l’étude du drift pour les processus de Bessel.\\
+
+
+Le but de ce travail est donc de donner un sens à l’équation qui définit les processus de Bessel lorsque le point singulier est visité une infinité de fois. Cette étude nécessitera la définition des \textit{temps locaux} et d’autres résultats classiques comme \textit{la formule d’occupation} ainsi qu’un résultat sur le temps local d’une fonction d'un \textit{processus d’Itō}. On abordera l’EDS définissant le carré de Bessel, qui ne présente pas de problème de définition puisqu’il ne comporte aucun point de singularité. Cette EDS nous permettra, par une approximation de la racine carrée, d’utiliser la formule d’Itō afin de définir l’EDS régissant le processus de Bessel. Finalement, on montrera que la racine du carré de Bessel satisfait bien cette EDS pour $\delta \in (0,1)$.\\
+
+%\paragraph{Mots-clés :} Mouvement brownien, intégrale stochastique, processus d’Itō, temps locaux, carré de Bessel, processus de Bessel.
 
 \section*{Remerciements}
 
@@ -173,22 +175,15 @@ Je remercie également les doctorantes et doctorants du CMAP pour leur accueil c
 \chapter{Rappels de probabilités et premières définitions}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Soient $(\Omega, \F, \P )$ un espace probabilisé et $(E, \carE)$ un espace mesurable. Rappelons quelques définitions de base en probabilités.
+Soit $(\Omega, \F, \P )$ un espace probabilisé. On se place dans l'espace mesurable $(\R, \mathcal B(\R))$. Rappelons quelques définitions de base en probabilités.
 
 \begin{definition}[Filtration] Une \textit{filtration} dans l'espace $(\Omega, \F, \P )$ est une suite de sous-tribus de $\F$, indexées dans $\overline{\R}_+ = \R_+ \cup \{\infty\}$, croissantes par inclusion, \\
 i.e. pour $s \leq t \leq \infty$,
 $$\F_0 \subset \F_s \subset \F_t\subset \cdots \subset \F_\infty .$$
 
-On parle de \textit{filtration naturelle} engendrée par le processus stochastique $(X_t)_{t\geq0}$ lorsque, pour chaque $t$, $\F_t$ est la plus petite tribu telle que les $X_s$, $s\leq t$ sont $\F_t$-mesurables. i.e.
-$$\F_t := \sigma\{X_s, s\leq t\}$$
-
-On introduit également la notion de \textit{filtration complète} ou
-\textit{filtration canonique} qui, en plus d'être engendrée par tous les $X_s$, $s \leq t$, est engendrée par la famille des ensembles négligeables $\N$. i.e.
-$$F^X_t := \sigma\{X_s\cup \N, s\leq t\}.$$
-
 \label{def:filtration}
 \end{definition}
-Dans ce travail, tous nos processus stochastiques seront continus à valeurs réelles. On prendra donc $E = \R^d$ et $\carE$ sa tribu borélienne associée.
+%Dans ce travail, tous nos processus stochastiques seront continus à valeurs réelles. On prendra donc $E = \R^d$ et $\carE$ sa tribu borélienne associée.
 
 \begin{definition}[Processus stochastique continu]
   Un \textit{processus stochastique (continu)} $(X_t)_{t \ge 0}$ à valeurs dans $\mathbb{R}$ est une famille de fonctions mesurables par rapport à la tribu produit $\mathcal{B}(\mathbb{R}^+) \otimes \mathcal{F}$ sur $\mathbb{R}^+ \times \Omega$ définies telles que :
@@ -198,6 +193,15 @@ Dans ce travail, tous nos processus stochastiques seront continus à valeurs ré
   \end{alignat*}
   
   Pour $t \in \mathbb{R}^+$ fixé, la fonction $\omega \mapsto X_t(\omega)$ est appelée \textit{variable aléatoire} (v.a.) représentant l’état du processus à l’instant $t$.
+\end{definition}
+
+\begin{definition}[Filtration naturelle et canonique]
+  On parle de \textit{filtration naturelle} engendrée par le processus stochastique $(X_t)_{t\geq0}$ lorsque, pour chaque $t$, $\F_t$ est la plus petite tribu telle que les $X_s$, $s\leq t$ sont $\F_t$-mesurables. i.e.
+$$\F_t := \sigma\{X_s, s\leq t\}$$
+
+On introduit également la notion de \textit{filtration complète} ou
+\textit{filtration canonique} qui, en plus d'être engendrée par tous les $X_s$, $s \leq t$, est engendrée par la famille des ensembles négligeables $\N$. i.e.
+$$F^X_t := \sigma\{X_s\cup \N, s\leq t\}.$$
 \end{definition}
 
 \begin{remark} Dans ce travail, on utilisera et étudiera uniquement des processus stochastiques continus. On ne précisera donc pas leur caractère continu.
@@ -219,14 +223,14 @@ Dans ce travail, tous nos processus stochastiques seront continus à valeurs ré
   \end{definition}
 
   \paragraph{Notation}
-  On notera $\xrightarrow[]{\text{p.s.}}$ la convergence presque sûre (p.s), $\xrightarrow[]{\P}$ la convergence en probabilités et $\xrightarrow[]{L^p}$ la convergence en loi pour la norme $||.||_p$.
+  On notera $\xrightarrow[]{\text{p.s.}}$ la convergence presque sûre (p.s), $\xrightarrow[]{\P}$ la convergence en probabilités, $\xrightarrow[]{L^p}$ la convergence pour la norme $||.||_p$ et $\xrightarrow[]{\mathcal L}$ la convergence en loi.
     
 \section{Variation quadratique et covariation}
 
 La \textit{variation quadratique} est un processus qui quantifie les oscillations d'un processus stochastique au cours du temps. %En effet, même si un processus stochastique n'est pas dérivable au sens classique, on peut lui associer une variation quadratique. 
 
 \begin{definition}[Covariation et variation quadratique] Soit $(X_t)_{t\geq0}$ et $(Y_t)_{t\geq0}$ deux processus stochastiques. 
-  On se donne une subdivision finie de $[0,t]$ : $0 = t_0 < t_1 < \cdots < t_n = t$ dont le pas converge vers 0. Si $\sum_{i = 1}^n(X_{t_i} - X_{t_{i-1}})(Y_{t_i} - Y_{t_{i-1}})$ converge ucp vers un processus stochastique $(Z_t)_{t\geq0}$ et que cette limite ne dépend pas de la suite de subdivisions choisie, alors on appelle $(Z_t)_{t\geq0}$ la \textit{covariation} ou \textit{crochet de covariation}, des processus $(X_t)_{t\geq0}$ et $(Y_t)_{t\geq0}$.
+  On se donne une suite de subdivisions finies de $[0,t]$ : $0 = t_0 < t_1 < \cdots < t_n = t$ dont le pas converge vers 0. Si $\sum_{i = 1}^n(X_{t_i} - X_{t_{i-1}})(Y_{t_i} - Y_{t_{i-1}})$ converge ucp vers un processus stochastique $(Z_t)_{t\geq0}$ et que cette limite ne dépend pas de la suite de subdivisions choisie, alors on appelle $(Z_t)_{t\geq0}$ la \textit{covariation} ou \textit{crochet de covariation}, des processus $(X_t)_{t\geq0}$ et $(Y_t)_{t\geq0}$.
 
  \noindent On peut définir de manière similaire la \textit{variation quadratique} :
  $$[X]_t = [X,X]_t = \lim_{n\to \infty}^{\text{ucp}} \sum_{i = 1}^n\|X_{t_i} - X_{t_{i-1}}\|^2.$$
@@ -267,7 +271,7 @@ Dans un sens, un processus à variation finie est un processus qui oscille peu e
   \begin{enumerate}[nosep]
   \item Additivité : Soient $(X_t)_{t\geq0}$ et $(Y_t)_{t\geq0}$ des processus v.f. alors, $X+Y$ est aussi un processus à variation finie; de plus, on a p.s. $\forall t \geq 0$, $V_t(X+Y) \leq V_t(X)+V_t(Y),$
   \item Multiplication externe : Soit $(X_t)_{t\geq0}$ un processus v.f. et $a$ une constante réelle, alors, p.s. $\forall t\geq0$, $V_t(aX) = |a| V_t(X)$,
-  \item Variation quadratique nulle : Soit $(X_t)_{t\geq0}$ un processus v.f., alors, p.s. $\forall t \geq 0$, $[V(X)]_t=0$
+  \item Variation quadratique nulle : Soit $(X_t)_{t\geq0}$ un processus v.f., alors, p.s. $\forall t \geq 0$, $[X]_t=0$
   \item Tout processus croissant (resp. décroissant) est à variation finie.
   \end{enumerate}
 \end{prop}
@@ -309,7 +313,7 @@ Pour donner une définition équivalente du mouvement brownien, nous allons déf
   Soit $(M_t)_{t\geq0}$ un processus adapté à une filtration $(\F_t)_{t\geq0}$. On l'appelle $(\F_t)_{t\geq0}-$\textit{martingale} s'il satisfait les propriétés suivantes : 
   \begin{enumerate}
   \item $\forall t\geq 0,\;\E\left(|M_t|\right) < \infty,$
-  \item $\forall t\geq 0, \forall s \geq 0, s \leq t,\;\E\left(M_t|F_s\right) = M_s.$
+  \item $\forall t\geq 0, \forall s \geq 0, s \leq t,\;\E\left(M_t|\F_s\right) = M_s.$
   \end{enumerate}
   \end{definition}
 Une définition alternative du mouvement brownien standard connu sous le nom de \textit{caractérisation de Lévy}, qui nous dit qu'un processus de Wiener est l'unique martingale continue telle que
@@ -335,7 +339,7 @@ Dans ce travail on s'interessera uniquement aux intégrales stochastiques du mou
 
   Alors, on peut définir \textit{l'intégrale stochastique} du processus $(H_t)_{t\geq0}$ par rapport au mouvement brownien standard $W_s$ :
   $$ \int_0^t H_s \d W_s.$$
-  De plus, ce processus est continu.
+  De plus, ce processus est continu en $t$.
 \end{definition}
 
 
@@ -346,14 +350,11 @@ Dans ce travail on s'interessera uniquement aux intégrales stochastiques du mou
   Dans ce travail, on fera référence aux martingales que quand elles sont définies par une intégrale stochastique par rapport au mouvement brownien.
 \end{remark}
 
-%La martingale est un objet très particulier en calcul stochastique puisqu'elle modélise un ``jeu équilibré''. Elle nous dit que la meilleure prédiction de ce processus au temps $t$ (futur) par rapport à tout ce qu'on sait juqu'au temps $s$ (passé), est notre processus au temps $s$ (présent).
-
-%Les processus stochastiques qu'on étudie sont souvent exprimés en fonction d'une martingale et d'un processus à variation finie. On appelle ce type de processus les \textit{processus d'Itō}.
 On s'interesse surtout aux processus suivants qui sont une légère généralisation des martingales présentées ci-dessus.
 \begin{definition}[Processus d'Itō] On appelle un $(\F_t)_{t\geq0}$ \textit{processus d'Itō} un processus $(X_t)_{t\geq0}$ tel qu'il existe deux processus, $(H_t)_{t\geq0}$ et $(V_t)_{t\geq 0}$, qui est en particulier v.f, qui satisfont p.s. :
   \begin{enumerate}
   \item $X_0$ est $\F_0$ mesurable,
-  \item $(H_t)_{t\geq0}$ et $(V_t)_{t\geq0}$ sont $\F_t$ adaptés,
+  \item $(H_t)_{t\geq0}$ et $(V_t)_{t\geq0}$ sont $(\F_t)_{t\geq0}$ adaptés,
   \item $\forall t \geq 0$, $\int_0^t H_s^2\;\d s < \infty$ p.s,
     \end{enumerate}
 
@@ -372,7 +373,7 @@ On s'interesse surtout aux processus suivants qui sont une légère généralisa
   \begin{theorem}[Formule d'Itō]
   Soit $f$ une fonction $\mathcal C^2$ et $(X_t)_{t\geq0}$ un processus d'Itō. Alors
   \begin{equation}
-    f(X_t) = f(X_0) + \int_0^t f'(X_s) \;\d X_s + \dfrac{1}{2} \int_0^t f''(X_s) \;d[X]s
+    f(X_t) = f(X_0) + \int_0^t f'(X_s) \d X_s + \dfrac{1}{2} \int_0^t f''(X_s) \d[X]_s
   \end{equation}
   \end{theorem}
 
@@ -407,18 +408,23 @@ Ceci dit, comme on intègre par rapport à la mesure de Lebesgue, l'ensemble $\{
   L^x_t= \int_0^t\delta(W_s-x)\d s.
 \end{equation}
 
-Malheureusement, le Dirac n'est pas une fonction mais une distribution, donc \eqref{eq:TmpsLocalDef2} n'est pas bien définie. Dans la littérature, on trouve une caractérisation du \textit{temps local} (c.f. \autoref{prop:caractTempsLoc}) qui correspond à l'équation \eqref{eq:TmpsLocalDef2}, mais avec une approximation du Dirac pour que l'intégrande soit une fonction et non pas une distribution. Dans ce travail, on utilisera une définition du temps local qui se base sur la fameuse \textit{formule de Tanaka}\\
+Malheureusement, le Dirac n'est pas une fonction mais une distribution, donc \eqref{eq:TmpsLocalDef2} n'est pas bien définie. Dans la littérature, on trouve une caractérisation du \textit{temps local} (c.f. \autoref{prop:caractTempsLoc}) qui correspond à l'équation \eqref{eq:TmpsLocalDef2}, mais avec une approximation du Dirac pour que l'intégrande soit une fonction et non pas une distribution. %Dans ce travail, on utilisera une définition du temps local qui se base sur la fameuse \textit{formule de Tanaka}\\
 
-\begin{definition}[Temps local d'un mouvement brownien]
+\begin{prop}[Formule de Tanaka]
   \label{def:TempsLoc}
-  Soit $(W_t)_{t\geq0}$ un mouvement brownien standard. Il existe un processus $(L_t^x)_{t\geq0}$ croissant, continu et adapté à la filtration brownienne qui satisfait p.s. pour tout $x \in \R$ et tout $t \in \R^+$
+  Soit $(W_t)_{t\geq0}$ un mouvement brownien standard. Il existe un processus $(L_t^x)_{t\geq0}$ croissant, continu et adapté à la filtration brownienne qui satisfait p.s. pour tout $x \in \R$ et tout $t \in \R^+$,
   \begin{equation}
     |W_t -x|  = |W_0-x| + \int_0^t\sign(W_s - x)\d W_s + L_t^x.
     \label{eq:tempsLocDef}
   \end{equation}
+\end{prop}
+
+\begin{definition}[Temps local d'un mouvement brownien]
+  Le processus $(L_t^x)_{t\geq0}$ utilisé dans la \autoref{def:TempsLoc} est appellé le \textit{temps local du mouvement borwnien au point $x$.}
 \end{definition}
 
-\begin{proof} Montrons d'abord l'existence d'un tel processus et on se concentrera ensuite dans ses propriétés.
+
+\begin{proof} Montrons d'abord l'existence d'un tel processus et on se concentrera ensuite sur ses propriétés.
 
   \paragraph{Existence}
   Soit $f : \R \rightarrow \R^+,\; y \mapsto |y-x|$. L'équation \eqref{eq:tempsLocDef} s'apparente, dans sa structure, à la formule d'Itō appliquée à la fonction $f$. Ceci dit, $f$ n'est pas une fonction de classe $\mathcal C^2$ puisqu'elle n'est pas dérivable en $x$. On n'applique donc pas la formule d'Itō à $f$ mais à une approximation $\mathcal C^2$ de $f$ : $f_\varepsilon : y \mapsto ((y-x)^2 +\varepsilon)^{1/2}$, qui, tend vers $f$ lorsque $\varepsilon$ tend vers 0. On a :
@@ -434,7 +440,7 @@ Malheureusement, le Dirac n'est pas une fonction mais une distribution, donc \eq
                + \underbrace{\hypertarget{termI2}\int_0^t \dfrac{W_s-x}{((W_s-x)^2 +\varepsilon)^{1/2}}\d W_s}_{I_2^\varepsilon}
                + \underbrace{ \dfrac{1}{2} \hypertarget{termI3} \int_0^t \dfrac{\varepsilon}{((W_s-x)^2 +\varepsilon)^{3/2}} \d s}_{I_3^\varepsilon} \notag
   \end{align}
-  Montrons d'abord que \hyperlink{termI1}{$I_1^\varepsilon$}, \hyperlink{termI2}{$I_2^\varepsilon$} et \hyperlink{termI1}{$I_3^\varepsilon$} sont des processus finis p.s. et qu'ils convergent respectivement, en probabilité, vers la quantité voulue. Premièrement, par définition,
+  Montrons d'abord que \hyperlink{termI1}{$I_1^\varepsilon$}, \hyperlink{termI2}{$I_2^\varepsilon$} et \hyperlink{termI1}{$I_3^\varepsilon$} sont des processus finis p.s. et qu'ils convergent respectivement, en probabilité, vers les quantités voulues. Premièrement, par définition,
   \begin{equation}\text{\hyperlink{termI1}{$I_1^\varepsilon$}} \xrightarrow[\varepsilon \to 0]{p.s.}  |W_0 -x|.\end{equation}
   \noindent Comme $W_0$ est une constante finie, alors cette quantité est finie.\\
 
@@ -452,9 +458,6 @@ Malheureusement, le Dirac n'est pas une fonction mais une distribution, donc \eq
   &\overset{\text{Isométrie}}{=} \E\left( \int_0^t\left( \varphi^\varepsilon(W_s) \right)^2 \d s\right)\label{arg:cvL2}\\
   &\overset{\text{Fubini}}{\;\;\;=}\int_0^t\E\left( \left(\varphi^\varepsilon(W_s)\right)^2 \right)\d s\notag
 \end{align}
-%\noindent Le théorème de convergence dominée %en norme $L^2$
-%{\color{red}nous dit que pour une suite de fonctions mesurables $(\varphi^\varepsilon)_\varepsilon$ qui satisfait $\varphi^\varepsilon \xrightarrow[\varepsilon\to0]{\text{p.s.}}\varphi$ et telle que $\exists\; \psi \in L^2$ tel que $|\varphi(W_s)| \leq \psi$; alors, $\varphi^\varepsilon \xrightarrow[\varepsilon \to 0]{L^2} \varphi.$}
-
 
 \noindent Dans notre cas, $\varphi^\varepsilon(W_s) \xrightarrow[\varepsilon \to 0]{\text{p.s}} 0\;\forall s \in [0,t]$ puisque :
 \begin{alignat*}{2}
@@ -464,7 +467,7 @@ Malheureusement, le Dirac n'est pas une fonction mais une distribution, donc \eq
 
 
 \noindent De plus, on remarque que par l'inégalité triangulaire, p.s. pour tout $s \geq 0$ et pour tout $\varepsilon > 0$, 
-$|\varphi^\varepsilon(W_s)|^2 \leq 4$. Ainsi, par le théorème de convergence dominée, comme $4$ est une constante, donc en particulier $L^2$ sur l'intervalle $[0,t]$, alors, $\varphi^\varepsilon(W_s) \xrightarrow[\varepsilon \to 0]{L^2} 0\;\forall s \in [0,t]$.
+$|\varphi^\varepsilon(W_s)|^2 \leq 4$. Ainsi, par le théorème de convergence dominée, comme $4$ est une constante, donc en particulier $L^2$ sur l'intervalle $[0,t]$, alors, $\varphi^\varepsilon \xrightarrow[\varepsilon \to 0]{L^2} 0\;\forall s \in [0,t]$.
 
 \noindent Par isométrie d'Itō, on a :
 $$\E\left(\left(\int_0^t \varphi^\varepsilon(W_s) dW_s\right)^2\right) = \E\left(\int_0^t\left(\varphi^\varepsilon(W_s)\right)^2\d s\right)$$
@@ -564,23 +567,24 @@ Les temps locaux sont des processus \textit{positifs} et à \textit{variation fi
   
 \end{proof}
 
-Une des applications de la formule de Tanaka, avec laquelle on a définit le temps local du mouvement brownien, est une formule qui fait le lien entre le calcul d'Itō et l'utilisation des temps locaux. C'est la formule d'Itō-Tanaka. La formule qui nous interesse est en fait plus restrinte que la formule l'Itō-Tanaka qu'on trouve dans la littérature. En effet, en plus de prendre une fonction $f \in \mathcal C^2$ comme dans la formule d'Itō, on supposera $f'' \in \mathcal C_c$.
+La \textit{formule d'Itō-Tanaka} est en pratique une généralisation de la formule d'Itō pour des fonctions convexes. Dans notre travail on l'utilise comme une reformulation de la formule d'Itō qui nous permet d'introduire dans le calcul d'Itō l'utilisation des temps locaux du mouvement borwnien. La formule qu'on utilisera est un plus restreinte que la formule d'Itō-Tanaka qu'on trouve dans la littérature. En effet, on prendra une fonction $f \in \mathcal C^2$ comme dans la formule d'Itō et on supposera en plus que $f'' \in \mathcal C_c$.
 
 \begin{theorem}[Formule d'Itō-Tanaka]
-  Soit $(W_t)_{t\geq0}$ un mouvement brownien et soit $f \in \mathcal C^2$ telle que $f'' \in \mathcal C_c$. Alors, pour tout $t \in \R^+$ et pour tout $a \in \R$ :
+  Soit $(W_t)_{t\geq0}$ un mouvement brownien et soit $f \in \mathcal C^2$ telle que $f'' \in \mathcal C_c$. Alors, pour tout $t \in \R^+$ et pour tout $x \in \R$ :
   \begin{equation}
-    f(W_t) = f(W_0) + \int_0^tf'(W_s) \d W_s + \dfrac{1}{2} \int_\R f''(a) L_t^a \d a.
+    f(W_t) = f(W_0) + \int_0^tf'(W_s) \d W_s + \dfrac{1}{2} \int_\R f''(a) L_t^x \d x.
     \label{eq:ItoTanaka}
   \end{equation}
 \end{theorem}
 
-\begin{proof} Soit $f \in C^2$ tel que $f'' \in \mathcal C_c$. Posont $\varphi = f''$. %En appliquant la formule d'Itō au mouvement brownien $(W_t)_{t\geq0}$ on remarque que les deux premiers termes du RHS des deux formues sont les mêmes. Ainsi, il suffit de montrer que p.s.
-%  $$\int_0^t \varphi(W_s) \d s = \int_\R \varphi(a) L_t^a \d a.$$
-Remarquons que :
+\begin{proof} Soit $f \in C^2$ tel que $f'' \in \mathcal C_c$. Posons $\varphi = f''$ et $a,b \in \R$.
+  
+\noindent Remarquons que :
   \begin{align*}
-    f(x) &= \int_{-\infty}^x \int_{-\infty}^y \varphi(z) \d z \d y.\\
-    &= \int_\R\int_\R \1_{x > y > z} \varphi(z) \d z \d y,\\
-    &= \int_\R\varphi(z) \int_\R \1_{x > y > z} \d y \d z,\\
+    f(x) + (ax + b) &= \int_{-\infty}^x \int_{-\infty}^y \varphi(z) \d z \d y.
+  \shortintertext{Le terme $ax + b$ vient des constantes d'intégration. On prend $a = b = 0$.}
+   f(x) &= \int_\R\int_\R \1_{x > y > z} \varphi(z) \d z \d y,\\
+    &\overset{\text{Fubini}}{=} \int_\R\varphi(z) \int_\R \1_{x > y > z} \d y \d z,\\
     &= \int_\R\varphi(z) (x - z)_+ \d z,
   \end{align*}
   En appliquant $f$ à $W_t$ et par \autoref{prop:Tanaka2} on a :
@@ -593,7 +597,7 @@ Remarquons que :
   Notons que le premier terme du RHS de \eqref{eq:ItoTanakaavecI} est une constante, et peut être écrite comme $f(W_0)$ et le troisième terme est exactement le troisième terme du RHS de \eqref{eq:ItoTanaka}. Ainsi, il suffit de montrer que :
   $$\text{\hyperlink{termI}{$I$}} = \int_0^t f'(W_s) \d W_s.$$
 
-  \noindent Comme $\varphi \in \mathcal C_c$, on peut déjà prendre un $m \in \R$ tel que :
+  \noindent Comme $\varphi \in \mathcal C_c$, il existe un $m \in \R$ tel que :
   \begin{align*}
     \text{\hyperlink{termI}{$I$}} &= \int_{-m}^m \varphi(z) \int_0^t \1_{W_s>z} \d W_s \d z.\\
                                   &= \int_{-m}^m  \int_0^t  \varphi(z) \1_{W_s>z} \d W_s \d z.
@@ -609,16 +613,14 @@ $$\lim_{n \to \infty} \E(|\psi(z_n) - \psi(z)|^2) \leq \E\left(\int_0^t\lim_{n \
   On a donc $\E(|\psi(z_n) - \psi(z)|^2) \xrightarrow[n \to \infty]{L^2} 0$, i.e. $\psi$ est continue dans $L^2$. Par conséquent, $\psi$ peut être approchée par des sommes de Riemann.
   $$\text{\hyperlink{termI}{$I$}} = \int_{-m}^m \psi(z) \d z
   = \lim_{n \to \infty} \dfrac{2m}{n} \underbrace{\hypertarget{R_n} \sum_{k = 1}^n \psi\left(-m + 2m\;\frac{k}{n}\right)}_{R_n(\varphi)}.$$
-  En fixant $n$ on a \text{\hyperlink{termI}{$I$}}$=$\text{\hyperlink{R_n}{$R_n(\varphi)$}}. Par souci de notation, posons $b = -m + 2m \; \frac{k}{n}$. Par linéarité de l'intégrale, on peut dire que :
+  En fixant $n$ on a \text{\hyperlink{R_n}{$R_n(\varphi)$}}$=$\text{\hyperlink{termI}{$I_n$}}. Par souci de notation, posons $b_k = -m + 2m \; \frac{k}{n}$. Par linéarité de l'intégrale, on peut dire que :
 \begin{align*}
-      \text{\hyperlink{termI}{$I$}} &= \dfrac{2m}{n} \int_0^t \sum_{k = 1}^n \varphi(b) \1_{W_s > b} \d W_s.\\
-                                    &= \int_0^t R_n\left(\varphi(b) \1_{W_s > b}\right) \d W_s.  
+      \text{\hyperlink{termI}{$I$}} &= \dfrac{2m}{n} \int_0^t \sum_{k = 1}^n \varphi(b_k) \1_{W_s > b_k} \d W_s.\\
+                                    &= \int_0^t R_n\left(\varphi(b_k) \1_{W_s > b_k}\right) \d W_s.  
   \end{align*}
-  \noindent Comme \hyperlink{R_n}{$R_n$} est une intégrale de Riemann, on a : $\lim_{n \to \infty} \text{\hyperlink{R_n}{$R_n$}} = \text{\hyperlink{termI}{$I$}}$ et à $s \in [0,t]$ fixé $\lim_{n \to \infty} R_n(\varphi(b) \1_{W_s>b}) = \int_{-m}^m \1_{W_s> z} \varphi(z) \d z$ puisque l'application $z \mapsto \1_{W_s>z} \varphi(z)$ est continue par morceaux.
-
-  \noindent On a également que pour tout $s \in [0,t]$, 
+  \noindent Comme \hyperlink{R_n}{$R_n$} est une somme de Riemann, on a : $\lim_{n \to \infty} \text{\hyperlink{R_n}{$R_n$}} = \text{\hyperlink{termI}{$I$}}$ et à $s \in [0,t]$ fixé \\$\lim_{n \to \infty} R_n(\varphi(b_k) \1_{W_s>b_k}) = \int_{-m}^m \1_{W_s> z} \varphi(z) \d z$ puisque l'application $z \mapsto \1_{W_s>z} \varphi(z)$ a un nombre fini de discontinuités et donc est continue par morceaux. On a également que pour tout $s \in [0,t]$, 
   \begin{equation}
-    \int_{-m}^m \1_{W_s > z}  \varphi(z)\d z = f'(W_z). \label{eq:f'}
+    \int_{-m}^m \1_{W_s > z}  \varphi(z)\d z = f'(W_s). \label{eq:f'}
   \end{equation}
 
   \noindent En effet,
@@ -626,19 +628,19 @@ $$\lim_{n \to \infty} \E(|\psi(z_n) - \psi(z)|^2) \leq \E\left(\int_0^t\lim_{n \
     \int_{-m}^m \1_{W_s > z}  \varphi(z)\d z = \int_\R \1_{W_s > z}  \varphi(z)\d z = \int_{-\infty}^{W_s} \varphi(z) \d z \overset{\text{def}}{=} f'(W_s). 
   \end{equation*}
 
-  Enfin, il suffit de voir qu'en intégrant \eqref{eq:f'} de $0$ à $t$  par rapport à $W_s$ on retrouve \text{\hyperlink{I}{$I$}}. Pour cela, on regarde le crochet de la différence des deux termes au carré.
+  Enfin, pour conclure il suffit de passer à la limite sous le signe de l'intégrale. Pour justifier cela, on regarde le crochet de la différence entre \hyperlink{termI}{$I$} et $\int_0^t f'(W_s) \d W_s$ au carré.
   \begin{align*}
-    & \E\left(\left( \int_0^t R_n(\varphi(b) \1_{W_s>b}) \d W_s - \int_0^t f'(W_s) \d W_s\right)^2\right),\\
-    =&  \;\E\left(\left( \int_0^t R_n(\varphi(b) \1_{W_s>b}) - f'(W_s) \d W_s\right)^2\right),\\
-    \overset{\text{Isométrie}}{=}& \;\E\left( \int_0^t \left(R_n(\varphi(b) \1_{W_s>b}) - f'(W_s) \right)^2\d s\right),
+    & \E\left(\left( \int_0^t R_n(\varphi(b_k) \1_{W_s>b_k}) \d W_s - \int_0^t f'(W_s) \d W_s\right)^2\right),\\
+    =&  \;\E\left(\left( \int_0^t R_n(\varphi(b_k) \1_{W_s>b_k}) - f'(W_s) \d W_s\right)^2\right),\\
+    \overset{\text{Isométrie}}{=}& \;\E\left( \int_0^t \left(R_n(\varphi(b_k) \1_{W_s>b_k}) - f'(W_s) \right)^2\d s\right),
   \end{align*}
-  Notons que $f'$ est majoré par $\sup(\varphi)\cdot 2m$, qui est fini car $\varphi \in \mathcal C_c$. Pour la même raison, $R_n(\varphi(b) \1_{W_s>b})$ est majoré par $\sup(\varphi)$, qui est intégrable puisque c'est une constante. Ainsi, par convergence dominée\footnote{Encore une fois, on utilise deux fois le théorème de convergence dominée.},
+  Notons que $f'$ est majoré par $\sup(\varphi)\cdot 2m$, qui est fini car $\varphi \in \mathcal C_c$. Pour la même raison, $R_n(\varphi(b_k) \1_{W_s>b_k})$ est majoré par $\sup(\varphi)$, qui est intégrable puisque c'est une constante. Ainsi, par convergence dominée\footnote{Encore une fois, on utilise deux fois le théorème de convergence dominée.},
   \begin{align*}
-     & \lim_{n \to \infty}\int_0^t \left(R_n(\varphi(b) \1_{W_s>b}) - f'(W_s) \right)^2\d s\\
-    =&  \int_0^t \left(\lim_{n \to \infty}R_n(\varphi(b) \1_{W_s>b}) - f'(W_s) \right)^2\d s\\
+     & \lim_{n \to \infty}\int_0^t \left(R_n(\varphi(b_k) \1_{W_s>b_k}) - f'(W_s) \right)^2\d s\\
+    =&  \int_0^t \left(\lim_{n \to \infty}R_n(\varphi(b_k) \1_{W_s>b_k}) - f'(W_s) \right)^2\d s\\
     =&  \int_0^t  \left( \int_{-m}^m \1_{W_s > z}  \varphi(z)\d z - f'(W_s) \right)^2\d s \overset{\text{\eqref{eq:f'}}}{=} 0.
   \end{align*}
-  Ainsi, $\int_\R \varphi(z)\left( \int_0^t \1_{W_s>z} \d W_s \right) \d z\xrightarrow[n \to \infty]{L^2} \int_0^t f'(W_s) \d W_s$.
+  Ainsi, \hyperlink{termI}{$I$}=$\int_\R \varphi(z)\left( \int_0^t \1_{W_s>z} \d W_s \right) \d z\xrightarrow[n \to \infty]{L^2} \int_0^t f'(W_s) \d W_s$.
 \end{proof}
 
 \begin{prop}[Propriété fondamentale des temps locaux]
@@ -655,28 +657,31 @@ Soit $L$ la fonction des temps locaux du mouvement brownien (standard). Pour tou
     \begin{alignat}{2}
      && Y_t^2 &\overset{\text{Itō}}{=} Y_0^2 + \int_0^t 2Y_s dY_s + \dfrac{1}{2} \int_0^t 2 d[Y]_s, \label{eq:proofPrpFondLocTime2} \\
      \text{Par définition}&&\qquad Y_t &= Y_0 + \int_0^t \sign(W_s -x) \d W_s + L_t^x(W),\quad\qquad\notag\\
-      \text{Ce qui nous indique que}&&\qquad dY_s &=  \sign(W_s -x) \d W_s + dL_s^x(W),\qquad\qquad\qquad\qquad\quad\notag\\
+     && dY_s &=  \sign(W_s -x) \d W_s + dL_s^x(W),\quad\notag\\
      \text{Ainsi que}&& [Y]_t &= \int_0^t \left(\sign(W_s-x)\right)^2 \d s = t \quad\text{p.s.}\notag\\
     \end{alignat}
-    \begin{remark}Cette dernière ligne nous dit que la v.a. $Y_t$ est, elle aussi, un mouvement brownien.
-    \end{remark}
     
 
-    \noindent En reprenant l’équation \eqref{eq:proofPrpFondLocTime2}, on obtient :
+    \noindent En reprenant l’égalité \eqref{eq:proofPrpFondLocTime2}, on obtient :
     \begin{align}
       Y_t^2 &= Y_0^2 + 2\int_0^t |W_s - x| \sign(W_s-x) \d W_s + \int_0^t |W_s-x| dL_s^x + t,\notag\\
       &= (W_s -x)^2 + 2\int_0^t (W_s -x) \d W_s + \int_0^t |W_s -x| dL_s^x + t. \label{eq:proofPrpFondLocTime3}
     \end{align}
-    En comparant \eqref{eq:proofPrpFondLocTime3} avec \eqref{eq:proofPrpFondLocTime1} on voit bien que pour tout $t\geq0$, $\int_0^t |W_s-x|dL_s^x = 0$.
+    En comparant \eqref{eq:proofPrpFondLocTime3} avec \eqref{eq:proofPrpFondLocTime1} on voit que pour tout $t\geq0$, $\int_0^t |W_s-x|dL_s^x = 0$. Ce qui conclut la preuve.
 \end{proof}
 
 
   \begin{prop}[Continuité Hölderienne]
-    On peut trouver une modification bicontinue de la fonction temps local d'un mouvement brownien $L_t^x(W)$ qui est Hölder $\frac{1}{2}-$ en espace (i.e. par rapport à la variable $x$). C'est à dire que pour tout $x, y \in\R^2$, et pour tout $0\leq t \leq T$, il existe une constante $C_{\alpha,T} \in \R$, où $\alpha < \frac{1}{2}$, telle que $|L_t^x - L_t^y|\leq C_{\alpha,T}|x - y|^\alpha$.
+    On peut trouver une modification bicontinue de la fonction temps local d'un mouvement brownien $L_t^x(W)$ qui est Hölder $\frac{1}{2}-$ en espace (i.e. par rapport à la variable $x$). C'est à dire qu'il existe une constante $C_{\alpha,T} \in \R$, où $\alpha < \frac{1}{2}$, telle que pour tout $x$ et $y$ dans $\R$, et pour tout $0\leq t \leq T$, $|L_t^x - L_t^y|\leq C_{\alpha,T}|x - y|^\alpha$.
   \end{prop}
   \begin{proof}
     Admise.
-\end{proof}
+  \end{proof}
+
+  \begin{remark}
+    Le temps local $L_t^x$ du mouvement borwnien en temps $t$ est majoré par $t$.
+  \end{remark}
+  
 
 %\begin{remark}
 %  Une conséquence immédiate est que la fonction $a \mapsto |L_t^a - L_t^0|$ est $\frac{1}{2}-$ Hölder. 
@@ -688,7 +693,7 @@ Soit $L$ la fonction des temps locaux du mouvement brownien (standard). Pour tou
 \label{thm:occupation} Soit $L$ la fonction des temps locaux du mouvement brownien (standard). Alors, p.s., pour tout $t$ et pour toute fonction borélienne bornée $\varphi : \R \rightarrow \R$ :
 
 \begin{equation}
-  \int_0^t \varphi(W_s) \d s = \int_{\R_+}\varphi(a)L_t^a(W)da
+  \int_0^t \varphi(W_s) \d s = \int_{\R}\varphi(a)L_t^a(W) \d a
   \label{eq:occupation}
 \end{equation}
 
@@ -715,7 +720,7 @@ Soit $L$ la fonction des temps locaux du mouvement brownien (standard). Pour tou
     \begin{alignat*}{2}
       \forall \varphi \in \mathcal C_c,\; \forall t \in \R^+, \quad && \P\left(\text{\refocc}\right)&=1.\\
       \text{Donc} \quad \forall \varphi \in \mathcal C_c,\quad && \P\left(\bigcap_{t\in\Q^+}\text{\refocc}\right)&=1.
-      \shortintertext{Par continuité de \refocc\ (c.f. \refcontocc); en $t$, et par densité de $\Q^+$ dans $\R^+$, on obtient :}
+      \shortintertext{Notons que $\int_0^t \varphi(W_s) \d s$ et $\int_{\R}\varphi(a)L_t^a(W)\d a$ sont tous les deux des termes continus en $t$ (c.f. \refcontocc); ainsi, par densité de $\Q^+$ dans $\R^+$, on obtient :}
       \forall \varphi \in \mathcal C_c,\quad && \P\left(\bigcap_{t\in\R^+}\text{\refocc}\right)&=1.
     \end{alignat*}
     \vspace{-.5cm}
@@ -749,9 +754,11 @@ De plus, pour tout $a \in \R$, $L_t$ est p.s. majorée par $t$. Ainsi, par conve
     \end{itemize}
     Donc on a bien $\forall \varphi \in \mathcal C_c$, $\P\left(\cap_{t\in \R^+} \text{\refocc}\right) = 1$. Pour simplifier la notation on appellera $P_\varphi$ l'ensemble $\cap_{t\in \R^+} \text{\refocc}$\\
 
-    Finalement, on veut montrer que p.s. $\forall \varphi \in \mathcal C_c$, $P_\varphi$ est vérifiée, c.à.d. $\P(\cap_{\varphi \in \mathcal C_c} P_\varphi) = 1$. Pour cela, on se donne une famille de fonctions $(\varphi_n)_{n\in \mathbb N} \in \mathcal (C_c)^{\mathbb N}$ denses
+    En suite, on veut montrer que p.s. $\forall \varphi \in \mathcal C_c$, $P_\varphi$ est vérifiée, c.à.d. $\P(\cap_{\varphi \in \mathcal C_c} P_\varphi) = 1$. Pour cela, on se donne une famille dénombrable $(\varphi_n)_{n\in \mathbb N} \in \mathcal (C_c)^{\mathbb N}$ et dense
  \footnote{Le fait que $(\varphi_n)_{n\in\mathbb{N}}$ soit dense dans $\mathcal C_c$ nous dit que pour toute fonction $\varphi \in \mathcal C_c$, on peut extraire une sous suite $(\varphi_{n_k})_{k\in \mathbb{N}}$ de $(\varphi_n)_{n\in\mathbb{N}}$ telle que $$\lim_{k \to \infty}||\varphi_{n_k} - \varphi||_\infty = 0;$$ c.à.d. la sous suite $(\varphi_{n_k})_{k\in\mathbb{N}}$ converge uniformément vers la fonction $\varphi$. }
- dans $\mathcal C_c$. Comme $\mathbb N$ est dénombrable et que les $\varphi_n$ sont continues à support compact, on a directement que $\P(\cap_{n\in \mathbb N}P_{\varphi_n})=1$. Donc il suffit de montrer que $\cap_{n\in \mathbb N} P_{\varphi_n} \subset \cap_{\varphi \in \mathcal C_c} P_\varphi$.
+ dans $\mathcal C_c$. Comme $\mathbb N$ est dénombrable et que les $\varphi_n$ sont continues à support compact, on a directement que $\P(\cap_{n\in \mathbb N}P_{\varphi_n})=1$. Donc il suffit de montrer que $\cap_{n\in \mathbb N} P_{\varphi_n} \subset \cap_{\varphi \in \mathcal C_c} P_\varphi$ ce qu'on fait en montrant la continuité du RHS et LHS de \refocc par rapport à $\varphi$.
+
+ \noindent \paragraph{Continuité de \refocc \; en $\varphi$ :}
 
   Soit $\omega \in \cap_{n\in \mathbb N}P_{\varphi_n}$. On se donne une fonction $\varphi \in \mathcal C_c$. Il existe donc une sous-suite $(\varphi_{n_k})_{k\in\mathbb N}$ telle que $\varphi_{n_k} \xrightarrow[k \to \infty]{} \varphi$. Montrons que $\omega \in \cap_{\varphi \in \mathcal C_c} P_\varphi$. En reprenant les notations de tout à l'heure et en fixant un $t \in \R^+$ arbitraire, on a bien $|F_L^{\varphi_{n_k}} - F_L^\varphi|\xrightarrow[k \to \infty]{} 0$ et $|F_R^{\varphi_{n_k}} - F_R^\varphi|\xrightarrow[k \to \infty]{} 0$.
 %
@@ -759,14 +766,20 @@ De plus, pour tout $a \in \R$, $L_t$ est p.s. majorée par $t$. Ainsi, par conve
   |F_L^{\varphi_{n_k}} - F_L^\varphi| &= \left|\int_0^t \left( \varphi_{n_k}(W_s(\omega)) - \varphi(W_s(\omega))\right)\d s\right|\\
                         &\leq \int_0^t \left| \varphi_{n_k}(W_s(\omega)) - \varphi(W_s(\omega))\right|\d s\\
                         &\leq ||\varphi_{n_k} - \varphi||_{\infty} \;t \xrightarrow[k \to \infty]{} 0.\\
-  \\
+  \vspace{4mm}
   |F_R^{\varphi_{n_k}} - F_R^\varphi| &= \left|\int_\R \left( \varphi_{n_k}(a) - \varphi(a)\right) L_t^a(W(\omega))\d a\right|\\
                           &\leq \int_\R |\varphi_{n_k}(a) - \varphi(a)| L_t^a(W(\omega))\d a\\
                           &\leq ||\varphi_{n_k} - \varphi||_\infty \; \int_\R L_t^a\d a \xrightarrow[k\to \infty]{} 0\quad\text{puisque $\int_\R L_t^a\d a < \infty$.}
 \end{align*}
 
-\noindent On a donc bien $\cap_{n\in \mathbb N} P_{\varphi_n} \subset \cap_{\varphi \in \mathcal C_c} P_\varphi$. Enfin, comme $\P(\cap_{n\in \mathbb N} P_{\varphi_n}) = 1$ il s'en suit que $\P(\cap_{\varphi \in \mathcal C_c} P_\varphi) = 1$ ce qui conclut notre preuve.
+\noindent On a donc bien $\cap_{n\in \mathbb N} P_{\varphi_n} \subset \cap_{\varphi \in \mathcal C_c} P_\varphi$. Enfin, comme $\P(\cap_{n\in \mathbb N} P_{\varphi_n}) = 1$ il s'en suit que $\P(\cap_{\varphi \in \mathcal C_c} P_\varphi) = 1$.\\
 
+
+ Finalement, on se donne deux mesures Borel finies $\mu$ et $\nu$ définies comme suit :
+$$  \mu(A) = \int_0^t 1_{\{W_s \in A\}}\d s,\quad
+\nu(A) = \int_A L_t^a(W) \d a.$$
+
+\noindent On vient de montrer que p.s. pour tout $\varphi \in \mathcal C_c$, $\int_\R \varphi(x) \mu_t(\d x) = \int_\R \varphi(x) \nu(\d x).$ Donc les deux mesures coïncident sur les intégrales de fonctions test ce qui nous permet de dire que de dire que les deux mesures sont égales.
 \end{proof}
 
 \begin{remark}
@@ -778,25 +791,9 @@ De plus, pour tout $a \in \R$, $L_t$ est p.s. majorée par $t$. Ainsi, par conve
   \begin{equation}
     \int_0^t \varphi(X_s) d[X]_s = \int_\R \varphi(a) L_t^a(X)\d a
   \end{equation}
-  
 \end{theorem}
 
 La formule d'occupation nous permet de caractériser également les \textit{temps locaux} comme l'intégrale d'une approximation d'un Dirac :
-
-%Une des applications de la formule de Tanaka, avec laquelle on a définit le temps local du mouvement brownien, est une formule qui fait le lien entre le calcul d'Itō et l'utilisation des temps locaux. C'est la formule d'Itō-Tanaka. La formule qui nous interesse est en fait plus restrinte que la formule l'Itō-Tanaka qu'on trouve dans la littérature. En effet, en plus de prendre une fonction $f \in \mathcal C^2$ comme dans la formule d'Itō, on supposera $f'' \in \mathcal C_c$.
-%
-%\begin{theorem}[Formule d'Itō-Tanaka]
-%  Soit $(W_t)_{t\geq0}$ un mouvement brownien et soit $f \in \mathcal C^2$ telle que $f'' \in \mathcal C_c$. Alors, pour tout $t \in \R^+$ et pour tout $a \in \R$ :
-%  \begin{equation}
-%    f(W_t) = f(W_0) + \int_0^tf'(W_s) \d W_s + \dfrac{1}{2} \int_\R f''(a) L_t^a \d a.
-%  \end{equation}
-%\end{theorem}
-%
-%\begin{proof} Soit $f \in C^2$ tel que $f'' \in \mathcal C_c$. Posont $\varphi = f''$. En appliquant la formule d'Itō au mouvement brownien $(W_t)_{t\geq0}$ on remarque que les deux premiers termes du RHS des deux formues sont les mêmes. Ainsi, il suffit de montrer que p.s.
-%  $$\int_0^t \varphi(W_s) \d s = \int_\R \varphi(a) L_t^a \d a.$$
-%  % \begin{align}
-%  %\end{align}
-%\end{proof}
 
 \begin{prop}[Approximation du temps local]
   \label{prop:caractTempsLoc}
@@ -811,16 +808,16 @@ La formule d'occupation est très utile puisqu'elle nous permet de relier le tem
 L'une des conséquences de la formule d'occupation est la suivante :
 
 \begin{prop}[Temps local de la fonction d'un processus d'Itō]
-  Soient $f$ convexe et $X$ un processus d'Itō. Alors,
+  Soient $f \in \mathcal C^2$ et $X$ un processus d'Itō. Alors,
   $$L_t^{f(a)}(f(X)) = f'(a) L^a(X)$$
 \end{prop}
 
 \begin{remark}
-  Si $f$ n'est pas une fonction convexe, mais la différence (ou la somme) de fonctions convexes, alors on peut quand même appliquer la formule d'Itō par linéarité de l'intégrale! De plus, on peut étendre la formule d'Itō à toutes les fonctionc convexes en utilisant des dérivées faibles.
+  On peut étendre ce résultat, de la même manière que la formule d'Itō, aux fonctions convexes en utilisant la dérivée à droite. Ceci est encore extensible à des fonctions qui sont la différence de deux fonctions convexes. En effet, par linéarité de l'intégrale on se retrouve avec deux intégrales de fonctions convexes et on peut appliquer la formule d'Itō à ces intégrales.
 \end{remark}
 
 \begin{proof}
-  Soient $Y_t = f(X_t)$ et $X_t = M_t + V_t$ un processus d'Itō. Montrons en premier, que $Y_t$ est un processus d'Itō. 
+  Soient $Y_t = f(X_t)$ et $X_t = M_t + V_t$ un processus d'Itō. On prendra en plus $f$ bijective. Montrons en premier, que $Y_t$ est un processus d'Itō. 
   \begin{alignat*}{1}
     Y_t &\overset{\text{Itō}}{=} f(X_0) + \int_0^t f'(X_s) \d X_s + \int_0^t f''(X_s) \d [X]_s\\
         &= \underbrace{f(X_0)}_{\F_0\text{-mesurable}} + \underbrace{\int_0^t f'(X_s) dM_s}_{\text{Intégrale stochastique}} + \underbrace{\int_0^t f'(X_s) dV_s}_{\text{Processus v.f.}} + \underbrace{\int_0^t f''(X_s) d[M]_s}_{\text{Processus v.f.}}
@@ -836,8 +833,6 @@ $$
 
 On applique la formule d'occupation au RHS et LHS respectivement.
 \begin{alignat*}{1}
-%  \int_0^t \varphi(Y_s) d[Y]_s &\overset{\text{def}}{=} \int_0^t \underbrace{\varphi(f(X_s)) \left(f'(X_s\right)^2)}_{\tilde\varphi(X_s)} d[X_s]
-%\intertext{On applique la formule d'occupation au RHS et LHS respectivement.}
 \int_{\R_+} \varphi(y) L_t^y(Y) dy &= \int_{\R_+} \tilde\varphi(x) L_t^x(X) dx\\
                          &= \int_{\R_+}\varphi(f(x)) \left(f'(x)\right)^2 L_t^x(X) dx\\
                        &\overset{y = f(x)}{=} \int_{\R_+}\varphi(y) \left(f'(f^{-1}(y)\right)^2 L_t^{f^{-1}(y)}\;d\left(f^{-1}(y)\right) \\
@@ -868,24 +863,25 @@ $$L_t^{f(x)}(f(X)) =  f'(x) L_t^{x}(X).$$
 L'existence et l'unicité de cette EDS ne seront pas abordées dans ce travail, mais il y a une section dédiée à cela dans le livre Random Obstacle Problems de Lorenzo Zambotti (Chapter 3, section 3.2).
 Bien que le carré de Bessel soit bien défini, on s’intéresse à un autre processus : le \textit{processus de Bessel}.
 
-\begin{definition}[$\delta$-Processus de Bessel] Un $\delta$-\textit{processus de Bessel} est un processus stochastique positif défini par $\rho_t := \sqrt{Z_t}$.
+\begin{definition}[$\delta$-Processus de Bessel] Un $\delta$-\textit{processus de Bessel} est un processus stochastique positif défini par $\rho_t := \sqrt{Z_t}$ où $(Z_t)_{t\geq0}$ est le carré de Bessel de dimension $\delta$. 
 \end{definition}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{Discussion}
-Maintenant qu'on sait ce que c'est un Bessel, notre but est de savoir quelle EDS il satisfait. Le problème auquel on est confronté est que la fonction $\sqrt{.}$ n'est pas $\mathcal C^2$ puisqu'elle n'est pas différenciable en 0. On ne peut donc pas ``simplement'' appliquer Itō. En fait, il y a plusieurs cas de figure et il est important de les différencier.
+Maintenant qu'on sait ce que c'est un Bessel, notre but est de savoir quelle EDS il satisfait. Le problème auquel on est confronté est que la fonction $\sqrt{.}$ n'est pas $\mathcal C^2$ puisqu'elle n'est pas différenciable en 0. On ne peut donc pas ``simplement'' appliquer Itō. De plus, un processus de Bessel est défini selon une dimension $\delta$ et agis différemment autour du point singulier selon cette dimension. On peut différencier quatre cas : 
 
 \begin{enumerate}
     \item Premièrement, dans le cas $\delta = 0$ le point $0$ est absorbant, c.à.d une fois qu'il est atteint $(Z_t = 0)$ alors, pour tout $\tilde{t} \geq t$, $Z_{\tilde{t}} = 0$ p.s.
-    \item Ensuite, pour $\delta \in (0,2)$, le point $0$ est récurrent, c.à.d. on l'atteindra une infinité de fois.
-    \item Finalement, pour $\delta \geq 2$, si le point $0$ n'est pas notre condition initiale, i.e. $y \neq 0$, alors cet état ne sera jamais atteint. Dans le cas contraire, dès que $t>0$, $Z$ quittera cet état et n'y reviendra plus.
+    \item Ensuite, pour $\delta \in (0,2)$, le point $0$ est visité une infinité de fois.
+    \item De plus, pour $\delta = 2$, le point $0$ est récurrent,c.à.d que le voisinage du point 0 est visité une infinité de fois mais ne sera jamais atteint.
+    \item Finalement, pour $\delta > 2$, si le point $0$ n'est pas notre condition initiale, i.e. $y \neq 0$, alors cet état ne sera jamais atteint. Dans le cas contraire, dès que $t>0$, $Z$ quittera cet état et n'y reviendra plus.
 \end{enumerate}
 
 % \section{Cas $\delta = 0$}
 
 \section{Cas $\delta \in (0,2)$}
 
-\paragraph{Discussion}Remarquons tout d'abord que même si $\sqrt{.}$ n'est pas $\mathcal C^2$, on peut l'approcher par la fonction $\sqrt{.+\varepsilon}$, qui, est $\mathcal C^2$. Soit $f$ une fonction qui à $y \in \R$ associe $f(y) = \sqrt{y + \varepsilon}$. En dérivant par rapport à $y$ on obtient : $$f'(y) = \dfrac{1}{2} (y + \varepsilon)^{-1/2},\quad f''(y) = -\dfrac{1}{4} (y + \varepsilon)^{-3/2}.$$ 
+\paragraph{Discussion}Remarquons tout d'abord que même si $\sqrt{.}$ n'est pas $\mathcal C^2$, on peut l'approcher par la fonction $\sqrt{.+\varepsilon}$, qui, est $\mathcal C^2$. Soit $f$ une fonction qui à $y \in \R$ associe $f(y) = \sqrt{y + \varepsilon}$. On a : $$f'(y) = \dfrac{1}{2} (y + \varepsilon)^{-1/2},\quad f''(y) = -\dfrac{1}{4} (y + \varepsilon)^{-3/2}.$$ 
 
 \noindent Ainsi en appliquant $f$ au carré de Bessel $(Z_t)_{t\geq0}$ et par la formule d'Itō, on obtient :
 %
@@ -910,8 +906,6 @@ Le problème ici, c'est qu'on rencontre une singularité en zéro et ce n'est pa
 
 Avant de reformuler cette EDS de manière à ne plus avoir de singularité en zéro, énonçons un résultat fondamental pour notre raisonnement : La formule d'occupation pour les processus de Bessel.
 
-%Pour montrer le caractère fini de tous les termes de \eqref{eq:ApproxEDSBessel}, énonçons d'abord la formule d'occupation pour les processus de Bessel.
-
 %%%%%% THM OCCUPATION PR BESSEL
 \begin{theorem}[Formule d'occupation pour les processus de Bessel]
   \label{thm:occupationBessel}
@@ -931,25 +925,6 @@ $$
 \end{remark}
 %%%%%% FIN
 
-%Par la formule d'occupation \autoref{thm:occupationBessel}, l'intégrale \hyperlink{term3}{$J_3^\varepsilon$} est égale à :
-%\begin{alignat*}{2}
-%  \text{\hyperlink{term3}{$J_3^\varepsilon$}} %: \dfrac{1}{2} \int_0^t \dfrac{\delta}{(\rho_s^2 + \varepsilon)^{1/2}} + \dfrac{\rho_s^2}{(\rho_s^2 + \varepsilon)^{3/2}}\d s
-%  &= \dfrac{1}{2(2 - \delta)}\int_{\R^+} \left(\dfrac{1}{2} \int_0^t \dfrac{\delta}{(a^2 + \varepsilon)^{1/2}} - \dfrac{a^2}{(a^2 + \varepsilon)^{3/2}}\right) \ell_t^a(\rho) a^{\delta-1}da,\\
-%  &= \dfrac{1}{2(2 - \delta)}\int_{\R^+} \ell_t^a(\rho) \left(\dfrac{\delta\;a^{\delta - 1}}{(a^2 + \varepsilon)^{1/2}} - \dfrac{a^{\delta + 1}}{(a^2 + \varepsilon)^{3/2}}\right)\d a,
-%    \shortintertext{Comme le temps local est une fonction de $\rho$ continue à support compact, il existe deux réels $\alpha$ et $\beta$, $\alpha \leq \beta$, tels que $\supp(\ell_t^a(\rho)) \subset [\alpha, \beta]$.}
-%  &= \dfrac{1}{2(2 - \delta)}\int_{\alpha}^\beta \ell_t^a(\rho) \left(\dfrac{\delta\;a^{\delta - 1}}{(a^2 + \varepsilon)^{1/2}} - \dfrac{a^{\delta + 1}}{(a^2 + \varepsilon)^{3/2}}\right)\d a,\\
-%  &\leq \dfrac{1}{2(2 - \delta)} ||\ell_t(\rho)||_\infty (\beta - \alpha)\;\int_{\alpha}^\beta \left(\dfrac{\delta\;a^{\delta - 1}}{(a^2 + \varepsilon)^{1/2}} - \dfrac{a^{\delta + 1}}{(a^2 + \varepsilon)^{3/2}}\right)\d a,
-%    \intertext{En prenant $u(a) = a^\delta$ et $v(a) = \dfrac{1}{(a^2 + \varepsilon)^{1/2}}$ on remarque que $u'(a) = \delta a^{\delta -1}$ et $v'(a) = -\dfrac{1}{2} \dfrac{2a}{(a^2 + \varepsilon)^{3/2}}$. Ainsi, l'intégrale du RHS est une intégration par parties et est égale à $[uv]_\alpha^\beta = \left[\dfrac{a^\delta}{(a^2 + \varepsilon)^{1/2}}\right]$. Ainsi on obtient :}
-%   \text{\hyperlink{term3}{$J_3^\varepsilon$}} &\leq \dfrac{1}{2(2 - \delta)} ||\ell_t(\rho)||_\infty (\beta - \alpha)\; \left[\dfrac{a^\delta}{(a^2 + \varepsilon)^{1/2}}\right]_\alpha^\beta < \infty.
-%\end{alignat*}
-%
-%\noindent Il est clair que $\text{\hyperlink{term1}{$J_1^\varepsilon$}} = (\rho_0^2 + \varepsilon)^{1/2} \xrightarrow[\varepsilon \to 0]{} |\rho_0| = \rho_0 < \infty$ et que $(\rho_t^2 + \varepsilon)^{1/2} \xrightarrow[\varepsilon \to 0]{} |\rho_t| = \rho_t < \infty$. En écrivant {\hyperlink{term2}{$J_2^\varepsilon$} en fonction de $\rho_t$, \hyperlink{term1}{$J_1^\varepsilon$} et \hyperlink{term3}{$J_3^\varepsilon$} on voit bien le caractère fini de \hyperlink{term2}{$J_2^\varepsilon$}. Ainsi, tous les termes de \eqref{eq:ApproxEDSBessel} sont finis.
-%
-%Ainsi, on peut dire que :
-%\begin{equation}
-%  \rho_t = \rho_0 + \lim_{\varepsilon \to 0} \int_0^t  \dfrac{\rho_s}{(\rho_s^2 + \varepsilon)^{1/2}}\d W_s + \lim_{\varepsilon \to 0}\dfrac{1}{2} \int_0^t \left(\dfrac{\delta}{(\rho_s^2 + \varepsilon)^{1/2}} - \dfrac{\rho_s^2}{(\rho_s^2 + \varepsilon)^{3/2}}\right)\d s,
-%\end{equation}
-
 \begin{prop}
   \label{prop:EDSBessel}
   Soit $x \geq 0$. $\rho_t$ est solution de différentes EDS selon sa dimention $\delta$:
@@ -959,12 +934,12 @@ $$
        \rho_t = x + W_t + \dfrac{\delta-1}{2(2-\delta)}\int_{\R_+} a^{\delta -2}(\ell_t^a- \ell_t^0)\d a .
        \label{eq:EDSBessel3}
      \end{equation}
-     \noindent Où la loi de la v.a. $\ell_t^a$ est égale à la loi de $L_{\gamma(t)}^{a^{2-\delta}}$, le temps local du brownien réfléchi commencé en $x^{2-\delta}$ et,
+     \noindent Où la loi de la v.a. $\ell_t^a$ est égale à la loi de $L_{\gamma(t)}^{a^{2-\delta}}$, le temps local du brownien réfléchi parti du point $x^{2-\delta}$ et,
      $$\gamma_t := \inf\{u > 0 : A_u > t\}, \qquad
      A_t := \frac{1}{(2 - \delta)^2} \int_0^t R_s^{-2 \cdot \frac{1 - \delta}{2 - \delta}} \d s, \qquad t \geq 0.$$
    \item Pour $\delta =1$, il existe une unique paire $(\rho, \ell)$ de v.a. qui satisfont :
      \begin{equation}
-       \rho_t = x + \ell_t + B_t, \;\text{ainsi que}\; \int_0^t \rho_s d\ell_s = 0,
+       \rho_t = x + \ell_t + B_t, \;\text{ainsi que}\; \int_0^t \rho_s \d \ell_s = 0,
        \label{eq:EDSBessel2}
      \end{equation}
      \noindent et telles que $t\mapsto \rho_t$ est continue et non-négative et, $t \mapsto \ell_t$ est continue, croissante et $\ell_0 = 0$.\\
@@ -979,34 +954,28 @@ $$
 \end{prop}
 
 \paragraph{Discussion}
-Ce qui nous intéresse est de donner un sens à l’EDS définissant les processus de Bessel pour $\delta \in (0,1)$. En effet, l’équation \eqref{eq:EDSBessel3} contient une intégrale sur $\mathbb{R}_+$ d’une fonction multipliée par $a^{\delta-2}$. Or, $\delta-2 < -1$, donc le terme $a^{\delta-2}$ n’est pas intégrable au voisinage de 0. De plus, $\ell_t^a$ est continue à support compact et $\ell_t^0$ est une constante. À première vue, $a^{\delta-2}(\ell_t^a - \ell_t^0)$ pourrait ne pas être intégrable, mais en réalité, la différence $\ell_t^a - \ell_t^0$ rend le produit intégrable.
+Ce qui nous intéresse est de donner un sens à l’EDS définissant les processus de Bessel pour $\delta \in (0,1)$. En effet, l’équation \eqref{eq:EDSBessel3} contient une intégrale sur $\mathbb{R}_+$ d’une fonction multipliée par $a^{\delta-2}$. Or, $\delta-2 < -1$, donc le terme $a^{\delta-2}$ n’est pas intégrable au voisinage de 0. De plus, $\ell_t^a$ est continue à support compact et $\ell_t^0$ est une constante. À première vue, $a^{\delta-2}(\ell_t^a - \ell_t^0)$ pourrait ne pas être intégrable, mais en réalité, la différence $\ell_t^a - \ell_t^0$ rend le produit intégrable. Ceci est dû à un argument de continuité hölderienne des temps locaux.
 
-Pour $\delta \ge 1$, il n’y a plus de singularité en zéro. En effet, le drift, c.à.d. le terme $\frac{\delta-1}{2\,\rho_s}$, disparaît pour $\delta = 1$ et est strictement positif pour $\delta > 1$. En dérivant l’équation \eqref{eq:EDSBessel3}, on obtient
-$$\d \rho_t = \frac{\delta-1}{2\,\rho_t} \,\d t + \d W_t.$$
-Lorsque $\rho_t$ est proche de zéro, le drift devient très grand, ce qui empêche le processus de rester au voisinage de zéro.
+Pour $\delta \ge 1$, on ne rencontre pas de problème pour la définition du processus de Bessel puisque le drift, c.à.d. le terme $\frac{\delta-1}{2\,\rho_s}$, est bien défini. Il disparaît pour $\delta = 1$ et est strictement positif pour $\delta > 1$. Pour se convaincre du caractère fini de l'intégrale de \eqref{eq:EDSBessel1} il suffit d'utiliser la formule d'occupation pour les processus de Bessel (\autoref{thm:occupationBessel}).
 
-C’est pourquoi le résultat que nous montrerons concerne uniquement le cas $\delta \in (0,1)$ (point \textit{i.}) de la \autoref{prop:EDSBessel}).
-%{\color{red}
-%  \begin{remark}
-%    Ce qui nous interesse est de faire sens de l'EDS qui définit les processus de Bessel pour $\delta \in (0,1)$. En effet, ce qui est curieux de l'équation \eqref{eq:EDSBessel3} est qu'on intègre sur $\R_+$ une fonction qui multiplie $a^{\delta -2}$. Or, $\delta -2 < -1$ et donc n'est pas intégrable. De plus $\ell_t^a$ est continue à support compact et $\ell_t^0$ est une constante. On pourrait donc se dire que $a^{\delta -2}(\ell_t^a - \ell_t^0)$ n'est donc pas intégrable mais en fait le terme $\ell_t^a - \ell_t^0$ rend le produit intégrable. Pour $\delta \geq 1$ on n'a pas de singularité en zéro. En effet, le drift, c.à.d le terme $\frac{\delta-1}{2 \; \rho_s}$, disparait en $\delta = 1$ et est strictement positif pour $\delta>1$. En prenant l'équation \eqref{eq:EDSBessel3} et on la dérivant on obtient $\d \rho_t = \frac{\delta-1}{2\;\rho_t}\d t  + \d W_s$. On remarque que quand $\rho_t$ est proche de zéro, le drift est grand (et positif) et empèche le processus $\rho_t$ de rester proche de zéro.
+%Intuitivement, en dérivant l’équation \eqref{eq:EDSBessel3}, on obtient
+%$$\d \rho_t = \frac{\delta-1}{2\,\rho_t} \,\d t + \d W_t.$$
+%Lorsque $\rho_t$ est proche de zéro, le drift devient très grand, ce qui empêche le processus de rester au voisinage de zéro.
 %
-%    
-%    C'est pourquoi le résultat qu'on montrera est uniquement le point
-%    \textit{i.}.
-%\end{remark}}
-
+%C’est pourquoi le résultat que nous montrerons concerne uniquement le cas $\delta \in (0,1)$ (point \textit{i.}) de la \autoref{prop:EDSBessel}).
   \begin{proof}
-    Particularisons tout d'abord l'égalité \eqref{eq:ApproxEDSBessel} avec $\rho_0 = x$ et $\varepsilon = 1/n$, où $n \in \mathbb N^*$ et la suite de v.a. $(\rho_t^n)_n$ telle que $$\rho_t^n := \rho_0 + \int_0^t  \dfrac{\rho_s}{(\rho_s^2 + 1/n)^{1/2}}\d W_s + \dfrac{1}{2} \int_0^t \left(\dfrac{\delta}{(\rho_s^2 + 1/n)^{1/2}} - \dfrac{\rho_s^2}{(\rho_s^2 + 1/n)^{3/2}}\right)\d s.$$
+    Particularisons tout d'abord l'égalité \eqref{eq:ApproxEDSBessel} avec $\rho_0 = x$ et $\varepsilon = 1/n$, où $n \in \mathbb N^*$. On a :
+    $$\sqrt{ \rho_t^2 + \frac{1}{n}} := \rho_0 + \int_0^t  \dfrac{\rho_s}{(\rho_s^2 + 1/n)^{1/2}}\d W_s + \dfrac{1}{2} \int_0^t \left(\dfrac{\delta}{(\rho_s^2 + 1/n)^{1/2}} - \dfrac{\rho_s^2}{(\rho_s^2 + 1/n)^{3/2}}\right)\d s.$$
 
-    \noindent On a bien $\rho_t^n \xrightarrow[n \to \infty]{} \rho_t$.\\
+    \noindent On a bien $\sqrt{\rho_t^2 + \frac{1}{n}} \xrightarrow[n \to \infty]{} \rho_t$.\\
 
     \noindent Soit $\delta \in (0,1)$. On veut montrer que
     \begin{align*}
-      \text{\hyperlink{term1}{$J_1^\varepsilon$}} &: \int_0^t \dfrac{\rho_s}{\left(\rho_s^2 + 1/n\right)^{1/2}} \d W_s \xrightarrow[n \to \infty]{L^2} W_t\\
-      \text{et que}\quad \text{\hyperlink{term2}{$J_2^\varepsilon$}} &: \dfrac{1}{2} \int_0^t \left(\dfrac{\delta}{(\rho_s^2 + 1/n)^{1/2}} - \dfrac{\rho_s^2}{(\rho_s^2 + 1/n)^{3/2}}\right)\d s \xrightarrow[n\to \infty]{\text{p.s.}} \dfrac{\delta-1}{2(2-\delta)} \int_{\R_+} \dfrac{\ell_t^a- \ell_t^0}{a}a^{\delta-1} \;da.
+      \text{\hyperlink{term2}{$J_2^\varepsilon$}} &: \int_0^t \dfrac{\rho_s}{\left(\rho_s^2 + 1/n\right)^{1/2}} \d W_s \xrightarrow[n \to \infty]{L^2} W_t\\
+      \text{et que}\quad \text{\hyperlink{term3}{$J_3^\varepsilon$}} &: \dfrac{1}{2} \int_0^t \left(\dfrac{\delta}{(\rho_s^2 + 1/n)^{1/2}} - \dfrac{\rho_s^2}{(\rho_s^2 + 1/n)^{3/2}}\right)\d s \xrightarrow[n\to \infty]{\text{p.s.}} \dfrac{\delta-1}{2(2-\delta)} \int_{\R_+} \dfrac{\ell_t^a- \ell_t^0}{a}a^{\delta-1} \;da.
     \end{align*}
     
-    \noindent Le premier point se fait par convergence monotone et par convergence dominée. 
+    \noindent Le premier point se fait par deux convergences dominées. 
     \begin{align*}
       \E\left(\left(W_t - \int_0^t \dfrac{\rho_s}{\left(\rho_s^2 + \frac{1}{n}\right)^{1/2}} \d W_s\right)^2\right) &= \E\left( \left( \int_0^t 1 - \dfrac{\rho_s}{\left(\rho_s^2 + \frac{1}{n}\right)^{1/2}} \d W_s \right)^2\right),\\
       &\overset{\text{Isométrie}}{=} \E \left(\int_0^t \left(1 - \dfrac{\rho_s}{\left(\rho_s^2 + \frac{1}{n}\right)^{1/2}}\right)^2 \d s \right),
@@ -1028,28 +997,29 @@ C’est pourquoi le résultat que nous montrerons concerne uniquement le cas $\d
             + \underbrace{ \dfrac{1}{2(2-\delta)} \hypertarget{term2.2} \int_{\R^+} \dfrac{\delta a^{\delta -1}}{n (a^2 + \frac{1}{n})^{3/2}} (\ell_t^a - \ell_t^0) \;\d a}_{(2.2)} \\
           &\quad +  \underbrace{ \dfrac{\ell_t^0}{2(2-\delta)} \hypertarget{term2.3}\int_{\R^+} \left(\dfrac{\delta a^{\delta -1}}{(a^2 + \frac{1}{n})^{1/2}} - \dfrac{a^{\delta + 1}}{(a^2 + \frac{1}{n})^{3/2}}\right) \; \d a}_{(2.3)}.
     \end{align*}
-    Regardons d'abord l'intégrale \hyperlink{term2.3}{(2.3)}. %On a vu précédemment que c'était une IPP. On a donc :
+    Regardons d'abord l'intégrale \hyperlink{term2.3}{(2.3)}.
     Par la formule d'occupation \autoref{thm:occupationBessel}, l'intégrale \hyperlink{term2.3}{(2.3)} est égale à :
 \begin{align*}
-  \text{\hyperlink{term2.3}{(2.3)}} %: \dfrac{1}{2} \int_0^t \dfrac{\delta}{(\rho_s^2 + \varepsilon)^{1/2}} + \dfrac{\rho_s^2}{(\rho_s^2 + \varepsilon)^{3/2}}\d s
-  &= \dfrac{\ell_t^0}{2(2-\delta)} \int_{\R^+} \left(\dfrac{\delta\;a^{\delta - 1}}{(a^2 + \varepsilon)^{1/2}} - \dfrac{a^{\delta + 1}}{(a^2 + \varepsilon)^{3/2}}\right) \d a,
-    \intertext{En prenant $u(a) = a^\delta$ et $v(a) = \dfrac{1}{(a^2 + \varepsilon)^{1/2}}$ on remarque que $u'(a) = \delta a^{\delta -1}$ et $v'(a) = -\dfrac{1}{2} \dfrac{2a}{(a^2 + \varepsilon)^{3/2}}$. Ainsi, l'intégrale du RHS est une intégration par parties et est égale à $[uv]_\alpha^\beta = \left[\dfrac{a^\delta}{(a^2 + \varepsilon)^{1/2}}\right]$. Ainsi on obtient :}
-      \text{\hyperlink{term2.3}{(2.3)}} &= \dfrac{\ell_t^0}{2(2-\delta)} \left[ \dfrac{a^{\delta}}{(a^2 +\frac{1}{n})^{1/2}}\right]_0^{+\infty}.
-      \shortintertext{Comme $\delta \in (0,1)$, il s'en suit que : }
+  \text{\hyperlink{term2.3}{(2.3)}}  &= \dfrac{\ell_t^0}{2(2-\delta)} \int_{\R^+} \left(\dfrac{\delta\;a^{\delta - 1}}{(a^2 + \varepsilon)^{1/2}} - \dfrac{a^{\delta + 1}}{(a^2 + \varepsilon)^{3/2}}\right) \d a,
+    \intertext{En prenant $u(a) = a^\delta$ et $v(a) = \dfrac{1}{(a^2 + \varepsilon)^{1/2}}$ on remarque que $u'(a) = \delta a^{\delta -1}$ et $v'(a) = -\dfrac{1}{2} \dfrac{2a}{(a^2 + \varepsilon)^{3/2}}$. Par intégration par parties, on a $[uv]_\alpha^\beta = \left[\dfrac{a^\delta}{(a^2 + \varepsilon)^{1/2}}\right]$. Ainsi on obtient :}
+    \text{\hyperlink{term2.3}{(2.3)}} &= \dfrac{\ell_t^0}{2(2-\delta)} \left[ \dfrac{a^{\delta}}{(a^2 +\frac{1}{n})^{1/2}}\right]_0^{+\infty}.
+                                            \end{align*}
+                                            \noindent Comme $\delta \in (0,1)$, il s'en suit que :
+                                            \begin{align*}
       \dfrac{a^{\delta}}{(a^2 +\frac{1}{n})^{1/2}} &\underset{a = 0}{=} 0\\
       \dfrac{a^{\delta}}{(a^2 +\frac{1}{n})^{1/2}} &\underset{a \to \infty}{\sim} a^{\delta -1} \xrightarrow[a \to \infty]{} 0
     \end{align*}
 
-    Donc \hyperlink{term2.3}{(2.3)}$= 0$.\\
+    \noindent Donc \hyperlink{term2.3}{(2.3)}$= 0$.\\
 
 
     \noindent Prenons maintenant \hyperlink{term2.2}{(2.2)}. On sait que $\ell_t^a \overset{\mathcal L}{=} L_{\gamma(t)}^{a^{2-\delta}}$. On sait également que $L_t$ est $\frac{1}{2}-$ Hölder-continue en espace et qu'elle est à support compact. Ceci nous dit que :
     \begin{itemize}
-    \item $|L^a_t-L_t^b| \leq C_{\alpha,T} |a-b|^\alpha$ où $\alpha < \frac{1}{2}$ et $t < T$. On peut écrire $\alpha$ comme $\frac{1}{2} - \beta$ où $\beta > 0$ petit. On prend $\beta \leq \frac{\delta}{2}$.
-      \item $\forall t \in \R^+$ on a p.s. $\forall a \in \R^+$, $\supp(L_t) \subset [0,t]$.
+    \item $|L^a_t-L_t^b| \leq C_{\alpha,T} |a-b|^\alpha$ où $\alpha < \frac{1}{2}$ et $t < T$. Pour tout $a, b \in \R$, on peut écrire $\alpha$ comme $\frac{1}{2} - \beta$ où $\beta > 0$ petit. On prend $\beta \leq \frac{\delta}{2}$.
+      \item $\forall t \in \R^+$ on a p.s. $\exists m \in \R$ tel que $\; \forall a \in \R^+$, $\supp(L_t) \subset [-m,m]$.
       \end{itemize}
 
-      On peut rafiner l'intégalité obtenue grâce à la régularité de Hölder :
+      \noindent On peut rafiner l'intégalité obtenue grâce à la régularité de Hölder : pour tout $a \in \R$,
       \begin{align}
         (\ell_t^a - \ell_t^0) &\leq C_{\beta,T} |a^{2-\delta}|^{\frac{1}{2} - \beta} \wedge \sup(s \in [0,t] : W_s = a),\notag
         \shortintertext{Où $C_{\beta,T}$ est une constante. Comme le $\sup(s \in [0,t] : W_s = a)$ est aussi constante à $t$ fixé, on peut l'intégrer dans $C_{\beta,T}$, qu'on appelera $C$.}
@@ -1058,16 +1028,16 @@ C’est pourquoi le résultat que nous montrerons concerne uniquement le cas $\d
        (\ell_t^a - \ell_t^0) &\leq C (a \wedge 1)^{1-\frac{\delta}{2} - \beta}.\label{arg:MajTempsLocBessel}
       \end{align}
 
-    Ainsi, on peut écrire :
+    \noindent Ainsi, on peut écrire :
     \begin{align*}
       \text{\hyperlink{term2.2}{(2.2)}} &\leq \dfrac{\delta C}{2(2-\delta)}\dfrac{1}{n} \int_{\R^+} \dfrac{a^{\delta-1}}{(a^2 + \frac{1}{n})^{3/2}}(a \wedge 1)^{1-\frac{\delta}{2} - \beta} \d a.\\
               &= \left(\dfrac{\delta C}{2(2-\delta)}\dfrac{1}{n}\right)\Bigg( \underbrace{ \hypertarget{term2.2.1}\int_0^1 \dfrac{a^{\frac{\delta}{2} - \beta}}{(a^2 + \frac{1}{n})^{3/2}} \d a}_{(2.2.1)}
-                + \underbrace{ \hypertarget{term2.2.2} \int_1^\infty \dfrac{a^{\delta - 1}}{(a^2 + \frac{1}{n})^{3/2}}\d a}_{(2.2.2)} \Bigg)\\  
+                + \underbrace{ \hypertarget{term2.2.2} \int_1^\infty \dfrac{a^{\delta - 1}}{(a^2 + \frac{1}{n})^{3/2}}\d a}_{(2.2.2)} \Bigg)\\  \\
       \text{\hyperlink{term2.2.1}{(2.2.1)}} &\overset{a = \frac{u}{\sqrt{n}}}{=} \underbrace{\dfrac{\delta C}{2(2-\delta)}}_{\tilde C}\dfrac{1}{n}  \int_0^{\sqrt{n}} \dfrac{u^{\frac{\delta}{2} - \beta} n^{ \frac{\beta}{2}-\frac{\delta}{4}}}{(a^2 + 1)^{3/2}n^{-3/2}} n^{-1/2}\d u,\\
               &= \tilde C n^{ \frac{\beta}{2}-\frac{\delta}{4}} \int_0^{\sqrt{n}} \dfrac{u^{\frac{\delta}{2} - \beta} }{(u^2 + 1)^{3/2}}\d u\\
               &= \tilde C n^{ \frac{\beta}{2}-\frac{\delta}{4}} \left( \int_0^1 \dfrac{u^{\frac{\delta}{2} - \beta}}{(u^2 + 1)^{3/2}}\d u + \int_1^{\sqrt{n}}\dfrac{u^{\frac{\delta}{2} - \beta}}{(u^2 + 1)^{3/2}}\d u\right)
     \end{align*}
-    Comme $\beta<\dfrac{\delta}{2}$, alors l'exposant est positif, et ainsi notre fonction est constante.
+    Comme $\beta<\dfrac{\delta}{2}$, alors l'exposant $\frac{\delta}{2} - \beta$ est positif, et ainsi notre fonction est constante.
     $$\dfrac{u^{\frac{\delta}{2} - \beta}}{(u^2 + 1)^{3/2}} \underset{u = 0}{\sim} u^{\frac{\delta}{2} - \beta} \leq u^{-1/2};$$
     et quand $u$ tend vers $\infty$, on a :
     $$\dfrac{u^{\frac{\delta}{2} - \beta}}{(u^2 + 1)^{3/2}} \underset{u \to \infty}{\sim} u^{\frac{\delta}{2} -\beta -3} \leq u^{-5/2}$$
@@ -1080,22 +1050,21 @@ C’est pourquoi le résultat que nous montrerons concerne uniquement le cas $\d
                                                                          &= \dfrac{-1}{\delta - 3}.\\
    \text{Ainsi, }\qquad\qquad\quad\text{\hyperlink{term2.2.2}{(2.2.2)}} &=  \dfrac{\tilde C}{n} \int_1^\infty \dfrac{a^{\delta - 1}}{(a^2 + \frac{1}{n})^{3/2}}\d a  \xrightarrow[n\to \infty]{} 0.
     \end{align*}
-Ce qui nous permet de dire que \hyperlink{term2.3}{(2.3)}$\xrightarrow[n \to \infty]{} 0$.
+Ce qui nous permet de dire que \hyperlink{term2.3}{(2.3)}$\xrightarrow[n \to \infty]{} 0$.\\
 
-%    \noindent De la même manière,
-%    $$ \text{\hyperlink{term2.2.2}{(2.2.2)}} \overset{a = \frac{u}{\sqrt{n}}}{=} \tilde C n^{\frac{\delta +1}{2}} \int_{\sqrt{n}}^\infty \dfrac{u^{\delta -1} }{(u^2 + 1)^{3/2}}\d u $$
-%
-%    Enfin, par le critère de Riemann, cette intégrale converge et en faisant tendre $n$ vers l'infini on obtient que $\text{\hyperlink{term2.2.2}{(2.2.2)}} \xrightarrow[n \to \infty]{} 0$. Ainsi, $\text{\hyperlink{term2.2}{(2.2)}} \xrightarrow[n \to \infty]{} 0$ et on a :
+
 Finalement, montrons que $\text{\hyperlink{term3}{$J_3^\varepsilon$}} \xrightarrow[n \to \infty]{} \int_{\R^+} a^{\delta -2} (\ell_t^a - \ell_t^0)$.
 
-  \begin{align*}
-    \text{\hyperlink{term3}{$J_3^\varepsilon$}} &= \text{\hyperlink{term2.1}{(2.1)}} = \dfrac{\delta -1}{2(2-\delta)} \int_{\R^+} \dfrac{a^{\delta+1}}{(a^2 + \frac{1}{n})^{3/2}}(\ell_t^a - \ell_t^0) \d a\\
-    \intertext{Or, on remarque la suite de fonctions mesurables $(f_n)_{n\in \mathbb{N}}$ définies par $f_n(a) = \dfrac{a^{\delta+1}}{(a^2 + \frac{1}{n})^{3/2}}$ est strictement croissante. En effet, $.^{3/2}$ est une fonction croissante et on a pour tout $n\in \mathbb N$, $a^2 + \frac{1}{n} > a^2 + \frac{1}{n+1}$. Ainsi, par le théorème de convergence dominée :}
-    \lim_{n \to \infty }\text{\hyperlink{term3}{$J_3^\varepsilon$}} &= \dfrac{\delta -1}{2(2-\delta)} \int_{\R^+} \lim_{n \to \infty} \dfrac{a^{\delta+1}}{(a^2 + \frac{1}{n})^{3/2}} (\ell_t^a - \ell_t^0) \d a,\\
-    &= \dfrac{\delta -1}{2(2-\delta)} \int_{\R^+} a^{\delta-2} (\ell_t^a - \ell_t^0) \d a.
-  \end{align*}
-
-  Cette intégrale est finie puisque d'après \eqref{arg:MajTempsLocBessel}:
+  \begin{align}
+    \text{\hyperlink{term3}{$J_3^\varepsilon$}} &= \text{\hyperlink{term2.1}{(2.1)}} = \dfrac{\delta -1}{2(2-\delta)} \int_{\R^+} \dfrac{a^{\delta+1}}{(a^2 + \frac{1}{n})^{3/2}}(\ell_t^a - \ell_t^0) \d a \notag\\
+    \intertext{Or, on remarque que $\frac{a^{\delta + 1}}{(a^2 + \frac{1}{2})^{3/2}}\leq a^{\delta - 2}$. De plus, on peut majorer la différence de temps locaux par le même argument que \eqref{arg:MajTempsLocBessel}. Ainsi, comme $a^{\delta - 2}(a \wedge 1)^{1-\frac{\delta}{2} - \beta}$ est intégrable (c.f. \reffin), par convergence dominée, }
+    \lim_{n \to \infty }\text{\hyperlink{term3}{$J_3^\varepsilon$}} &= \dfrac{\delta -1}{2(2-\delta)} \int_{\R^+} \lim_{n \to \infty} \dfrac{a^{\delta+1}}{(a^2 + \frac{1}{n})^{3/2}} (\ell_t^a - \ell_t^0) \d a, \notag\\
+    &= \dfrac{\delta -1}{2(2-\delta)} \int_{\R^+} a^{\delta-2} (\ell_t^a - \ell_t^0) \d a. \label{finfinfin}
+  \end{align}
+  \phantomsection
+  \begin{itemize}
+    \item[$(\star)$]Montrons le caractère fini de cette intégrale \eqref{finfinfin}: \label{proof:finfinfin}
+  
   \begin{align*}
     \int_{\R^+} a^{\delta -2} (\ell_t^a - \ell_t^0) \d a &\leq C \int_{\R^+} a^{\delta -2}(a \wedge 1)^{1-\frac{\delta}{2} - \beta}\d a\\
     &= \int_{\R^+} a^{\delta -2 } \wedge a^{3 - \frac{3}{2}\delta - \beta}\d a
@@ -1103,7 +1072,7 @@ Finalement, montrons que $\text{\hyperlink{term3}{$J_3^\varepsilon$}} \xrightarr
     &= \int_0^1 a^{3 - \frac{3}{2}\delta - \beta} \d a + \int_0^\infty a^{\delta-2} \d a.
   \end{align*}
   Qui, par le critère de Riemann, est fini p.s. ce qui conclut notre preuve.
-    
+  \end{itemize}  
   %\item{$\delta = 1$}
   %\item{$\delta \in (1,2)$}
 \end{proof}
@@ -1111,29 +1080,6 @@ Finalement, montrons que $\text{\hyperlink{term3}{$J_3^\varepsilon$}} \xrightarr
 %\section{Cas $\delta = 2 $}
 %\section{Cas $\delta > 2 $}
 
-%\newpage    
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%Ainsi, pour $\delta \in ]1,2]$, par la formule d'occupation, 
-%
-%\begin{align*}
-%  \dfrac{\delta-1}{2}\int_0^t \dfrac{1}{\rho_s} \d s &\overset{\text{\autoref{thm:occupationBessel}}}{=} \int_{\R_+} \dfrac{\delta-1}{2 a} \ell_t^a a^{\delta-1}\d a,\\
-%  &\quad\;\;\;=\quad \dfrac{\delta-1}{2} \int_{\R_+} \ell_t^a a^{\delta-2}\d a.
-%\end{align*}
-%
-%Où $\ell_t^a$ est continue continue en $0$ et $\delta-2 >-1$, i.e. par le critère de Riemann, l'intégrale converge! De plus, si $\delta > 2$, on aura p.s
-%
-%Maintenant qu'on sait qu'elle converge, on peut montrer que \eqref{eq:EDSBessel1} $\Leftrightarrow$ \eqref{eq:EDSCarreBessel} pour tout $t$ et pour $\delta \in [1,2]$.
-%
-%  Comme $x \mapsto x^2$ est $\mathcal C^2$ on peut appliquer la formule d'Itō (\autoref{thm:FormuleIto}) :
-%\begin{alignat*}{1}
-%  \eqref{eq:EDSBessel1} \Leftrightarrow d\rho_t
-%  &= \dfrac{\delta -1}{2\rho_t}\d t + dB_t,\\
-%  d[\rho]_t &= \d t;\\\\
-%  \rho_t^2 &\overset{\text{Itō}}{=} \rho_0^2 + \int_0^t 2\rho_s d\rho_s + \dfrac{1}{2}\;\int_0^t2 d[\rho]_s,\\
-%  &= \underbrace{\rho_0^2}_y + \int_0^t2 \rho_s \left(\dfrac{\delta -1}{2}\d s + dB_s\right) +\int_0^t \d s,\\
-%  Z_t &= y + \delta t + 2\int_0^t \sqrt{Z_s} dB_s.
-%\end{alignat*}
-%
 \bibliographystyle{plainurl}
 \bibliography{Bib}
 
