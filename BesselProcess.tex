@@ -958,22 +958,18 @@ Ce qui nous intéresse est de donner un sens à l’EDS définissant les process
 
 Pour $\delta \ge 1$, on ne rencontre pas de problème pour la définition du processus de Bessel puisque le drift, c.à.d. le terme $\frac{\delta-1}{2\,\rho_s}$, est bien défini. Il disparaît pour $\delta = 1$ et est strictement positif pour $\delta > 1$. Pour se convaincre du caractère fini de l'intégrale de \eqref{eq:EDSBessel1} il suffit d'utiliser la formule d'occupation pour les processus de Bessel (\autoref{thm:occupationBessel}).
 
-%Intuitivement, en dérivant l’équation \eqref{eq:EDSBessel3}, on obtient
-%$$\d \rho_t = \frac{\delta-1}{2\,\rho_t} \,\d t + \d W_t.$$
-%Lorsque $\rho_t$ est proche de zéro, le drift devient très grand, ce qui empêche le processus de rester au voisinage de zéro.
-%
-%C’est pourquoi le résultat que nous montrerons concerne uniquement le cas $\delta \in (0,1)$ (point \textit{i.}) de la \autoref{prop:EDSBessel}).
   \begin{proof}
-    Particularisons tout d'abord l'égalité \eqref{eq:ApproxEDSBessel} avec $\rho_0 = x$ et $\varepsilon = 1/n$, où $n \in \mathbb N^*$. On a :
+    Particularisons tout d'abord l'égalité \eqref{eq:ApproxEDSBessel} avec $\rho_0 = x$ et $\varepsilon = 1/n$, où $n \in \mathbb N^*$. On notera $J_i^n$ les $J_i^\varepsilon$. On a :
     $$\sqrt{ \rho_t^2 + \frac{1}{n}} := \rho_0 + \int_0^t  \dfrac{\rho_s}{(\rho_s^2 + 1/n)^{1/2}}\d W_s + \dfrac{1}{2} \int_0^t \left(\dfrac{\delta}{(\rho_s^2 + 1/n)^{1/2}} - \dfrac{\rho_s^2}{(\rho_s^2 + 1/n)^{3/2}}\right)\d s.$$
 
     \noindent On a bien $\sqrt{\rho_t^2 + \frac{1}{n}} \xrightarrow[n \to \infty]{} \rho_t$.\\
 
     \noindent Soit $\delta \in (0,1)$. On veut montrer que
     \begin{align*}
-      \text{\hyperlink{term2}{$J_2^\varepsilon$}} &: \int_0^t \dfrac{\rho_s}{\left(\rho_s^2 + 1/n\right)^{1/2}} \d W_s \xrightarrow[n \to \infty]{L^2} W_t\\
-      \text{et que}\quad \text{\hyperlink{term3}{$J_3^\varepsilon$}} &: \dfrac{1}{2} \int_0^t \left(\dfrac{\delta}{(\rho_s^2 + 1/n)^{1/2}} - \dfrac{\rho_s^2}{(\rho_s^2 + 1/n)^{3/2}}\right)\d s \xrightarrow[n\to \infty]{\text{p.s.}} \dfrac{\delta-1}{2(2-\delta)} \int_{\R_+} \dfrac{\ell_t^a- \ell_t^0}{a}a^{\delta-1} \;da.
+      \text{\hyperlink{term2}{$J_2^n$}} &: \int_0^t \dfrac{\rho_s}{\left(\rho_s^2 + 1/n\right)^{1/2}} \d W_s \xrightarrow[n \to \infty]{L^2} W_t\\
+      \text{et que}\quad \text{\hyperlink{term3}{$J_3^n$}} &: \dfrac{1}{2} \int_0^t \left(\dfrac{\delta}{(\rho_s^2 + 1/n)^{1/2}} - \dfrac{\rho_s^2}{(\rho_s^2 + 1/n)^{3/2}}\right)\d s \xrightarrow[n\to \infty]{\text{p.s.}} \dfrac{\delta-1}{2(2-\delta)} \int_{\R_+} \dfrac{\ell_t^a- \ell_t^0}{a}a^{\delta-1} \;da.
     \end{align*}
+   
     
     \noindent Le premier point se fait par deux convergences dominées. 
     \begin{align*}
@@ -988,7 +984,7 @@ Pour $\delta \ge 1$, on ne rencontre pas de problème pour la définition du pro
   
   Ensuite, pour le deuxième point, on commence par utiliser la formule d'occupation pour les processus de Bessel :
     \begin{align*}
-      \text{\hyperlink{term3}{$J_3^\varepsilon$}}:&\;\dfrac{1}{2} \int_0^t \left(\dfrac{\delta}{(\rho_s^2 + \frac{1}{n})^{1/2}} - \dfrac{\rho_s^2}{(\rho_s^2 + \frac{1}{n})^{3/2}}\right)\d s\\
+      \text{\hyperlink{term3}{$J_3^n$}}:&\;\dfrac{1}{2} \int_0^t \left(\dfrac{\delta}{(\rho_s^2 + \frac{1}{n})^{1/2}} - \dfrac{\rho_s^2}{(\rho_s^2 + \frac{1}{n})^{3/2}}\right)\d s\\
           &= \dfrac{1}{2(2-\delta)} \int_{\R^+} \left(\dfrac{\delta}{(a^2 + \frac{1}{n})^{1/2}} - \dfrac{a^2}{(a^2 + \frac{1}{n})^{3/2}}\right)a^{\delta -1}\ell_t^a\; \d a
             \shortintertext{en ajoutant et en retranchant $\ell_t^0$, on obtient :}
           &= \dfrac{1}{2(2-\delta)} \left( \int_{\R^+} \dfrac{\delta(a^2 + \frac{1}{n}) - a^2}{(a^2 + \frac{1}{n})^{3/2}}(\ell_t^a - \ell_t^0)\; \d a + \ell_t^0  \int_{\R^+} \left(\dfrac{\delta}{(a^2 + \frac{1}{n})^{1/2}} - \dfrac{a^2}{(a^2 + \frac{1}{n})^{3/2}}\right)a^{\delta -1} \d a \right)\\
@@ -1000,8 +996,8 @@ Pour $\delta \ge 1$, on ne rencontre pas de problème pour la définition du pro
     Regardons d'abord l'intégrale \hyperlink{term2.3}{(2.3)}.
     Par la formule d'occupation \autoref{thm:occupationBessel}, l'intégrale \hyperlink{term2.3}{(2.3)} est égale à :
 \begin{align*}
-  \text{\hyperlink{term2.3}{(2.3)}}  &= \dfrac{\ell_t^0}{2(2-\delta)} \int_{\R^+} \left(\dfrac{\delta\;a^{\delta - 1}}{(a^2 + \varepsilon)^{1/2}} - \dfrac{a^{\delta + 1}}{(a^2 + \varepsilon)^{3/2}}\right) \d a,
-    \intertext{En prenant $u(a) = a^\delta$ et $v(a) = \dfrac{1}{(a^2 + \varepsilon)^{1/2}}$ on remarque que $u'(a) = \delta a^{\delta -1}$ et $v'(a) = -\dfrac{1}{2} \dfrac{2a}{(a^2 + \varepsilon)^{3/2}}$. Par intégration par parties, on a $[uv]_\alpha^\beta = \left[\dfrac{a^\delta}{(a^2 + \varepsilon)^{1/2}}\right]$. Ainsi on obtient :}
+  \text{\hyperlink{term2.3}{(2.3)}}  &= \dfrac{\ell_t^0}{2(2-\delta)} \int_{\R^+} \left(\dfrac{\delta\;a^{\delta - 1}}{(a^2 + \frac{1}{n})^{1/2}} - \dfrac{a^{\delta + 1}}{(a^2 + \frac{1}{n})^{3/2}}\right) \d a,
+    \intertext{En prenant $u(a) = a^\delta$ et $v(a) = \dfrac{1}{(a^2 + \frac{1}{n})^{1/2}}$ on remarque que $u'(a) = \delta a^{\delta -1}$ et $v'(a) = -\dfrac{1}{2} \dfrac{2a}{(a^2 + \frac{1}{n})^{3/2}}$. Par intégration par parties, on a $[uv]_\alpha^\beta = \left[\dfrac{a^\delta}{(a^2 + \frac{1}{n})^{1/2}}\right]$. Ainsi on obtient :}
     \text{\hyperlink{term2.3}{(2.3)}} &= \dfrac{\ell_t^0}{2(2-\delta)} \left[ \dfrac{a^{\delta}}{(a^2 +\frac{1}{n})^{1/2}}\right]_0^{+\infty}.
                                             \end{align*}
                                             \noindent Comme $\delta \in (0,1)$, il s'en suit que :
@@ -1010,21 +1006,21 @@ Pour $\delta \ge 1$, on ne rencontre pas de problème pour la définition du pro
       \dfrac{a^{\delta}}{(a^2 +\frac{1}{n})^{1/2}} &\underset{a \to \infty}{\sim} a^{\delta -1} \xrightarrow[a \to \infty]{} 0
     \end{align*}
 
-    \noindent Donc \hyperlink{term2.3}{(2.3)}$= 0$.\\
+    \noindent Donc \hyperlink{term2.3}{(2.3)}$\xrightarrow[n \to \infty]{} 0$.\\
 
 
     \noindent Prenons maintenant \hyperlink{term2.2}{(2.2)}. On sait que $\ell_t^a \overset{\mathcal L}{=} L_{\gamma(t)}^{a^{2-\delta}}$. On sait également que $L_t$ est $\frac{1}{2}-$ Hölder-continue en espace et qu'elle est à support compact. Ceci nous dit que :
     \begin{itemize}
-    \item $|L^a_t-L_t^b| \leq C_{\alpha,T} |a-b|^\alpha$ où $\alpha < \frac{1}{2}$ et $t < T$. Pour tout $a, b \in \R$, on peut écrire $\alpha$ comme $\frac{1}{2} - \beta$ où $\beta > 0$ petit. On prend $\beta \leq \frac{\delta}{2}$.
-      \item $\forall t \in \R^+$ on a p.s. $\exists m \in \R$ tel que $\; \forall a \in \R^+$, $\supp(L_t) \subset [-m,m]$.
+    \item Pour tout $a$ et $b$ dans $\R$, $|L^a_t-L_t^b| \leq C_{\alpha,T} |a-b|^\alpha$ où $\alpha < \frac{1}{2}$ et $t < T$. De plus, on peut écrire $\alpha$ comme $\frac{1}{2} - \beta$ où $\beta > 0$ petit. On prend $\beta \leq \frac{\delta}{2}$.
+      \item $\forall t \in \R^+$ on a p.s. $\exists m \in \R$ tel que $\supp(L_t) \subset [-m,m]$.
       \end{itemize}
 
       \noindent On peut rafiner l'intégalité obtenue grâce à la régularité de Hölder : pour tout $a \in \R$,
       \begin{align}
         (\ell_t^a - \ell_t^0) &\leq C_{\beta,T} |a^{2-\delta}|^{\frac{1}{2} - \beta} \wedge \sup(s \in [0,t] : W_s = a),\notag
-        \shortintertext{Où $C_{\beta,T}$ est une constante. Comme le $\sup(s \in [0,t] : W_s = a)$ est aussi constante à $t$ fixé, on peut l'intégrer dans $C_{\beta,T}$, qu'on appelera $C$.}
+        \shortintertext{où $C_{\beta,T}$ est une constante. Comme le $\sup(s \in [0,t] : W_s = a)$ est aussi constante à $t$ fixé, on peut l'intégrer dans $C_{\beta,T}$, qu'on appelera $C$.}
                       &\leq C (a \wedge 1)^{1-\frac{\delta}{2} - \beta(2-\delta)}.\notag
-        \shortintertext{Comme $\beta \in (0,\frac{\delta}{2})$, la puissance $\beta(2-\delta) \in (0, \frac{1}{2})$. Donc $\beta(2-\delta)$ reste strictement plus petit que $1$. Pour souci de notation on appellera cette puissance aussi $\beta$}
+        \shortintertext{Comme $\beta \in (0,\frac{\delta}{2})$, la puissance $\beta(2-\delta) \in (0, \frac{1}{2})$. Donc $\beta(2-\delta)$ reste strictement positif et inférieur à $1$. Pour souci de notation on appellera cette puissance aussi $\beta$}
        (\ell_t^a - \ell_t^0) &\leq C (a \wedge 1)^{1-\frac{\delta}{2} - \beta}.\label{arg:MajTempsLocBessel}
       \end{align}
 
@@ -1046,33 +1042,37 @@ Pour $\delta \ge 1$, on ne rencontre pas de problème pour la définition du pro
     \noindent Enfin, l'intégrande de \hyperlink{term2.2.2}{(2.2.2)} est strictement croissante par rapport à $n$. En effet, soit $(f_n)_{n\in \mathbb N}$ une suite de fonctions définies par $f_n(a) = \dfrac{a^{\delta -1 }}{(a^2 + \frac{1}{n})^{3/2}}$. Comme la fonction $. \mapsto .^{3/2}$ est strictement croissante et $a^2 + \frac{1}{n} > a^2 + \frac{1}{n+1}$, alors la suite $(f_n)_{n\in \mathbb N}$ est croissante et tend vers $a^{\delta -4}$. Ainsi, par le théorème de convergence monotone,
     \begin{align*}
       \lim_{n\to \infty} \int_1^\infty \dfrac{a^{\delta - 1}}{(a^2 + \frac{1}{n})^{3/2}}\d a &= \int_1^\infty a^{\delta -4}\d a,\\
-      &= \lim_{n\to \infty} \left[ \dfrac{1}{\delta - 3}a^{\delta -3}\right]_1^\infty\\
-                                                                         &= \dfrac{-1}{\delta - 3}.\\
+      &=  \left[ \dfrac{1}{\delta - 3}a^{\delta -3}\right]_1^\infty\\
+      &= \dfrac{-1}{\delta - 3}.\\
    \text{Ainsi, }\qquad\qquad\quad\text{\hyperlink{term2.2.2}{(2.2.2)}} &=  \dfrac{\tilde C}{n} \int_1^\infty \dfrac{a^{\delta - 1}}{(a^2 + \frac{1}{n})^{3/2}}\d a  \xrightarrow[n\to \infty]{} 0.
     \end{align*}
 Ce qui nous permet de dire que \hyperlink{term2.3}{(2.3)}$\xrightarrow[n \to \infty]{} 0$.\\
 
 
-Finalement, montrons que $\text{\hyperlink{term3}{$J_3^\varepsilon$}} \xrightarrow[n \to \infty]{} \int_{\R^+} a^{\delta -2} (\ell_t^a - \ell_t^0)$.
+Finalement, montrons que $\text{\hyperlink{term3}{$J_3^n$}} \xrightarrow[n \to \infty]{} \int_{\R^+} a^{\delta -2} (\ell_t^a - \ell_t^0) \d a$.
 
   \begin{align}
-    \text{\hyperlink{term3}{$J_3^\varepsilon$}} &= \text{\hyperlink{term2.1}{(2.1)}} = \dfrac{\delta -1}{2(2-\delta)} \int_{\R^+} \dfrac{a^{\delta+1}}{(a^2 + \frac{1}{n})^{3/2}}(\ell_t^a - \ell_t^0) \d a \notag\\
-    \intertext{Or, on remarque que $\frac{a^{\delta + 1}}{(a^2 + \frac{1}{2})^{3/2}}\leq a^{\delta - 2}$. De plus, on peut majorer la différence de temps locaux par le même argument que \eqref{arg:MajTempsLocBessel}. Ainsi, comme $a^{\delta - 2}(a \wedge 1)^{1-\frac{\delta}{2} - \beta}$ est intégrable (c.f. \reffin), par convergence dominée, }
-    \lim_{n \to \infty }\text{\hyperlink{term3}{$J_3^\varepsilon$}} &= \dfrac{\delta -1}{2(2-\delta)} \int_{\R^+} \lim_{n \to \infty} \dfrac{a^{\delta+1}}{(a^2 + \frac{1}{n})^{3/2}} (\ell_t^a - \ell_t^0) \d a, \notag\\
+    \text{\hyperlink{term3}{$J_3^n$}} &= \text{\hyperlink{term2.1}{(2.1)}} + o(1) = \dfrac{\delta -1}{2(2-\delta)} \int_{\R^+} \dfrac{a^{\delta+1}}{(a^2 + \frac{1}{n})^{3/2}}(\ell_t^a - \ell_t^0) \d a + o(1) \label{arg:o1}\\
+    \intertext{Or, on remarque que $\frac{a^{\delta + 1}}{(a^2 + \frac{1}{n})^{3/2}}\leq a^{\delta - 2}$. De plus, par \eqref{arg:MajTempsLocBessel} on peut majorer la différence des temps locaux. Ainsi, comme $a^{\delta - 2}(a \wedge 1)^{1-\frac{\delta}{2} - \beta}$ est intégrable (c.f. \reffin), par convergence dominée, }
+    \lim_{n \to \infty }\text{\hyperlink{term3}{$J_3^n$}} &= \dfrac{\delta -1}{2(2-\delta)} \int_{\R^+} \lim_{n \to \infty} \dfrac{a^{\delta+1}}{(a^2 + \frac{1}{n})^{3/2}} (\ell_t^a - \ell_t^0) \d a, \notag\\
     &= \dfrac{\delta -1}{2(2-\delta)} \int_{\R^+} a^{\delta-2} (\ell_t^a - \ell_t^0) \d a. \label{finfinfin}
   \end{align}
+  
   \phantomsection
-  \begin{itemize}
-    \item[$(\star)$]Montrons le caractère fini de cette intégrale \eqref{finfinfin}: \label{proof:finfinfin}
+  
+    $(\star)$ Montrons le caractère fini de cette intégrale \eqref{finfinfin}: \label{proof:finfinfin}
   
   \begin{align*}
     \int_{\R^+} a^{\delta -2} (\ell_t^a - \ell_t^0) \d a &\leq C \int_{\R^+} a^{\delta -2}(a \wedge 1)^{1-\frac{\delta}{2} - \beta}\d a\\
     &= \int_{\R^+} a^{\delta -2 } \wedge a^{3 - \frac{3}{2}\delta - \beta}\d a
       \shortintertext{Notons que $\delta -2 \in (-2,-1)$ et $3 - \frac{3}{2}\delta - \beta \in(2,3)$.}
-    &= \int_0^1 a^{3 - \frac{3}{2}\delta - \beta} \d a + \int_0^\infty a^{\delta-2} \d a.
+    &= \int_0^1 a^{3 - \frac{3}{2}\delta - \beta} \d a + \int_1^\infty a^{\delta-2} \d a,
   \end{align*}
-  Qui, par le critère de Riemann, est fini p.s. ce qui conclut notre preuve.
-  \end{itemize}  
+  qui, par le critère de Riemann, est fini p.s. ce qui conclut notre preuve.
+
+  \begin{remark}
+    Le $o(1)$ dans l'égalité \eqref{arg:o1} vient du fait que à $n$ fixé les intégrales \text{\hyperlink{term2.2}{(2.2)}} et \text{\hyperlink{term2.3}{(2.3)}} sont finies mais pas forcément nulles.
+    \end{remark}
   %\item{$\delta = 1$}
   %\item{$\delta \in (1,2)$}
 \end{proof}
